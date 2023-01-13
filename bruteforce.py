@@ -1,5 +1,7 @@
 import networkx as nx
 import random as rd
+import sys
+import copy
 
 def random_graph(n, ts, ef=3):
     V = n
@@ -18,34 +20,69 @@ def random_graph(n, ts, ef=3):
     targets = targets[1:]
 
     return G, s, targets
-V = 4
+V = 5
 tcount = 2
 G, s, targets = random_graph(V, tcount)
 COST = nx.minimum_spanning_tree(G, weight='weight').size(weight='weight')*1.5
 
-print (targets)
+print ("start: ", s, "targets: ",targets)
+best = None
+bestc = sys.maxsize
+bestm = 0
 for t in nx.SpanningTreeIterator(G, weight='weight', minimum=True):
-    rem = False
-    # TODO: remove nodes that are not in the path to any target faster than this.
-    while not rem:
-        succ = nx.dfs_successors(t, s)
-        print(succ)
-        toRemove = []
-        for v in t.nodes():
-            if v not in succ:
-                if v not in targets:
-                    toRemove.append(v)
-                    rem = True
-        for v in toRemove:
-            t.remove_node(v)
-        if rem == True:
-            rem = False
-        else:
-            rem = True
+    # Get Predecessors
+    pred = nx.dfs_predecessors(t, s)
 
-    c = t.size(weight='weight')
+    # Determine Paths Counts
+    for v in targets:
+        while v != s:
+            t.nodes[v]['paths'] += 1
+            v = pred[v]
+    t.nodes[s]['paths'] = tcount
+
+    # Remove Nodes with no paths
+    remove = []
+    for v in t.nodes():
+        if t.nodes[v]['paths'] == 0:
+            remove.append(v)
+    
+    for v in remove:
+        t.remove_node(v)
+
+    c = t.size(weight='weight')    
     if c>=COST:
         continue
 
-    # TODO: Measure unique paths to targets.
-    print(t, "weight: ", c,"/",COST)
+    # Determine Counterdeception metric
+    metric = sys.maxsize
+    forced = False
+
+    for v in targets:
+        cur = v
+        curdist = 0
+        while cur != s and t.nodes[cur]['paths'] == 1:
+            if t.nodes[cur]['paths'] == 1:
+                curdist += t.edges[cur, pred[cur]]['weight']
+            cur = pred[cur]
+        if curdist == 0:
+            forced = True
+        else:
+            metric = min(metric, curdist)
+    
+    if forced:
+        metric = 0
+    else:
+        if metric > bestm:
+            best = t
+            bestc = c
+            bestm = metric
+        elif metric == bestm:
+            if c < bestc:
+                best = t
+                bestc = c
+                bestm = metric
+
+    
+    print(t, "weight: ", c,"/",COST, "metric: ", metric, "forced: ", forced)
+
+print("Best Tree: ", best, "weight: ", bestc,"/",COST, "metric: ", bestm)
