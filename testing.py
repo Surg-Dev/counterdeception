@@ -8,18 +8,18 @@ import networkx as nx
 
 n = 5
 s, targets = random_points(n)
-G = form_grid_graph(s, targets, 3*n, 1*n)
+G = form_grid_graph(s, targets, 3 * n, 1 * n)
 
 positions = dict()
 colors = []
 for node in G.nodes():
-    if node == 'start':
-        colors.append('blue')
+    if node == "start":
+        colors.append("blue")
 
-    elif 'target' in node:
-        colors.append('red')
+    elif "target" in node:
+        colors.append("red")
     else:
-        colors.append('green')
+        colors.append("green")
 
     positions[node] = G.nodes[node]["pos"]
 
