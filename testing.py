@@ -2,13 +2,14 @@
 # We honestly need to refactor and comment alot of the code
 # This is JUST for testing random stuff, expect nothing here to stay
 
-from heuristic import random_points, form_grid_graph
+from heuristic import random_points, form_grid_graph, round_targets_to_graph
 from matplotlib import pyplot as plt
 import networkx as nx
 
 n = 5
 s, targets = random_points(n)
-G = form_grid_graph(s, targets, 3 * n, 1 * n)
+G = form_grid_graph(s, targets, n**2, n**2)
+G = round_targets_to_graph(G, s, targets)
 
 positions = dict()
 colors = []

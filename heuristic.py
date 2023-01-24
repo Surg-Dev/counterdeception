@@ -1,5 +1,6 @@
 import networkx as nx
 import random as rd
+from math import sqrt
 
 
 def random_points(n, x_max=100.0, y_max=100.0):
@@ -44,8 +45,34 @@ def form_grid_graph(s, targets, x_gran, y_gran):
         positions[(x, y)] = (x_min + x * x_dist, y_min + y * y_dist)
     nx.set_node_attributes(G, positions, "pos")
 
-    for i, t in enumerate(targets):
-        G.add_node(f"target {i}", pos=t)
-    G.add_node("start", pos=s)
+    return G
+
+
+def round_targets_to_graph(G, s, targets):
+    # rounds s and target to nearest nodes on graph according to Euclidian dist
+    def euclidian_dist(x1, y1, x2, y2):
+        return sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+
+    # add start node
+    min_dist = float("inf")
+    closest = None
+    for node in G.nodes:
+        x2, y2 = G.nodes[node]["pos"]
+        if (dist := euclidian_dist(*s, x2, y2)) < min_dist:
+            min_dist = dist
+            closest = node
+    nx.relabel_nodes(G, {closest: "start"}, copy=False)
+
+    # add targets
+    for i, (x1, y2) in enumerate(targets):
+        min_dist = float("inf")
+        closest = None
+        for node in G.nodes:
+            if node != "start" and "target" not in node:
+                x2, y2 = G.nodes[node]["pos"]
+                if (dist := euclidian_dist(x1, x2, x2, y2)) < min_dist:
+                    min_dist = dist
+                    closest = node
+        nx.relabel_nodes(G, {closest: f"target {i}"}, copy=False)
 
     return G
