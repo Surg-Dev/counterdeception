@@ -87,6 +87,19 @@ budget = mst.size(weight="weight") * 2
 originalsize = mst.size(weight="weight")
 print("FORCED: ", forced)
 
+colors = []
+for node in mst.nodes():
+    if node == "start":
+        colors.append("blue")
+
+    elif "target" in node:
+        colors.append("red")
+    else:
+        colors.append("green")
+plt.figure(figsize=(15, 15))
+positions = nx.get_node_attributes(G, "pos")
+nx.draw(mst, pos=positions, node_color=colors, with_labels=False, node_size=200)
+plt.show()
 
 # print(nx.single_source_dijkstra(G, s))
 
@@ -109,7 +122,7 @@ while old_metric != metric:
         # Remove the target and its path from the tree.
         toremove = []
         cur = v
-        while cur != s and mst.nodes[cur]["paths"] == 1:
+        while cur != s and mstprime.nodes[cur]["paths"] == 1:
             toremove.append(cur)
             cur = pred[cur]
         for node in toremove:
@@ -124,8 +137,9 @@ while old_metric != metric:
             path = dijpath[potential]
             # Check if the path crosses any nodes in the tree
             sb = False
-            for x in range(len(path)-1):
-                if x in mst.nodes():
+            print(f"path {path}")
+            for x in path[:-1]:
+                if x in mstprime.nodes():
                     sb = True
             if sb:
                 continue
@@ -145,23 +159,51 @@ while old_metric != metric:
                 while v != s:
                     mstcheck.nodes[v]["paths"] += 1
                     v = predcheck[v]
-            mst.nodes[s]["paths"] = len(targets)
+            mstcheck.nodes[s]["paths"] = len(targets)
             # print("here")
             forcedp, metricp, target_listp = computeMetric(mstcheck, s, targets)
             if forcedp == False and forced == True or (metricp > metric and forcedp == forced):
                 if (mstcheck.size(weight="weight") < budget):
                     print("update!")
                     print("old metric ", metric, "new metric ", metricp, "forced ", forcedp)
-                    print(mstcheck.nodes())
+                    # print(mstcheck.nodes())
+                    print(nx.get_node_attributes(mstcheck, "paths"))
                     mst = mstcheck
                     forced = forcedp
                     metric = metricp
                     target_list = target_listp
                     updated = True
+                    colors = []
+                    for node in mst.nodes():
+                        if node == "start":
+                            colors.append("blue")
+
+                        elif "target" in node:
+                            colors.append("red")
+                        else:
+                            colors.append("green")
+                    plt.figure(figsize=(15, 15))
+                    positions = nx.get_node_attributes(G, "pos")
+                    nx.draw(mst, pos=positions, node_color=colors, with_labels=False, node_size=200)
+                    plt.show()
+
                     break
         if updated:
             break
 
 
 print(f"budget: {budget} original mst: {mstbench} original metric: {metricbench} original size: {originalsize}")
-print(f"final tree: {mst} final metric: {metric} final size: {mst.size(weight='weight')}")
+print(f"final tree: {mst} final metric: {metric} final size: {mst.size(weight='weight')} forced: {forced}")
+colors = []
+for node in mst.nodes():
+    if node == "start":
+        colors.append("blue")
+
+    elif "target" in node:
+        colors.append("red")
+    else:
+        colors.append("green")
+plt.figure(figsize=(15, 15))
+positions = nx.get_node_attributes(G, "pos")
+nx.draw(mst, pos=positions, node_color=colors, with_labels=False, node_size=200)
+plt.show()
