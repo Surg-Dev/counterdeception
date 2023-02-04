@@ -80,8 +80,11 @@ graphy = 10
 G, s, targets = build_graph(count, graphx, graphy)
 target_paths = computeSSSP(G, targets)
 mst = buildStienerSeed(G, s, targets)
+mstbench = mst.copy()
 forced, metric, target_list = computeMetric(mst, s, targets)
+metricbench = metric
 budget = mst.size(weight="weight") * 2
+originalsize = mst.size(weight="weight")
 print("FORCED: ", forced)
 
 
@@ -92,39 +95,42 @@ print("FORCED: ", forced)
 old_metric = metric+1
 curcost = mst.size(weight="weight")
 print(mst.nodes())
-while old_metric != metric or forced:
+while old_metric != metric:
+    old_metric = metric
     target_list = sorted(target_list)
-    # Pick the minimum target
+    # Pick a target starting with the minimum contribution to the metric distance
     for dist, v in target_list:
         pred = nx.dfs_predecessors(mst, s)
 
+        # Make a copy of the MST to remove the target and corresponding path from.
         mstprime = mst.copy()
         updated = False
 
-        # Remove it from the tree
+        # Remove the target and its path from the tree.
         toremove = []
         cur = v
-        # Remove the path supporting the target from the tree
         while cur != s and mst.nodes[cur]["paths"] == 1:
             toremove.append(cur)
             cur = pred[cur]
         for node in toremove:
             mstprime.remove_node(node)
         
-        # Compute Dijkstras
+        # Compute Dijkstras from the target in the original graph
         dists, dijpath = nx.single_source_dijkstra(G, v)
-        # print(mstprime.nodes())
-        # print("trying target", v)
+
+        # For each node on the remaining tree:
         for potential in mstprime.nodes():
-            print("trying node", potential)
+            #Retrieve the pred shortest path
             path = dijpath[potential]
-            sb = False
             # Check if the path crosses any nodes in the tree
+            sb = False
             for x in range(len(path)-1):
                 if x in mst.nodes():
                     sb = True
             if sb:
                 continue
+
+            # Make a new tree to reattach the target to.
             mstcheck = mstprime.copy()
             # Add node and path to the tree
             for i in range(len(path)-1):
@@ -132,16 +138,23 @@ while old_metric != metric or forced:
                 if path[i+1] not in mstcheck.nodes():
                     mstcheck.add_node(path[i+1], paths=1, pos=G.nodes[path[i]]["pos"])
                 mstcheck.add_edge(path[i], path[i+1], weight=G.edges[path[i], path[i+1]]["weight"])
-            print("here")
+            
+            predcheck = nx.dfs_predecessors(mstcheck, s)
+            nx.set_node_attributes(mstcheck, 0, 'paths')
+            for v in targets:
+                while v != s:
+                    mstcheck.nodes[v]["paths"] += 1
+                    v = predcheck[v]
+            mst.nodes[s]["paths"] = len(targets)
+            # print("here")
             forcedp, metricp, target_listp = computeMetric(mstcheck, s, targets)
-            if forcedp == False and forced == True or metricp > metric:
+            if forcedp == False and forced == True or (metricp > metric and forcedp == forced):
                 if (mstcheck.size(weight="weight") < budget):
                     print("update!")
-                    print("old metric ", metric, "new metric ", metricp)
+                    print("old metric ", metric, "new metric ", metricp, "forced ", forcedp)
                     print(mstcheck.nodes())
                     mst = mstcheck
                     forced = forcedp
-                    old_metric = metric
                     metric = metricp
                     target_list = target_listp
                     updated = True
@@ -149,23 +162,6 @@ while old_metric != metric or forced:
         if updated:
             break
 
-print(mst.nodes())
-            
-            
 
-
-    
-
-
-
-
-
-# For each node currently on the tree:
-    # Path to it from target to tree via dijkstra's
-    # Make sure it doesn't cross any current nodes on the tree
-    # Add the nodes back to the tree
-    # Recompute Metric to see if it improves
-
-# If it does, repeat from start
-
-# If it doesn't, try the next target
+print(f"budget: {budget} original mst: {mstbench} original metric: {metricbench} original size: {originalsize}")
+print(f"final tree: {mst} final metric: {metric} final size: {mst.size(weight='weight')}")
