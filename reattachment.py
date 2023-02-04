@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 # Build the graph and targets
 def build_graph(target_count, gridx, gridy, x_max=100, y_max=100):
     s, targets = heuristic.random_points(target_count)
-    G = heuristic.form_grid_graph(s, targets, 10, 10)
+    G = heuristic.form_grid_graph(s, targets, gridx, gridy)
     heuristic.round_targets_to_graph(G, s, targets)
     targets = [f'target {i}' for i in range(target_count)]
     s = "start"
@@ -65,16 +65,16 @@ def computeMetric(mst, s, targets):
             forced = True
         else:
             target_metrics.append((curdist, v))
-            if  metric < curdist:
-                metric = curdist
+    target_metrics = sorted(target_metrics)
+    metric = target_metrics[0][0]
 
     
     return forced, metric, target_metrics
 
 #Initial Parameters
-count = 3
-graphx = 10
-graphy = 10
+count = 10
+graphx = 50
+graphy = 50
 
 # Set up graph, seed tree, and metric values.
 G, s, targets = build_graph(count, graphx, graphy)
@@ -83,7 +83,7 @@ mst = buildStienerSeed(G, s, targets)
 mstbench = mst.copy()
 forced, metric, target_list = computeMetric(mst, s, targets)
 metricbench = metric
-budget = mst.size(weight="weight") * 2
+budget = mst.size(weight="weight") * 5
 originalsize = mst.size(weight="weight")
 print("FORCED: ", forced)
 
@@ -98,7 +98,7 @@ for node in mst.nodes():
         colors.append("green")
 plt.figure(figsize=(15, 15))
 positions = nx.get_node_attributes(G, "pos")
-nx.draw(mst, pos=positions, node_color=colors, with_labels=False, node_size=200)
+nx.draw(mst, pos=positions, node_color=colors, with_labels=False, node_size=50)
 plt.show()
 
 # print(nx.single_source_dijkstra(G, s))
@@ -110,7 +110,6 @@ curcost = mst.size(weight="weight")
 print(mst.nodes())
 while old_metric != metric:
     old_metric = metric
-    target_list = sorted(target_list)
     # Pick a target starting with the minimum contribution to the metric distance
     for dist, v in target_list:
         pred = nx.dfs_predecessors(mst, s)
@@ -137,7 +136,7 @@ while old_metric != metric:
             path = dijpath[potential]
             # Check if the path crosses any nodes in the tree
             sb = False
-            print(f"path {path}")
+            # print(f"path {path}")
             for x in path[:-1]:
                 if x in mstprime.nodes():
                     sb = True
@@ -184,7 +183,7 @@ while old_metric != metric:
                             colors.append("green")
                     plt.figure(figsize=(15, 15))
                     positions = nx.get_node_attributes(G, "pos")
-                    nx.draw(mst, pos=positions, node_color=colors, with_labels=False, node_size=200)
+                    nx.draw(mst, pos=positions, node_color=colors, with_labels=False, node_size=50)
                     plt.show()
 
                     break
@@ -205,5 +204,5 @@ for node in mst.nodes():
         colors.append("green")
 plt.figure(figsize=(15, 15))
 positions = nx.get_node_attributes(G, "pos")
-nx.draw(mst, pos=positions, node_color=colors, with_labels=False, node_size=200)
+nx.draw(mst, pos=positions, node_color=colors, with_labels=False, node_size=50)
 plt.show()
