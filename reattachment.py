@@ -8,10 +8,11 @@ def build_graph(target_count, gridx, gridy, x_max=100, y_max=100):
     s, targets = heuristic.random_points(target_count)
     G = heuristic.form_grid_graph(s, targets, gridx, gridy)
     heuristic.round_targets_to_graph(G, s, targets)
-    targets = [f'target {i}' for i in range(target_count)]
+    targets = [f"target {i}" for i in range(target_count)]
     s = "start"
     nx.set_node_attributes(G, 0, "paths")
     return G, s, targets
+
 
 def computeSSSP(G, targets):
     target_paths = dict()
@@ -20,7 +21,8 @@ def computeSSSP(G, targets):
         target_paths[target] = nx.single_source_dijkstra(G, target)
     return target_paths
 
-def buildStienerSeed(G, s ,targets):
+
+def buildStienerSeed(G, s, targets):
     # Build the seed MST and trim it.
     mst = nx.minimum_spanning_tree(G)
     pred = nx.dfs_predecessors(mst, s)
@@ -40,8 +42,9 @@ def buildStienerSeed(G, s ,targets):
 
     for v in remove:
         mst.remove_node(v)
-    
+
     return mst
+
 
 def computeMetric(mst, s, targets):
     pred = nx.dfs_predecessors(mst, s)
@@ -50,7 +53,6 @@ def computeMetric(mst, s, targets):
     metric = mst.size(weight="weight")
     # min_target = None
     target_metrics = []
-
 
     for v in targets:
         cur = v
@@ -68,10 +70,10 @@ def computeMetric(mst, s, targets):
     target_metrics = sorted(target_metrics)
     metric = target_metrics[0][0]
 
-    
     return forced, metric, target_metrics
 
-#Initial Parameters
+
+# Initial Parameters
 count = 10
 graphx = 50
 graphy = 50
@@ -105,7 +107,7 @@ plt.show()
 
 # Find the path of the minimum metric, and reattach the target somewhere else.
 
-old_metric = metric+1
+old_metric = metric + 1
 curcost = mst.size(weight="weight")
 print(mst.nodes())
 while old_metric != metric:
@@ -126,13 +128,13 @@ while old_metric != metric:
             cur = pred[cur]
         for node in toremove:
             mstprime.remove_node(node)
-        
+
         # Compute Dijkstras from the target in the original graph
         dists, dijpath = nx.single_source_dijkstra(G, v)
 
         # For each node on the remaining tree:
         for potential in mstprime.nodes():
-            #Retrieve the pred shortest path
+            # Retrieve the pred shortest path
             path = dijpath[potential]
             # Check if the path crosses any nodes in the tree
             sb = False
@@ -146,14 +148,16 @@ while old_metric != metric:
             # Make a new tree to reattach the target to.
             mstcheck = mstprime.copy()
             # Add node and path to the tree
-            for i in range(len(path)-1):
+            for i in range(len(path) - 1):
                 mstcheck.add_node(path[i], paths=1, pos=G.nodes[path[i]]["pos"])
-                if path[i+1] not in mstcheck.nodes():
-                    mstcheck.add_node(path[i+1], paths=1, pos=G.nodes[path[i]]["pos"])
-                mstcheck.add_edge(path[i], path[i+1], weight=G.edges[path[i], path[i+1]]["weight"])
-            
+                if path[i + 1] not in mstcheck.nodes():
+                    mstcheck.add_node(path[i + 1], paths=1, pos=G.nodes[path[i]]["pos"])
+                mstcheck.add_edge(
+                    path[i], path[i + 1], weight=G.edges[path[i], path[i + 1]]["weight"]
+                )
+
             predcheck = nx.dfs_predecessors(mstcheck, s)
-            nx.set_node_attributes(mstcheck, 0, 'paths')
+            nx.set_node_attributes(mstcheck, 0, "paths")
             for v in targets:
                 while v != s:
                     mstcheck.nodes[v]["paths"] += 1
@@ -161,10 +165,21 @@ while old_metric != metric:
             mstcheck.nodes[s]["paths"] = len(targets)
             # print("here")
             forcedp, metricp, target_listp = computeMetric(mstcheck, s, targets)
-            if forcedp == False and forced == True or (metricp > metric and forcedp == forced):
-                if (mstcheck.size(weight="weight") < budget):
+            if (
+                forcedp == False
+                and forced == True
+                or (metricp > metric and forcedp == forced)
+            ):
+                if mstcheck.size(weight="weight") < budget:
                     print("update!")
-                    print("old metric ", metric, "new metric ", metricp, "forced ", forcedp)
+                    print(
+                        "old metric ",
+                        metric,
+                        "new metric ",
+                        metricp,
+                        "forced ",
+                        forcedp,
+                    )
                     # print(mstcheck.nodes())
                     print(nx.get_node_attributes(mstcheck, "paths"))
                     mst = mstcheck
@@ -183,7 +198,13 @@ while old_metric != metric:
                             colors.append("green")
                     plt.figure(figsize=(15, 15))
                     positions = nx.get_node_attributes(G, "pos")
-                    nx.draw(mst, pos=positions, node_color=colors, with_labels=False, node_size=50)
+                    nx.draw(
+                        mst,
+                        pos=positions,
+                        node_color=colors,
+                        with_labels=False,
+                        node_size=50,
+                    )
                     plt.show()
 
                     break
@@ -191,8 +212,12 @@ while old_metric != metric:
             break
 
 
-print(f"budget: {budget} original mst: {mstbench} original metric: {metricbench} original size: {originalsize}")
-print(f"final tree: {mst} final metric: {metric} final size: {mst.size(weight='weight')} forced: {forced}")
+print(
+    f"budget: {budget} original mst: {mstbench} original metric: {metricbench} original size: {originalsize}"
+)
+print(
+    f"final tree: {mst} final metric: {metric} final size: {mst.size(weight='weight')} forced: {forced}"
+)
 colors = []
 for node in mst.nodes():
     if node == "start":
