@@ -2,25 +2,7 @@ import networkx as nx
 import random as rd
 import sys
 import copy
-
-
-def random_graph(n, ts, ef=3):
-    V = n
-    E = int(ef * n)
-    G = nx.gnm_random_graph(V, E)
-
-    while not nx.is_connected(G):
-        G = nx.gnm_random_graph(V, E)
-
-    for (u, v, w) in G.edges(data=True):
-        w["weight"] = rd.randint(1, 500)
-    nx.set_node_attributes(G, 0, "paths")
-
-    targets = rd.sample(G.nodes, ts + 1)
-    s = targets[0]
-    targets = targets[1:]
-
-    return G, s, targets
+from util import random_graph
 
 
 V = 5

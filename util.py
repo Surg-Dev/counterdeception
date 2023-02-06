@@ -16,6 +16,25 @@ def random_points(n, x_max=100.0, y_max=100.0):
     return s, targets
 
 
+def random_graph(n, ts, ef=3):
+    V = n
+    E = int(ef * n)
+    G = nx.gnm_random_graph(V, E)
+
+    while not nx.is_connected(G):
+        G = nx.gnm_random_graph(V, E)
+
+    for (u, v, w) in G.edges(data=True):
+        w["weight"] = rd.randint(1, 500)
+    nx.set_node_attributes(G, 0, "paths")
+
+    targets = rd.sample(G.nodes, ts + 1)
+    s = targets[0]
+    targets = targets[1:]
+
+    return G, s, targets
+
+
 def form_grid_graph(s, targets, x_gran, y_gran):
     # gran := total number of vertical and horizontal lines
     #   Maybe specify x and y granularity in future?
@@ -76,3 +95,14 @@ def round_targets_to_graph(G, s, targets):
         nx.relabel_nodes(G, {closest: f"target {i}"}, copy=False)
 
     return G
+
+
+# Build the graph and targets
+def build_graph(target_count, gridx, gridy, x_max=100, y_max=100):
+    s, targets = random_points(target_count)
+    G = form_grid_graph(s, targets, gridx, gridy)
+    round_targets_to_graph(G, s, targets)
+    targets = [f"target {i}" for i in range(target_count)]
+    s = "start"
+    nx.set_node_attributes(G, 0, "paths")
+    return G, s, targets

@@ -1,6 +1,11 @@
+###################################################
+########### DEPRECIATED, A* SHENANIGANS ###########
+###################################################
+
 import networkx as nx
 import random as rd
 import queue
+from util import random_graph
 
 
 def maximize_minimum_reaction_time(G, s, t):
@@ -37,25 +42,6 @@ def closure_heuristic(G, s, t):
         return p / (paths[n] + p)
 
     return heuristic
-
-
-def random_graph(n, ts, ef=2.5):
-    V = n
-    E = int(ef * n)
-    G = nx.gnm_random_graph(V, E)
-
-    while not nx.is_connected(G):
-        G = nx.gnm_random_graph(V, E)
-
-    nx.set_edge_attributes(G, rd.randint(1, 500), "weight")
-    nx.set_node_attributes(G, 0, "paths")
-    print(G[0])
-
-    targets = rd.sample(G.nodes, ts + 1)
-    s = targets[0]
-    targets = targets[1:]
-
-    return G, s, targets
 
 
 def main():

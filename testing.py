@@ -2,7 +2,7 @@
 # We honestly need to refactor and comment alot of the code
 # This is JUST for testing random stuff, expect nothing here to stay
 
-from heuristic import random_points, form_grid_graph, round_targets_to_graph
+from util import random_points, form_grid_graph, round_targets_to_graph
 from matplotlib import pyplot as plt
 import networkx as nx
 
