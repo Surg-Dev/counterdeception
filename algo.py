@@ -3,7 +3,7 @@ import networkx as nx
 from benchmark import display_tree
 
 # This precomputes SSSP for each target, however we can subsitute with any "heuristic"
-# The heuristic must be a function that ouputs a dictionary of dictionaries of paths
+# The heuristic must be a function that ouputs a dictionary of dictionaries of paths that cover G.
 def compute_SSSP(G, targets):
     # Compute the SSSP for each target using Dijkstra's
     target_paths = dict()
@@ -25,6 +25,9 @@ def mark_paths(tree, s, targets):
     # Pass predecessor information back to the caller.
     return pred
 
+
+# Builds a seed MST and trims it to remove nodes with no paths to targets.
+# O(V + E) time.
 def build_stiener_seed(G, s, targets):
     # Build the seed MST and trim it.
     mst = nx.minimum_spanning_tree(G)

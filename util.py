@@ -83,13 +83,13 @@ def round_targets_to_graph(G, s, targets):
     nx.relabel_nodes(G, {closest: "start"}, copy=False)
 
     # add targets
-    for i, (x1, y2) in enumerate(targets):
+    for i, (x1, y1) in enumerate(targets):
         min_dist = float("inf")
         closest = None
         for node in G.nodes:
             if node != "start" and "target" not in node:
                 x2, y2 = G.nodes[node]["pos"]
-                if (dist := euclidian_dist(x1, x2, x2, y2)) < min_dist:
+                if (dist := euclidian_dist(x1, y1, x2, y2)) < min_dist:
                     min_dist = dist
                     closest = node
         nx.relabel_nodes(G, {closest: f"target {i}"}, copy=False)
