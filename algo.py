@@ -11,6 +11,7 @@ def compute_SSSP(G, targets):
         target_paths[target] = nx.single_source_dijkstra_path(G, target)
     return target_paths
 
+
 def mark_paths(tree, s, targets):
     pred = nx.dfs_predecessors(tree, s)
     nx.set_node_attributes(tree, 0, "paths")
@@ -71,7 +72,7 @@ def compute_metric(mst, s, targets, pred=None):
             forced = True
         else:
             target_metrics.append((curdist, v))
-    
+
     # Sort the target metrics by distance, ascending, and pick the first one.
     target_metrics = sorted(target_metrics)
     metric = target_metrics[0][0]
@@ -79,7 +80,9 @@ def compute_metric(mst, s, targets, pred=None):
     return forced, metric, target_metrics
 
 
-def reattachment(G, s, targets, budget, mst, forced, metric, target_list, pred, target_paths):
+def reattachment(
+    G, s, targets, budget, mst, forced, metric, target_list, pred, target_paths
+):
     # Pick a target starting with the minimum contribution to the metric distance
     for _, v in target_list:
         # Make a copy of the MST to remove the target and corresponding path from.
@@ -121,13 +124,13 @@ def reattachment(G, s, targets, budget, mst, forced, metric, target_list, pred, 
                 )
             # Compute the new predecessor list and metric on the tree.
             predcheck = mark_paths(mstcheck, s, targets)
-            forcedp, metricp, target_listp = compute_metric(mstcheck, s, targets, predcheck)
+            forcedp, metricp, target_listp = compute_metric(
+                mstcheck, s, targets, predcheck
+            )
             # If the tree either removes forced paths or improves the metric w/o adding forced paths,
-            # *and* the tree is under the budget, update the tree and corresponding values. 
-            if (
-                (forcedp == False
-                and forced == True)
-                or (metricp > metric and forcedp == forced)
+            # *and* the tree is under the budget, update the tree and corresponding values.
+            if (forcedp == False and forced == True) or (
+                metricp > metric and forcedp == forced
             ):
                 if mstcheck.size(weight="weight") < budget:
                     # print("update!")
@@ -153,7 +156,6 @@ def reattachment(G, s, targets, budget, mst, forced, metric, target_list, pred, 
         # Note that if we change "reattaching the minimum target", this condition may need to change
         if updated:
             break
-
 
     return mst, forced, metric, target_list, pred
 
