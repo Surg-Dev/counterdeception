@@ -1,6 +1,5 @@
-from util import build_graph
+from util import build_graph, display_tree
 import networkx as nx
-from benchmark import display_tree
 
 # This precomputes SSSP for each target, however we can subsitute with any "heuristic"
 # The heuristic must be a function that ouputs a dictionary of dictionaries of paths that cover G.
@@ -160,23 +159,13 @@ def reattachment(
     return mst, forced, metric, target_list, pred
 
 
-def reattachment_approximation(G, s, targets, budget):
-    # Build the seed MST and trim it.
-    mst, pred = build_stiener_seed(G, s, targets)
-    mstbench = mst.copy()
-    forced, metric, target_list = compute_metric(mst, s, targets, pred)
-    metricbench = metric
-
+def reattachment_approximation(
+    G, s, targets, budget, mst, forced, metric, target_list, pred
+):
     # Precompute Dijkstra's from each target to all other nodes in the graph
     target_paths = compute_SSSP(G, targets)
 
-    # Get original characteristics of the tree
-    originalsize = mst.size(weight="weight")
-    print("FORCED: ", forced)
-
-    display_tree(G, mst)
-
-    old_metric = None
+    old_metric = float("inf")
     # Continue until we find no local improvement
     while old_metric != metric:
         old_metric = metric
@@ -184,13 +173,35 @@ def reattachment_approximation(G, s, targets, budget):
             G, s, targets, budget, mst, forced, metric, target_list, pred, target_paths
         )
 
-    print(
-        f"budget: {budget} original mst: {mstbench} original metric: {metricbench} original size: {originalsize}"
+
+def compute_tree(G, s, targets, budget):
+    # Build the seed MST and trim it.
+    mst, pred = build_stiener_seed(G, s, targets)
+
+    # Get original characteristics of the tree
+    forced, metric, target_list = compute_metric(mst, s, targets, pred)
+    mstbench = mst.copy()
+    originalsize = mst.size(weight="weight")
+    metricbench = metric
+
+    # print("FORCED: ", forced)
+    # display_tree(G, mst)
+
+    reattachment_approximation(
+        G, s, targets, budget, mst, forced, metric, target_list, pred
     )
-    print(
-        f"final tree: {mst} final metric: {metric} final size: {mst.size(weight='weight')} forced: {forced}"
-    )
-    display_tree(G, mst)
+
+    # print(f"budget: {budget}")
+    # print(
+    #     f"original mst: {mstbench} original metric: {metricbench} original size: {originalsize}, forced: {forced}"
+    # )
+    # print(
+    #     f"final tree: {mst} final metric: {metric} final size: {mst.size(weight='weight')} forced: {forced}"
+    # )
+
+    # display_tree(G, mst)
+
+    return mst, pred
 
 
 def main():
@@ -202,7 +213,7 @@ def main():
     # Set up graph, seed tree, and metric values.
     G, s, targets = build_graph(count, graphx, graphy)
     budget = build_stiener_seed(G, s, targets)[0].size(weight="weight") * 3
-    reattachment_approximation(G, s, targets, budget)
+    compute_tree(G, s, targets, budget)
 
 
 if __name__ == "__main__":
