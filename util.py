@@ -52,12 +52,30 @@ def random_graph(n, ts, ef=3):
     return G, s, targets
 
 
-def form_grid_graph(s, targets, x_gran, y_gran):
-    # gran := total number of vertical and horizontal lines
-    #   Maybe specify x and y granularity in future?
-    # Add diagonals in one direction if there is not a target
-    # Otherwise connect target to nearest grid points
+def triangulate_grid_graph(G):
+    # If this isn't a grid graph then assume undefined behavior
 
+    original_nodes = [(x, y) for (x, y) in G.nodes()]
+    for x, y in original_nodes:
+        if (x + 1, y) in G and (x, y + 1) in G:
+            x_pos = (G.nodes[x, y]["pos"][0] + G.nodes[x + 1, y]["pos"][0]) / 2
+            y_pos = (G.nodes[x, y]["pos"][1] + G.nodes[x, y + 1]["pos"][1]) / 2
+
+            G.add_node((x + 0.5, y + 0.5), pos=(x_pos, y_pos))
+
+            x_dist = G[x, y][x + 1, y]["weight"] / 2
+            y_dist = G[x, y][x, y + 1]["weight"] / 2
+            weight = pow(x_dist**2 + y_dist**2, 0.5)
+            G.add_edge((x, y), (x + 0.5, y + 0.5), weight=weight)
+            G.add_edge((x + 1, y), (x + 0.5, y + 0.5), weight=weight)
+            G.add_edge((x, y + 1), (x + 0.5, y + 0.5), weight=weight)
+            G.add_edge((x + 1, y + 1), (x + 0.5, y + 0.5), weight=weight)
+
+    return G
+
+
+def form_grid_graph(s, targets, x_gran, y_gran, triangulate=True):
+    # TODO: Able to set x_weights and y_weights
     nodes = targets + [s]
     x_min = min(x for (x, _) in nodes)
     x_max = max(x for (x, _) in nodes)
@@ -80,6 +98,65 @@ def form_grid_graph(s, targets, x_gran, y_gran):
         # set x, y position
         positions[(x, y)] = (x_min + x * x_dist, y_min + y * y_dist)
     nx.set_node_attributes(G, positions, "pos")
+
+    if triangulate:
+        return triangulate_grid_graph(G)
+    else:
+        return G
+
+
+def form_triangle_graph(s, targets, x_gran, y_gran, weight):
+    G = nx.triangular_lattice_graph(x_gran, y_gran)
+
+    for u, v in G.edges():
+        G[u][v]["weight"] = weight
+
+    # Compute rescaling for node positions
+    nodes = targets + [s]
+    x_min = min(x for (x, _) in nodes)
+    x_max = max(x for (x, _) in nodes)
+    y_min = min(y for (_, y) in nodes)
+    y_max = max(y for (_, y) in nodes)
+
+    Gx_min = min(G.nodes[x, y]["pos"][0] for (x, y) in G.nodes())
+    Gx_max = max(G.nodes[x, y]["pos"][0] for (x, y) in G.nodes())
+    Gy_min = min(G.nodes[x, y]["pos"][1] for (x, y) in G.nodes())
+    Gy_max = max(G.nodes[x, y]["pos"][1] for (x, y) in G.nodes())
+
+    x_scale = (x_max - x_min) / (Gx_max - Gx_min)
+    y_scale = (y_max - y_min) / (Gy_max - Gy_min)
+
+    for x, y in G.nodes():
+        curr_x, curr_y = G.nodes[x, y]["pos"]
+        G.nodes[x, y]["pos"] = (curr_x * x_scale, curr_y * y_scale)
+
+    return G
+
+
+def form_hex_graph(s, targets, x_gran, y_gran, weight):
+    G = nx.hexagonal_lattice_graph(x_gran, y_gran)
+
+    for u, v in G.edges():
+        G[u][v]["weight"] = weight
+
+    # Compute rescaling for node positions
+    nodes = targets + [s]
+    x_min = min(x for (x, _) in nodes)
+    x_max = max(x for (x, _) in nodes)
+    y_min = min(y for (_, y) in nodes)
+    y_max = max(y for (_, y) in nodes)
+
+    Gx_min = min(G.nodes[x, y]["pos"][0] for (x, y) in G.nodes())
+    Gx_max = max(G.nodes[x, y]["pos"][0] for (x, y) in G.nodes())
+    Gy_min = min(G.nodes[x, y]["pos"][1] for (x, y) in G.nodes())
+    Gy_max = max(G.nodes[x, y]["pos"][1] for (x, y) in G.nodes())
+
+    x_scale = (x_max - x_min) / (Gx_max - Gx_min)
+    y_scale = (y_max - y_min) / (Gy_max - Gy_min)
+
+    for x, y in G.nodes():
+        curr_x, curr_y = G.nodes[x, y]["pos"]
+        G.nodes[x, y]["pos"] = (curr_x * x_scale, curr_y * y_scale)
 
     return G
 

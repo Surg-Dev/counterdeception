@@ -202,19 +202,3 @@ def compute_tree(G, s, targets, budget):
     # display_tree(G, mst)
 
     return mst, pred
-
-
-def main():
-    # Initial Parameters
-    count = 10
-    graphx = 50
-    graphy = 50
-
-    # Set up graph, seed tree, and metric values.
-    G, s, targets = build_graph(count, graphx, graphy)
-    budget = build_stiener_seed(G, s, targets)[0].size(weight="weight") * 3
-    compute_tree(G, s, targets, budget)
-
-
-if __name__ == "__main__":
-    main()
