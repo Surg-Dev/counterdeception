@@ -11,8 +11,8 @@ import networkx as nx
 n = 5
 s, targets = random_points(n)
 
-# G = form_triangle_graph(s, targets, n**2, n**2, 0.5)
-G = form_hex_graph(s, targets, n**2, n**2, 0.5)
+G = form_triangle_graph(s, targets, n**2, n**2, 0.5)
+# G = form_hex_graph(s, targets, n**2, n**2, 0.5)
 # G = form_grid_graph(s, targets, n**2, n**2, triangulate=True)
 
 G = round_targets_to_graph(G, s, targets)

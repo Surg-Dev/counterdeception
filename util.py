@@ -25,10 +25,23 @@ def random_points(n, x_max=100.0, y_max=100.0):
     # x coordinates in [0, x_max]
     # y coordinates in [0, y_max]
 
-    # WLOG, s = (0, 0)
-    s = (0, 0)
-
     targets = [(rd.uniform(0, x_max), rd.uniform(0, y_max)) for _ in range(n)]
+
+    # start should be somewhere around border of box formed by targets
+    tx_min = min(x for (x, _) in targets)
+    tx_max = max(x for (x, _) in targets)
+    ty_min = min(y for (_, y) in targets)
+    ty_max = max(y for (_, y) in targets)
+
+    side = rd.randint(0, 3)
+    if side == 0:  # left
+        s = (tx_min, rd.uniform(ty_min, ty_max))
+    if side == 1:  # top
+        s = (rd.uniform(tx_min, tx_max), ty_max)
+    if side == 2:  # right
+        s = (tx_max, rd.uniform(ty_min, ty_max))
+    if side == 3:  # bottom
+        s = (rd.uniform(tx_min, tx_max), ty_min)
 
     return s, targets
 
@@ -126,9 +139,13 @@ def form_triangle_graph(s, targets, x_gran, y_gran, weight):
     x_scale = (x_max - x_min) / (Gx_max - Gx_min)
     y_scale = (y_max - y_min) / (Gy_max - Gy_min)
 
+    positions = dict()
     for x, y in G.nodes():
         curr_x, curr_y = G.nodes[x, y]["pos"]
-        G.nodes[x, y]["pos"] = (curr_x * x_scale, curr_y * y_scale)
+        new_x = (curr_x - Gx_min) / (Gx_max - Gx_min) * (x_max - x_min) + x_min
+        new_y = (curr_y - Gy_min) / (Gy_max - Gy_min) * (y_max - y_min) + y_min
+        positions[(x, y)] = (new_x, new_y)
+    nx.set_node_attributes(G, positions, "pos")
 
     return G
 
@@ -154,9 +171,13 @@ def form_hex_graph(s, targets, x_gran, y_gran, weight):
     x_scale = (x_max - x_min) / (Gx_max - Gx_min)
     y_scale = (y_max - y_min) / (Gy_max - Gy_min)
 
+    positions = dict()
     for x, y in G.nodes():
         curr_x, curr_y = G.nodes[x, y]["pos"]
-        G.nodes[x, y]["pos"] = (curr_x * x_scale, curr_y * y_scale)
+        new_x = (curr_x - Gx_min) / (Gx_max - Gx_min) * (x_max - x_min) + x_min
+        new_y = (curr_y - Gy_min) / (Gy_max - Gy_min) * (y_max - y_min) + y_min
+        positions[(x, y)] = (new_x, new_y)
+    nx.set_node_attributes(G, positions, "pos")
 
     return G
 
