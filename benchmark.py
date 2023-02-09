@@ -27,8 +27,8 @@ def benchmark_many(n, count, graphx, graphy):
     unimproved = 0
     improved = 0
 
-    for _ in range(n):
-
+    for i in range(n):
+        print(i)
         # Set up graph, seed tree, and metric values.
         G, s, targets = build_graph(count, graphx, graphy)
         budget = build_stiener_seed(G, s, targets)[0].size(weight="weight") * 5
@@ -52,10 +52,10 @@ def benchmark_many(n, count, graphx, graphy):
 
 def main():
     # Initial Parameters
-    count = 10
+    count = 20
     graphx = 50
     graphy = 50
-    benchmark_many(5, count, graphx, graphy)
+    benchmark_many(100, count, graphx, graphy)
 
 
 if __name__ == "__main__":
