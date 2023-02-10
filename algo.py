@@ -1,4 +1,4 @@
-from util import build_graph, display_tree
+from util import display_tree
 import networkx as nx
 
 # This precomputes SSSP for each target, however we can subsitute with any "heuristic"

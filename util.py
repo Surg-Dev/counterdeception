@@ -1,6 +1,7 @@
 import networkx as nx
 import random as rd
 from math import sqrt
+from matplotlib import pyplot as plt
 
 
 def display_tree(G, mst):
@@ -210,14 +211,3 @@ def round_targets_to_graph(G, s, targets):
         nx.relabel_nodes(G, {closest: f"target {i}"}, copy=False)
 
     return G
-
-
-# Build the graph and targets
-def build_graph(target_count, gridx, gridy, x_max=100, y_max=100):
-    s, targets = random_points(target_count)
-    G = form_grid_graph(s, targets, gridx, gridy)
-    round_targets_to_graph(G, s, targets)
-    targets = [f"target {i}" for i in range(target_count)]
-    s = "start"
-    nx.set_node_attributes(G, 0, "paths")
-    return G, s, targets
