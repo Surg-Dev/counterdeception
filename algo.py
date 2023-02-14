@@ -166,6 +166,7 @@ def reattachment(
                 best_tree["pred"],
             )
 
+
     return mst, forced, metric, target_list, pred
 
 
@@ -176,8 +177,16 @@ def reattachment_approximation(
     target_paths = compute_SSSP(G, targets)
 
     old_metric = float("inf")
+
+    # loc = "images/benchmark"
+    # count = 0
+
     # Continue until we find no local improvement
     while old_metric != metric:
+        # display_tree(G, mst)
+        # count += 1
+        # print(f"{forced = }")
+
         old_metric = metric
         mst, forced, metric, target_list, pred = reattachment(
             G, s, targets, budget, mst, forced, metric, target_list, pred, target_paths

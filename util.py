@@ -4,7 +4,7 @@ from math import sqrt
 from matplotlib import pyplot as plt
 
 
-def display_tree(G, mst):
+def display_tree(G, mst, loc=None, count=None):
     # Standardized function to display the mst over G
     colors = []
     for node in mst.nodes():
@@ -18,7 +18,11 @@ def display_tree(G, mst):
     plt.figure(figsize=(15, 15))
     positions = nx.get_node_attributes(G, "pos")
     nx.draw(mst, pos=positions, node_color=colors, with_labels=False, node_size=50)
-    plt.show()
+
+    if loc != None and count != None:
+        filename = f"{loc}-{count}.png"
+        plt.savefig(filename)
+    # plt.show()
 
 
 def random_points(n, x_max=100.0, y_max=100.0):

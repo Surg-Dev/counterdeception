@@ -18,13 +18,13 @@ def benchmark_single(factory, budget):
     mst, pred = build_stiener_seed(G, s, targets)
     forced, metric, target_list = compute_metric(mst, s, targets, pred)
     before = metric if not forced else 0.0
-    display_tree(G, mst)
+    # display_tree(G, mst)
 
     # get after
     mst, pred = compute_tree(G, s, targets, budget)
     forced, metric, target_list = compute_metric(mst, s, targets, pred)
     after = metric if not forced else 0.0
-    display_tree(G, mst)
+    # display_tree(G, mst)
 
     improvement = True if after > before else False
     return improvement, before, after
@@ -49,12 +49,20 @@ def benchmark_many(n, factory, budget):
 
         if improvement:
             improved += 1
+            print("Made Improvements")
             if before == 0.0:
                 now_unforced += 1
+                print("    Now Unforced")
+            else:
+                print(f"    Before: {before}")
+                print(f"    After:  {after}")
         else:
             unimproved += 1
+            print("No Improvements")
             if after == 0.0:
                 both_forced += 1
+                print("    Still Forced")
+        print()
 
     print(f"Number of graphs = {n}")
     print(f"{both_forced     = }")
@@ -66,8 +74,8 @@ def benchmark_many(n, factory, budget):
 def main():
     # Initial Parameters
     target_count = 5
-    graphx = 50
-    graphy = 50
+    graphx = 100
+    graphy = 100
 
     def factory():
         s, targets = random_points(target_count)
@@ -83,7 +91,7 @@ def main():
         nx.set_node_attributes(G, 0, "paths")
         return G, s, targets
 
-    benchmark_many(1, factory, float("inf"))
+    benchmark_many(10, factory, float("inf"))
 
 
 if __name__ == "__main__":
