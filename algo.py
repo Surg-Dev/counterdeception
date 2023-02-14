@@ -69,8 +69,14 @@ def compute_metric(mst, s, targets, pred=None):
             cur = pred[cur]
         if curdist == 0:
             forced = True
-        else:
-            target_metrics.append((curdist, v))
+            continue
+        cur = pred[v]
+        while cur != s:
+            if cur in targets:
+                curdist = -curdist
+                break
+            cur = pred[cur]
+        target_metrics.append((curdist, v))
 
     # Sort the target metrics by distance, ascending, and pick the first one.
     target_metrics = sorted(target_metrics)
@@ -96,6 +102,8 @@ def reattachment(
 
         # Get the path for the target from the precomputed SSSP
         dijpath = target_paths[v]
+
+        best_tree = {'tree': mst, 'forced': forced,'metric': metric, 'target_list': target_list, "pred": pred}
 
         # For each node on the remaining tree:
         for potential in mstprime.nodes():
@@ -128,33 +136,17 @@ def reattachment(
             )
             # If the tree either removes forced paths or improves the metric w/o adding forced paths,
             # *and* the tree is under the budget, update the tree and corresponding values.
-            if (forcedp == False and forced == True) or (
-                metricp > metric and forcedp == forced
+            if (forcedp == False and best_tree["forced"] == True) or (
+                metricp > best_tree["metric"] and forcedp == best_tree["forced"]
             ):
                 if mstcheck.size(weight="weight") < budget:
-                    # print("update!")
-                    # print(
-                    #     "old metric ",
-                    #     metric,
-                    #     "new metric ",
-                    #     metricp,
-                    #     "forced ",
-                    #     forcedp,
-                    # )
-                    # print(mstcheck.nodes())
-                    # print(nx.get_node_attributes(mstcheck, "paths"))
-                    mst = mstcheck
-                    forced = forcedp
-                    metric = metricp
-                    target_list = target_listp
-                    updated = True
-                    pred = predcheck
-                    break
+                    best_tree = {'tree': mstcheck, 'forced': forcedp,'metric': metricp, 'target_list': target_listp, "pred": predcheck}
         # Don't try to reattach any other targets if we updated the tree.
         # The same or earlier targets may be reattached multiple times.
         # Note that if we change "reattaching the minimum target", this condition may need to change
-        if updated:
-            break
+        if best_tree["tree"] != mst:
+            # print("improved!")
+            return best_tree["tree"], best_tree["forced"], best_tree["metric"], best_tree["target_list"], best_tree["pred"]
 
     return mst, forced, metric, target_list, pred
 

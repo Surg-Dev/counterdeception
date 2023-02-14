@@ -72,10 +72,10 @@ def main():
     def factory():
         s, targets = random_points(target_count)
 
-        # G = form_grid_graph(s, targets, graphx, graphy)
+        G = form_grid_graph(s, targets, graphx, graphy)
         # G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
         # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
-        G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
+        # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
 
         round_targets_to_graph(G, s, targets)
         targets = [f"target {i}" for i in range(target_count)]
@@ -83,7 +83,7 @@ def main():
         nx.set_node_attributes(G, 0, "paths")
         return G, s, targets
 
-    benchmark_many(10, factory, float("inf"))
+    benchmark_many(1, factory, float("inf"))
 
 
 if __name__ == "__main__":
