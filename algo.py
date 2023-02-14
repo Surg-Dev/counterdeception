@@ -164,6 +164,7 @@ def reattachment_approximation(
         mst, forced, metric, target_list, pred = reattachment(
             G, s, targets, budget, mst, forced, metric, target_list, pred, target_paths
         )
+    return mst, pred
 
 
 def compute_tree(G, s, targets, budget):
@@ -179,7 +180,7 @@ def compute_tree(G, s, targets, budget):
     # print("FORCED: ", forced)
     # display_tree(G, mst)
 
-    reattachment_approximation(
+    mst, pred = reattachment_approximation(
         G, s, targets, budget, mst, forced, metric, target_list, pred
     )
 
