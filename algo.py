@@ -103,7 +103,13 @@ def reattachment(
         # Get the path for the target from the precomputed SSSP
         dijpath = target_paths[v]
 
-        best_tree = {'tree': mst, 'forced': forced,'metric': metric, 'target_list': target_list, "pred": pred}
+        best_tree = {
+            "tree": mst,
+            "forced": forced,
+            "metric": metric,
+            "target_list": target_list,
+            "pred": pred,
+        }
 
         # For each node on the remaining tree:
         for potential in mstprime.nodes():
@@ -140,13 +146,25 @@ def reattachment(
                 metricp > best_tree["metric"] and forcedp == best_tree["forced"]
             ):
                 if mstcheck.size(weight="weight") < budget:
-                    best_tree = {'tree': mstcheck, 'forced': forcedp,'metric': metricp, 'target_list': target_listp, "pred": predcheck}
+                    best_tree = {
+                        "tree": mstcheck,
+                        "forced": forcedp,
+                        "metric": metricp,
+                        "target_list": target_listp,
+                        "pred": predcheck,
+                    }
         # Don't try to reattach any other targets if we updated the tree.
         # The same or earlier targets may be reattached multiple times.
         # Note that if we change "reattaching the minimum target", this condition may need to change
         if best_tree["tree"] != mst:
             # print("improved!")
-            return best_tree["tree"], best_tree["forced"], best_tree["metric"], best_tree["target_list"], best_tree["pred"]
+            return (
+                best_tree["tree"],
+                best_tree["forced"],
+                best_tree["metric"],
+                best_tree["target_list"],
+                best_tree["pred"],
+            )
 
     return mst, forced, metric, target_list, pred
 
