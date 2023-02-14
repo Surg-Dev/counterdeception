@@ -166,25 +166,25 @@ def reattachment(
                 best_tree["pred"],
             )
 
-
     return mst, forced, metric, target_list, pred
 
 
 def reattachment_approximation(
-    G, s, targets, budget, mst, forced, metric, target_list, pred
+    G, s, targets, budget, mst, forced, metric, target_list, pred, loc=None
 ):
     # Precompute Dijkstra's from each target to all other nodes in the graph
     target_paths = compute_SSSP(G, targets)
 
     old_metric = float("inf")
 
-    # loc = "images/benchmark"
-    # count = 0
-
+    count = 0
+    mult = 1  # control how often we save an image
     # Continue until we find no local improvement
     while old_metric != metric:
-        # display_tree(G, mst)
-        # count += 1
+        if count % mult == 0:
+            curr_loc = f"{loc}/{count}" if loc != None else None
+            display_tree(G, mst, loc=curr_loc)
+        count += 1
         # print(f"{forced = }")
 
         old_metric = metric
@@ -194,7 +194,7 @@ def reattachment_approximation(
     return mst, pred
 
 
-def compute_tree(G, s, targets, budget):
+def compute_tree(G, s, targets, budget, loc=None):
     # Build the seed MST and trim it.
     mst, pred = build_stiener_seed(G, s, targets)
 
@@ -208,7 +208,7 @@ def compute_tree(G, s, targets, budget):
     # display_tree(G, mst)
 
     mst, pred = reattachment_approximation(
-        G, s, targets, budget, mst, forced, metric, target_list, pred
+        G, s, targets, budget, mst, forced, metric, target_list, pred, loc=loc
     )
 
     # print(f"budget: {budget}")

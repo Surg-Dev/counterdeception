@@ -26,8 +26,10 @@ targets = [f"target {i}" for i in range(target_count)]
 s = "start"
 nx.set_node_attributes(G, 0, "paths")
 
+
 def factory():
     return G, s, targets
+
 
 improvement, before, after = benchmark_single(factory, float("inf"))
 
