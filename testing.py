@@ -4,6 +4,7 @@ from util import (
     form_triangle_graph,
     round_targets_to_graph,
     form_hex_graph,
+    display_graph,
 )
 from matplotlib import pyplot as plt
 import networkx as nx
@@ -20,8 +21,10 @@ G = form_grid_graph(s, targets, graphx, graphy)
 # G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
 # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
 # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
-
 round_targets_to_graph(G, s, targets)
+
+display_graph(G)
+
 targets = [f"target {i}" for i in range(target_count)]
 s = "start"
 nx.set_node_attributes(G, 0, "paths")

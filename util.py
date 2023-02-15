@@ -4,6 +4,29 @@ from math import sqrt
 from matplotlib import pyplot as plt
 
 
+def display_graph(G, loc=None):
+    positions = dict()
+    colors = []
+    for node in G.nodes():
+        if node == "start":
+            colors.append("blue")
+
+        elif "target" in node:
+            colors.append("red")
+        else:
+            colors.append("green")
+
+        positions[node] = G.nodes[node]["pos"]
+
+    plt.figure(figsize=(15, 15))
+    nx.draw(G, pos=positions, node_color=colors, with_labels=False, node_size=100)
+    # if loc != None:
+    #     filename = f"{loc}.png"
+    #     plt.savefig(filename)
+    #     plt.close()
+    plt.show()
+
+
 def display_tree(G, mst, loc=None):
     # Standardized function to display the mst over G
     colors = []

@@ -172,12 +172,17 @@ def reattachment(
 def reattachment_approximation(
     G, s, targets, budget, mst, forced, metric, target_list, pred, loc=None
 ):
+    # print before
+    if loc != None:
+        curr_loc = f"{loc}/{0}"
+        display_tree(G, mst, loc=curr_loc)
+
     # Precompute Dijkstra's from each target to all other nodes in the graph
     target_paths = compute_SSSP(G, targets)
 
     old_metric = float("inf")
 
-    count = 0
+    count = 1
     mult = 1  # control how often we save an image
     # Continue until we find no local improvement
     while old_metric != metric:
@@ -191,6 +196,12 @@ def reattachment_approximation(
         mst, forced, metric, target_list, pred = reattachment(
             G, s, targets, budget, mst, forced, metric, target_list, pred, target_paths
         )
+
+    # print after
+    if loc != None:
+        curr_loc = f"{loc}/{count+1}"
+        display_tree(G, mst, loc=curr_loc)
+
     return mst, pred
 
 
