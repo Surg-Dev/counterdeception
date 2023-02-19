@@ -113,6 +113,9 @@ def reattachment(
 
         # For each node on the remaining tree:
         for potential in mstprime.nodes():
+            # Skip reattaching to a target.
+            if potential in targets:
+                continue
             # Retrieve the pred shortest path
             path = dijpath[potential]
             # Check if the path crosses any nodes in the tree
