@@ -84,6 +84,13 @@ def compute_metric(mst, s, targets, pred=None):
 
     return forced, metric, target_metrics
 
+#TODO: Check that a reattachment reattaches to a node that is not on a forced path. 
+# i.e. the metric value for the target that was reattachemnt should be positive.
+# We never have to worry about *making* a forced path. This can only happen if we reattach to a target.
+
+#TODO: Run a pathfinding algorithm to find a greedy path to reattach to if it runs into a blocked path via the heuristic.
+
+
 
 def reattachment(
     G, s, targets, budget, mst, forced, metric, target_list, pred, target_paths
