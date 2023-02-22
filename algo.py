@@ -88,7 +88,7 @@ def mark_paths(tree, s, targets):
     return pred
 
 
-# Builds a seed MST and trims it to remove nodes with no paths to targets.
+# Builds a seed tree and trims it to remove nodes with no paths to targets.
 # O(V + E) time.
 def build_stiener_seed(G, s, targets):
     # Build the seed MST and trim it.
@@ -159,7 +159,7 @@ def reattachment(
     # Pick a target starting with the minimum contribution to the metric distance
     for c, t in enumerate(target_list):
         orig_metric_v, v = t
-        print(orig_metric_v)
+        print(f"trying to reattach target with metric {orig_metric_v}")
         # Make a copy of the MST to remove the target and corresponding path from.
         mstprime = mst.copy()
         updated = False
@@ -180,14 +180,15 @@ def reattachment(
             "target_list": target_list,
             "pred": pred,
         }
-        print("beginning reattachment")
         count = 0
 
+        best_seen_metric = best_tree["metric"]
         # For each node on the remaining tree:
         for potential in mstprime.nodes():
             # Skip reattaching to a target.
             if potential in targets:
                 continue
+
             # Retrieve the pred shortest path
             path = dijpath[potential]
             dist_path = -1
@@ -243,8 +244,12 @@ def reattachment(
             # TODO: Test if instead of taking the metric improvment for the specific target as the third condition
             # Try taking the difference of each target's metric as a sum and see if it's positive (net gain across all targets)
             if (
-                (forcedp == False and best_tree["forced"] == True)
-                or (metricp > best_tree["metric"] and forcedp == best_tree["forced"])
+                (
+                    forcedp == False and best_tree["forced"] == True
+                )  # Tree is no longer forced
+                or (
+                    metricp > best_tree["metric"] and forcedp == best_tree["forced"]
+                )  # Improved metric, may or may not be forced still
                 or (orig_metric_v < 0 and new_metric_v > 0)
                 or (
                     forcedp == False
@@ -256,6 +261,16 @@ def reattachment(
                 # or (sum(abs(i) for i,j in target_listp) > sum(abs(i) for i,j in best_tree["target_list"])):
                 # or (forcedp == False and best_tree["forced"] == False and sum(i for i,j in target_listp) > sum(i for i,j in best_tree["target_list"]))
                 if mstcheck.size(weight="weight") < budget:
+                    # we only want to take improvements
+                    # if not best_tree["metric"] > metricp:
+                    #     print((forcedp == False and best_tree["forced"] == True))
+                    #     print((metricp > best_tree["metric"] and forcedp == best_tree["forced"]))
+                    #     print("\t", forcedp)
+                    #     print((orig_metric_v < 0 and new_metric_v > 0))
+                    #     print(forcedp == False and best_tree["forced"] == False and new_metric_v > orig_metric_v)
+                    #     assert False
+
+                    best_seen_metric = max(best_seen_metric, metricp)
                     best_tree = {
                         "tree": mstcheck,
                         "forced": forcedp,
@@ -267,12 +282,24 @@ def reattachment(
                     orig_metric_v = new_metric_v
                     updated = True
 
-        print("reattached ", count, " times")
+        if not updated:
+            print("Made no reattachments")
+        else:
+            print(f"reattached {count} times")
+
         # Don't try to reattach any other targets if we updated the tree.
         # The same or earlier targets may be reattached multiple times.
         # Note that if we change "reattaching the minimum target", this condition may need to change
         if best_tree["tree"] != mst:
             # print("improved!")
+
+            if best_tree["metric"] != best_seen_metric:
+                print("saw better metric, didn't take it")
+                # TODO: Figure out when and why this happens and if it's what we expect
+                # assert False
+            else:
+                print("took best seen metric this round")
+
             return (
                 best_tree["tree"],
                 best_tree["forced"],
@@ -303,11 +330,11 @@ def reattachment_approximation(
     mult = 1  # control how often we save an image
     # Continue until we find no local improvement
     while updated:
+        print(f"round {count}")
         if count % mult == 0:
             curr_loc = f"{loc}/{count}" if loc != None else None
             display_tree(G, mst, loc=curr_loc)
         count += 1
-        # print(f"{forced = }")
 
         old_metric = metric
         mst, forced, metric, target_list, pred, updated = reattachment(

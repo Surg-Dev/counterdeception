@@ -44,7 +44,7 @@ def benchmark_many(n, factory, budget, loc=None):
     improved = 0
 
     for i in range(n):
-        print(i)
+        print(f"Starting benchmark {i} / {n - 1}")
         # Set up graph, seed tree, and metric values.
         curr_loc = f"{loc}/{i}" if loc != None else None
         improvement, before, after = benchmark_single(factory, budget, loc=curr_loc)
@@ -75,7 +75,7 @@ def benchmark_many(n, factory, budget, loc=None):
 
 def main():
     # Initial Parameters
-    target_count = 15
+    target_count = 10
     graphx = 40
     graphy = 40
 
