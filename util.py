@@ -83,7 +83,7 @@ def random_graph(n, ts, ef=3):
     while not nx.is_connected(G):
         G = nx.gnm_random_graph(V, E)
 
-    for (u, v, w) in G.edges(data=True):
+    for u, v, w in G.edges(data=True):
         w["weight"] = rd.randint(1, 500)
     nx.set_node_attributes(G, 0, "paths")
 

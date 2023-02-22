@@ -1,6 +1,7 @@
 from util import display_tree
 import networkx as nx
 
+
 # This precomputes SSSP for each target, however we can subsitute with any "heuristic"
 # The heuristic must be a function that ouputs a dictionary of dictionaries of paths that cover G.
 def compute_SSSP(G, targets):
@@ -9,6 +10,7 @@ def compute_SSSP(G, targets):
     for target in targets:
         target_paths[target] = nx.single_source_dijkstra_path(G, target)
     return target_paths
+
 
 def compute_Astar(G, tree, s, t):
     nx.set_edge_attributes(G, 0.0, "a_star")
@@ -22,25 +24,30 @@ def compute_Astar(G, tree, s, t):
     for u, v in G.edges():
         # print (u, v)
         # Compute midpoint between u,v
-        mid = ((G.nodes[u]["pos"][0] + G.nodes[v]["pos"][0]) / 2, (G.nodes[u]["pos"][1] + G.nodes[v]["pos"][1]) / 2)
+        mid = (
+            (G.nodes[u]["pos"][0] + G.nodes[v]["pos"][0]) / 2,
+            (G.nodes[u]["pos"][1] + G.nodes[v]["pos"][1]) / 2,
+        )
 
         # Compute distance from midpoint to target
-        dist = ((mid[0] - G.nodes[t]["pos"][0]) ** 2 + (mid[1] - G.nodes[t]["pos"][1]) ** 2) ** 0.5
+        dist = (
+            (mid[0] - G.nodes[t]["pos"][0]) ** 2 + (mid[1] - G.nodes[t]["pos"][1]) ** 2
+        ) ** 0.5
 
         # Set the heuristic to the distance
-        G[u][v]['a_star'] = dist
+        G[u][v]["a_star"] = dist
 
     filtered = [x for x in G.nodes() if (x not in tree.nodes())]
     filtered.append(s)
     filtered.append(t)
 
     H = G.subgraph(filtered)
-    
+
     # print("Done dists")
     # neighbors = list(G.neighbors(s))
     # for neighbor in neighbors:
     #     G[s][neighbor]['a_star'] = 0
-    
+
     # neighbors = list(G.neighbors(t))
     # for neighbor in neighbors:
     #     G[t][neighbor]['a_star'] = 0
@@ -51,16 +58,16 @@ def compute_Astar(G, tree, s, t):
     #     # Set edge weights to infinity
     #     for neighbor in neighbors:
     #         G[n][neighbor]['a_star'] = float('inf')
-    
+
     # Make sure s and t are traversable
 
     # Run Dijkstra's
     try:
-        path = nx.shortest_path(H, s, t, weight='a_star')
-        length = nx.shortest_path_length(H, s, t, weight='a_star')
+        path = nx.shortest_path(H, s, t, weight="a_star")
+        length = nx.shortest_path_length(H, s, t, weight="a_star")
     except nx.NetworkXNoPath:
         path = []
-        length = float('inf')
+        length = float("inf")
     # print("Done Dijkstra's")
 
     return path, length
@@ -86,7 +93,7 @@ def mark_paths(tree, s, targets):
 def build_stiener_seed(G, s, targets):
     # Build the seed MST and trim it.
     # mst = nx.minimum_spanning_tree(G)
-    
+
     # Compute the maximum spanning tree
     mst = nx.maximum_spanning_tree(G)
 
@@ -142,8 +149,8 @@ def compute_metric(mst, s, targets, pred=None):
 
     return forced, metric, target_metrics
 
-#TODO: Run a pathfinding algorithm to find a greedy path to reattach to if it runs into a blocked path via the heuristic.
 
+# TODO: Run a pathfinding algorithm to find a greedy path to reattach to if it runs into a blocked path via the heuristic.
 
 
 def reattachment(
@@ -191,8 +198,7 @@ def reattachment(
                     path, dist_path = compute_Astar(G, mstprime, v, potential)
                     break
 
-
-            if dist_path == float('inf'):
+            if dist_path == float("inf"):
                 continue
 
             # Make a new tree to reattach the target to.
@@ -212,12 +218,12 @@ def reattachment(
             forcedp, metricp, target_listp = compute_metric(
                 mstcheck, s, targets, predcheck
             )
-            
+
             # If the metric is negative, we are reattaching to a forced branch. Skip this reattachment.
             trynext = False
             new_metric_v = 0
-            for (m, y) in target_listp:
-                if y==v:
+            for m, y in target_listp:
+                if y == v:
                     if m < 0:
                         trynext = True
                         break
@@ -234,14 +240,21 @@ def reattachment(
             # print ("Old summed metric: ", sum(i for i,j in target_list))
             # print ("New summed metric: ", sum(i for i,j in target_listp))
 
-            #TODO: Test if instead of taking the metric improvment for the specific target as the third condition
+            # TODO: Test if instead of taking the metric improvment for the specific target as the third condition
             # Try taking the difference of each target's metric as a sum and see if it's positive (net gain across all targets)
-            if (forcedp == False and best_tree["forced"] == True) or (
-                metricp > best_tree["metric"] and forcedp == best_tree["forced"]
-            ) or (orig_metric_v < 0 and new_metric_v > 0) or (forcedp == False and best_tree["forced"] == False and new_metric_v > orig_metric_v):
-            # or (forcedp == False and best_tree["forced"] == False and heurmetric > best_tree["target_list"][c][0] and metricp >= best_tree["metric"]):
-            # or (sum(abs(i) for i,j in target_listp) > sum(abs(i) for i,j in best_tree["target_list"])):
-            #or (forcedp == False and best_tree["forced"] == False and sum(i for i,j in target_listp) > sum(i for i,j in best_tree["target_list"]))
+            if (
+                (forcedp == False and best_tree["forced"] == True)
+                or (metricp > best_tree["metric"] and forcedp == best_tree["forced"])
+                or (orig_metric_v < 0 and new_metric_v > 0)
+                or (
+                    forcedp == False
+                    and best_tree["forced"] == False
+                    and new_metric_v > orig_metric_v
+                )
+            ):
+                # or (forcedp == False and best_tree["forced"] == False and heurmetric > best_tree["target_list"][c][0] and metricp >= best_tree["metric"]):
+                # or (sum(abs(i) for i,j in target_listp) > sum(abs(i) for i,j in best_tree["target_list"])):
+                # or (forcedp == False and best_tree["forced"] == False and sum(i for i,j in target_listp) > sum(i for i,j in best_tree["target_list"]))
                 if mstcheck.size(weight="weight") < budget:
                     best_tree = {
                         "tree": mstcheck,
@@ -250,10 +263,10 @@ def reattachment(
                         "target_list": target_listp,
                         "pred": predcheck,
                     }
-                    count+=1
+                    count += 1
                     orig_metric_v = new_metric_v
                     updated = True
-            
+
         print("reattached ", count, " times")
         # Don't try to reattach any other targets if we updated the tree.
         # The same or earlier targets may be reattached multiple times.
@@ -266,7 +279,7 @@ def reattachment(
                 best_tree["metric"],
                 best_tree["target_list"],
                 best_tree["pred"],
-                updated
+                updated,
             )
 
     return mst, forced, metric, target_list, pred, updated
