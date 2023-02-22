@@ -75,9 +75,9 @@ def benchmark_many(n, factory, budget, loc=None):
 
 def main():
     # Initial Parameters
-    target_count = 10
-    graphx = 100
-    graphy = 100
+    target_count = 15
+    graphx = 40
+    graphy = 40
 
     def factory():
         s, targets = random_points(target_count)
@@ -93,7 +93,7 @@ def main():
         nx.set_node_attributes(G, 0, "paths")
         return G, s, targets
 
-    bench_count = 100
+    bench_count = 1
     for i in range(bench_count):
         os.makedirs(f"images/current/{i}")
     benchmark_many(bench_count, factory, float("inf"), loc="images/current")
