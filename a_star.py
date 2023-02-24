@@ -2,9 +2,11 @@
 ########### DEPRECIATED, A* SHENANIGANS ###########
 ###################################################
 
-import networkx as nx
-import random as rd
 import queue
+import random as rd
+
+import networkx as nx
+
 from util import random_graph
 
 

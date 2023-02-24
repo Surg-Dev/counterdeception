@@ -1,6 +1,8 @@
-from util import display_tree
-import networkx as nx
 from math import isclose
+
+import networkx as nx
+
+from util import display_tree
 
 
 # This precomputes SSSP for each target, however we can subsitute with any "heuristic"

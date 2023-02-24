@@ -1,6 +1,7 @@
-import networkx as nx
 import random as rd
 from math import sqrt
+
+import networkx as nx
 from matplotlib import pyplot as plt
 
 

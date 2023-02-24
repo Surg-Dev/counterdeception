@@ -1,8 +1,10 @@
-import networkx as nx
-from util import *
-from matplotlib import pyplot as plt
-from algo import compute_tree, compute_metric, build_stiener_seed
 import os
+
+import networkx as nx
+from matplotlib import pyplot as plt
+
+from algo import build_stiener_seed, compute_metric, compute_tree
+from util import *
 
 
 def benchmark_single(factory, budget, loc=None):

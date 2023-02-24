@@ -1,15 +1,17 @@
-from util import (
-    random_points,
-    form_grid_graph,
-    form_triangle_graph,
-    round_targets_to_graph,
-    form_hex_graph,
-    display_graph,
-)
-from matplotlib import pyplot as plt
-import networkx as nx
 import pickle
+
+import networkx as nx
+from matplotlib import pyplot as plt
+
 from benchmark import benchmark_single
+from util import (
+    display_graph,
+    form_grid_graph,
+    form_hex_graph,
+    form_triangle_graph,
+    random_points,
+    round_targets_to_graph,
+)
 
 # Initial Parameters
 target_count = 5

@@ -1,9 +1,6 @@
 import networkx as nx
-import random as rd
-import sys
-import copy
-from util import random_graph
 
+from util import random_graph
 
 V = 5
 tcount = 2
@@ -12,7 +9,7 @@ COST = nx.minimum_spanning_tree(G, weight="weight").size(weight="weight") * 1.5
 
 print("start: ", s, "targets: ", targets)
 best = None
-bestc = sys.maxsize
+bestc = float("inf")
 bestm = 0
 for t in nx.SpanningTreeIterator(G, weight="weight", minimum=True):
     # Get Predecessors
@@ -39,7 +36,7 @@ for t in nx.SpanningTreeIterator(G, weight="weight", minimum=True):
         continue
 
     # Determine Counterdeception metric
-    metric = sys.maxsize
+    metric = float("inf")
     forced = False
 
     for v in targets:
@@ -55,7 +52,7 @@ for t in nx.SpanningTreeIterator(G, weight="weight", minimum=True):
             metric = min(metric, curdist)
 
     if forced:
-        metric = 0
+        metric = 0.0
     else:
         if metric > bestm:
             best = t
