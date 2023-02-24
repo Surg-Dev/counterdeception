@@ -44,6 +44,7 @@ def display_tree(G, mst, loc=None):
 
     if loc != None:
         filename = f"{loc}.png"
+        print(f"saving {filename}")
         plt.savefig(filename)
         plt.close()
     # plt.show()

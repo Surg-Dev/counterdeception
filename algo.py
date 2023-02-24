@@ -1,5 +1,6 @@
 from util import display_tree
 import networkx as nx
+from math import isclose
 
 
 # This precomputes SSSP for each target, however we can subsitute with any "heuristic"
@@ -156,13 +157,74 @@ def compute_metric(mst, s, targets, pred=None):
 def reattachment(
     G, s, targets, budget, mst, forced, metric, target_list, pred, target_paths
 ):
+    def is_better_tuple(old, new):
+        # (forced, min_metric, sum_metric, cost, potential_vert)
+        #
+        # forced = 0 if not forced, 1 if forced
+        # min_metric = the change of minimum metric from the initial tree on this reattachment cycle for this target
+        # sum_metric = the sum of metric for each target.
+        #   TODO: Maybe something other than sum?
+        # cost = the cost of the tree (mainly used for a tie breaker for the previous values)
+        # potential_vert = vertex we are reattaching too (used for reference)
+        #
+        # Returns true iff new is better than old in some measure
+
+        # 0 := not forced, 1 := forced
+        if old[0] == 0 and new[0] == 1:
+            return False
+        if old[0] == 1 and new[0] == 0:
+            return True
+        # If we get here, forcing hasn't changed
+
+        # See if minimum metric improved
+        if old[1] > new[1]:
+            return False
+        if old[1] < new[1]:
+            return True
+        # If we get here, minimum metric is same
+
+        # See if sum of metrics improved
+        if old[2] > new[2]:
+            return False
+        if old[2] < new[2]:
+            return True
+        # If we get here, sum of metrics is same
+
+        # See if cost improved
+        #   Floats are weird so we first check if they are close
+        if not isclose(new[3], old[3]):
+            if old[3] < new[3]:
+                return False
+            if old[3] > new[3]:
+                return True
+        # If we get here, cost is same
+
+        # if no improvement, retain old
+        return False
+
+    best_tree = {
+        "tree": mst,
+        "forced": forced,
+        "metric": metric,
+        "target_list": target_list,
+        "pred": pred,
+    }
+    best_tuple = (
+        1 if forced else 0,
+        metric,
+        sum(met for (met, v) in target_list),
+        mst.size(weight="weight"),
+        None,
+    )
+    updated = False
+    start_tuple = best_tuple
+
     # Pick a target starting with the minimum contribution to the metric distance
     for c, t in enumerate(target_list):
         orig_metric_v, v = t
-        print(f"trying to reattach target with metric {orig_metric_v}")
+        print(f"trying to reattach {v} with metric {orig_metric_v}")
         # Make a copy of the MST to remove the target and corresponding path from.
         mstprime = mst.copy()
-        updated = False
 
         # Remove the target and its path from the tree.
         cur = v
@@ -241,64 +303,87 @@ def reattachment(
             # print ("Old summed metric: ", sum(i for i,j in target_list))
             # print ("New summed metric: ", sum(i for i,j in target_listp))
 
+            # form new tuple
+
+            curr_tuple = (
+                1 if forcedp else 0,
+                metricp,
+                sum(met for (met, v) in target_listp),
+                mstcheck.size(weight="weight"),
+                None,
+            )
+
             # TODO: Test if instead of taking the metric improvment for the specific target as the third condition
             # Try taking the difference of each target's metric as a sum and see if it's positive (net gain across all targets)
-            if (
-                (
-                    forcedp == False and best_tree["forced"] == True
-                )  # Tree is no longer forced
-                or (
-                    metricp > best_tree["metric"] and forcedp == best_tree["forced"]
-                )  # Improved metric, may or may not be forced still
-                or (orig_metric_v < 0 and new_metric_v > 0)
-                or (
-                    forcedp == False
-                    and best_tree["forced"] == False
-                    and new_metric_v > orig_metric_v
-                )
-            ):
+            # if (
+            #     ((
+            #         forcedp == False and best_tree["forced"] == True
+            #     )  # Tree is no longer forced
+            #     or (
+            #         metricp > best_tree["metric"] and forcedp == best_tree["forced"]
+            #     )  # Improved metric, may or may not be forced still
+            #     or (orig_metric_v < 0 and new_metric_v > 0)
+            #     or (
+            #         forcedp == False
+            #         and best_tree["forced"] == False
+            #         and new_metric_v > orig_metric_v
+            #     ))
+            #     and mstcheck.size(weight="weight") < budget
+            # ):
+            if is_better_tuple(best_tuple, curr_tuple):
                 # or (forcedp == False and best_tree["forced"] == False and heurmetric > best_tree["target_list"][c][0] and metricp >= best_tree["metric"]):
                 # or (sum(abs(i) for i,j in target_listp) > sum(abs(i) for i,j in best_tree["target_list"])):
                 # or (forcedp == False and best_tree["forced"] == False and sum(i for i,j in target_listp) > sum(i for i,j in best_tree["target_list"]))
-                if mstcheck.size(weight="weight") < budget:
-                    # we only want to take improvements
-                    # if not best_tree["metric"] > metricp:
-                    #     print((forcedp == False and best_tree["forced"] == True))
-                    #     print((metricp > best_tree["metric"] and forcedp == best_tree["forced"]))
-                    #     print("\t", forcedp)
-                    #     print((orig_metric_v < 0 and new_metric_v > 0))
-                    #     print(forcedp == False and best_tree["forced"] == False and new_metric_v > orig_metric_v)
-                    #     assert False
+                # we only want to take improvements
+                # if not best_tree["metric"] > metricp:
+                #     print((forcedp == False and best_tree["forced"] == True))
+                #     print((metricp > best_tree["metric"] and forcedp == best_tree["forced"]))
+                #     print("\t", forcedp)
+                #     print((orig_metric_v < 0 and new_metric_v > 0))
+                #     print(forcedp == False and best_tree["forced"] == False and new_metric_v > orig_metric_v)
+                #     assert False
 
-                    best_seen_metric = max(best_seen_metric, metricp)
-                    best_tree = {
-                        "tree": mstcheck,
-                        "forced": forcedp,
-                        "metric": metricp,
-                        "target_list": target_listp,
-                        "pred": predcheck,
-                    }
-                    count += 1
-                    orig_metric_v = new_metric_v
-                    updated = True
+                # Updating since we saw something better
+                best_seen_metric = max(best_seen_metric, metricp)
+                best_tree = {
+                    "tree": mstcheck,
+                    "forced": forcedp,
+                    "metric": metricp,
+                    "target_list": target_listp,
+                    "pred": predcheck,
+                }
+                updated = True
+                best_tuple = curr_tuple
+                # Don't understand what this is doing
+                orig_metric_v = new_metric_v
+                count += 1
 
         if not updated:
-            print("Made no reattachments")
+            print(f"    Made no reattachments for target {v}")
         else:
-            print(f"reattached {count} times")
+            # Don't try to reattach any other targets if we updated the tree.
+            # The same or earlier targets may be reattached multiple times.
+            # Note that if we change "reattaching the minimum target", this condition may need to change
 
-        # Don't try to reattach any other targets if we updated the tree.
-        # The same or earlier targets may be reattached multiple times.
-        # Note that if we change "reattaching the minimum target", this condition may need to change
-        if best_tree["tree"] != mst:
-            # print("improved!")
+            print(f"    reattached {count} times")
+            if start_tuple[0] == 1 and best_tuple[0] == 0:
+                print("    Unforced target")
+            if start_tuple[1] < best_tuple[1]:
+                print("    Increased minimum metric")
+            if start_tuple[2] < best_tuple[2]:
+                print("    Increased sum of metrics")
+            if (
+                not isclose(start_tuple[3], best_tuple[3])
+                and start_tuple[3] > best_tuple[3]
+            ):
+                print("    Found cheaper tree")
+                print(f"    starting cost = {start_tuple[3]}")
+                print(f"    ending cost   = {best_tuple[3]}")
 
             if best_tree["metric"] != best_seen_metric:
-                print("saw better metric, didn't take it")
+                print("        !!  saw better metric, didn't take it  !!")
                 # TODO: Figure out when and why this happens and if it's what we expect
                 # assert False
-            else:
-                print("took best seen metric this round")
 
             return (
                 best_tree["tree"],
@@ -309,42 +394,39 @@ def reattachment(
                 updated,
             )
 
+    print("Made no updates")
+    assert not updated
     return mst, forced, metric, target_list, pred, updated
 
 
 def reattachment_approximation(
     G, s, targets, budget, mst, forced, metric, target_list, pred, loc=None
 ):
-    # print before
-    if loc != None:
-        curr_loc = f"{loc}/{0}"
-        display_tree(G, mst, loc=curr_loc)
-
     # Precompute Dijkstra's from each target to all other nodes in the graph
     target_paths = compute_SSSP(G, targets)
 
     old_metric = float("inf")
     updated = True
 
-    count = 1
+    count = 0
     mult = 1  # control how often we save an image
     # Continue until we find no local improvement
     while updated:
-        print(f"round {count}")
         if count % mult == 0:
             curr_loc = f"{loc}/{count}" if loc != None else None
             display_tree(G, mst, loc=curr_loc)
+        print()
         count += 1
+        print(f"round {count}")
 
         old_metric = metric
         mst, forced, metric, target_list, pred, updated = reattachment(
             G, s, targets, budget, mst, forced, metric, target_list, pred, target_paths
         )
-        print("update!")
 
     # print after
     if loc != None:
-        curr_loc = f"{loc}/{count+1}"
+        curr_loc = f"{loc}/{count}"
         display_tree(G, mst, loc=curr_loc)
 
     return mst, pred
