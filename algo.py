@@ -5,6 +5,57 @@ import networkx as nx
 from util import display_tree
 
 
+def brute_force(G, s, targets, budget, loc=None):
+    best_tree = None
+    best_m = float("inf")
+    count = 0
+    for t in nx.SpanningTreeIterator(G, weight="weight", minimum=True):
+        if count % 1000 == 0:
+            print(f"    {count} trees processed")
+            curr_size = t.size(weight="weight")
+            print(f"        {curr_size = }")
+            print(f"        {budget = }")
+        # Get Predecessors
+        pred = nx.dfs_predecessors(t, s)
+
+        # Determine Paths Counts
+        for v in targets:
+            while v != s:
+                t.nodes[v]["paths"] += 1
+                v = pred[v]
+        t.nodes[s]["paths"] = len(targets)
+
+        # Remove Nodes with no paths
+        remove = []
+        for v in t.nodes():
+            if t.nodes[v]["paths"] == 0:
+                remove.append(v)
+
+        for v in remove:
+            t.remove_node(v)
+
+        c = t.size(weight="weight")
+        if c > budget:
+            # iterator goes in increasing size order
+            # So once we hit past budget, there is no point
+            curr_loc = f"{loc}/brute_force" if loc != None else None
+            display_tree(G, mst, loc=curr_loc)
+            return best_tree, metric
+
+        # Determine Counterdeception metric
+        forced, metric, target_list = compute_metric(t, s, targets)
+        if metric < best_m:
+            best_tree = t
+            best_m = metric
+
+        count += 1
+
+    # Also return here as a fail safe (for example for infinite budget)
+    curr_loc = f"{loc}/brute_force" if loc != None else None
+    display_tree(G, mst, loc=curr_loc)
+    return best_tree, metric
+
+
 # This precomputes SSSP for each target, however we can subsitute with any "heuristic"
 # The heuristic must be a function that ouputs a dictionary of dictionaries of paths that cover G.
 def compute_SSSP(G, targets):
@@ -93,12 +144,13 @@ def mark_paths(tree, s, targets):
 
 # Builds a seed tree and trims it to remove nodes with no paths to targets.
 # O(V + E) time.
-def build_stiener_seed(G, s, targets):
+def build_stiener_seed(G, s, targets, minimum=True):
     # Build the seed MST and trim it.
-    # mst = nx.minimum_spanning_tree(G)
 
-    # Compute the maximum spanning tree
-    mst = nx.maximum_spanning_tree(G)
+    if minimum:
+        mst = nx.minimum_spanning_tree(G)
+    else:
+        mst = nx.maximum_spanning_tree(G)
 
     # Mark paths from targets towards the source.
     pred = mark_paths(mst, s, targets)
@@ -361,7 +413,7 @@ def reattachment(
                 count += 1
 
         if not updated:
-            print(f"    Made no reattachments for target {v}")
+            print(f"    Made no reattachments for {v}")
         else:
             # Don't try to reattach any other targets if we updated the tree.
             # The same or earlier targets may be reattached multiple times.
@@ -369,7 +421,7 @@ def reattachment(
 
             print(f"    reattached {count} times")
             if start_tuple[0] == 1 and best_tuple[0] == 0:
-                print("    Unforced target")
+                print("    Unforced tree")
             if start_tuple[1] < best_tuple[1]:
                 print("    Increased minimum metric")
             if start_tuple[2] < best_tuple[2]:
@@ -426,10 +478,10 @@ def reattachment_approximation(
             G, s, targets, budget, mst, forced, metric, target_list, pred, target_paths
         )
 
-    # print after
-    if loc != None:
-        curr_loc = f"{loc}/{count}"
-        display_tree(G, mst, loc=curr_loc)
+    # # print after
+    # if loc != None:
+    #     curr_loc = f"{loc}/{count}"
+    #     display_tree(G, mst, loc=curr_loc)
 
     return mst, pred
 
