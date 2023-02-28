@@ -1,5 +1,6 @@
 import os
 import time
+import seaborn as sns
 
 import networkx as nx
 from matplotlib import pyplot as plt
@@ -77,6 +78,7 @@ def benchmark(n, factory, loc=None, brute=False):
             if after == 0.0:
                 minimum_stats["both_forced"] += 1
                 print("    Still Forced")
+        print(f"Benchmark {i} / {n - 1} took {end_time} seconds")
         print()
 
         # # Do benchmark on maximum spanning tree
@@ -148,44 +150,109 @@ def benchmark(n, factory, loc=None, brute=False):
     print()
     # TODO: Smarter Stats
 
+def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
+    # Create a heatmap of average times of running the algorithm
+    # on various size graphs between min_width and max_width
+    # ranges are inclusive
+    # For now only triangulated grid graph
+
+    avgs = [[0.0 for _ in range(max_width + 1)] for _ in range(target_max + 1)]
+    for width in range(min_width, max_width + 1):
+        for target_count in range(target_min, target_max + 1):
+            def factory():
+                s, targets = random_points(target_count)
+
+                G = form_grid_graph(s, targets, width, width)
+                # G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
+                # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
+                # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
+
+                round_targets_to_graph(G, s, targets)
+                targets = [f"target {i}" for i in range(target_count)]
+                s = "start"
+                nx.set_node_attributes(G, 0, "paths")
+
+                # budget = float("inf")
+                budget = nx.minimum_spanning_tree(G).size(weight="weight") * 1.5
+
+                return G, s, targets, budget
+
+            total_time = 0.0
+            for round in range(rounds):
+                G, s, targets, budget = factory()
+                start_time = time.perf_counter()
+                mst, pred = compute_tree(G, s, targets, budget, loc=None)
+                end_time = time.perf_counter()
+                total_time += end_time - start_time
+            avgs[target_count][width] = total_time / rounds
+
+    sns.set()
+    sns.heatmap(avgs)
+    if loc != None:
+        filename = f"{loc}/heatmap.png"
+        print(f"saving {filename}")
+        plt.savefig(filename)
+        plt.close()
 
 def main():
-    # Initial Parameters
-    target_count = 10
-    graphx = 50
-    graphy = 50
-    brute = False  # WARNING: This is really really slow
+    ##################
+    # MASS BENCHMARK #
+    ##################
 
-    def factory():
-        s, targets = random_points(target_count)
+    # # Initial Parameters
+    # target_count = 10
+    # graphx = 50
+    # graphy = 50
+    # brute = False  # WARNING: This is really really slow
 
-        G = form_grid_graph(s, targets, graphx, graphy)
-        # G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
-        # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
-        # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
+    # def factory():
+    #     s, targets = random_points(target_count)
 
-        round_targets_to_graph(G, s, targets)
-        targets = [f"target {i}" for i in range(target_count)]
-        s = "start"
-        nx.set_node_attributes(G, 0, "paths")
+    #     G = form_grid_graph(s, targets, graphx, graphy)
+    #     # G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
+    #     # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
+    #     # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
 
-        # budget = float("inf")
-        budget = nx.minimum_spanning_tree(G).size(weight="weight") * 1.5
+    #     round_targets_to_graph(G, s, targets)
+    #     targets = [f"target {i}" for i in range(target_count)]
+    #     s = "start"
+    #     nx.set_node_attributes(G, 0, "paths")
 
-        return G, s, targets, budget
+    #     # budget = float("inf")
+    #     budget = nx.minimum_spanning_tree(G).size(weight="weight") * 1.5
 
-    bench_count = 10
-    if os.path.exists("images/current/*"):
+    #     return G, s, targets, budget
+
+    # bench_count = 10
+    # if os.path.exists("images/current/*"):
+    #     print("Remove files and rerun benchmark")
+    #     return
+
+    # for i in range(bench_count):
+    #     os.makedirs(f"images/current/{i}_min")
+    #     os.makedirs(f"images/current/{i}_max")
+    #     if brute:
+    #         os.makedirs(f"images/current/{i}_brute")
+
+    # benchmark(bench_count, factory, loc="images/current", brute=brute)
+
+    #####################
+    # HEATMAP BENCHMARK #
+    #####################
+
+    if os.path.exists("images/heatmap/*"):
         print("Remove files and rerun benchmark")
         return
+    if not os.path.exists("images/heatmap/"):
+        os.makedirs("images/heatmap/")
 
-    for i in range(bench_count):
-        os.makedirs(f"images/current/{i}_min")
-        os.makedirs(f"images/current/{i}_max")
-        if brute:
-            os.makedirs(f"images/current/{i}_brute")
+    min_width = 3
+    max_width = 10
+    target_min = 2
+    target_max = 4
+    rounds = 1
 
-    benchmark(bench_count, factory, loc="images/current", brute=brute)
+    heatmap(min_width, max_width, target_min, target_max, rounds, loc="images/heatmap")
 
 
 if __name__ == "__main__":

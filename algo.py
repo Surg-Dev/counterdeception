@@ -466,8 +466,8 @@ def reattachment_approximation(
     mult = 1  # control how often we save an image
     # Continue until we find no local improvement
     while updated:
-        if count % mult == 0:
-            curr_loc = f"{loc}/{count}" if loc != None else None
+        if count % mult == 0 and loc != None:
+            curr_loc = f"{loc}/{count}"
             display_tree(G, mst, loc=curr_loc)
         print()
         count += 1
