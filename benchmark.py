@@ -1,8 +1,8 @@
 import os
 import time
-import seaborn as sns
 
 import networkx as nx
+import seaborn as sns
 from matplotlib import pyplot as plt
 
 from algo import brute_force, build_stiener_seed, compute_metric, compute_tree
@@ -150,6 +150,7 @@ def benchmark(n, factory, loc=None, brute=False):
     print()
     # TODO: Smarter Stats
 
+
 def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
     # Create a heatmap of average times of running the algorithm
     # on various size graphs between min_width and max_width
@@ -159,6 +160,7 @@ def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
     avgs = [[0.0 for _ in range(max_width + 1)] for _ in range(target_max + 1)]
     for width in range(min_width, max_width + 1):
         for target_count in range(target_min, target_max + 1):
+
             def factory():
                 s, targets = random_points(target_count)
 
@@ -193,6 +195,7 @@ def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
         print(f"saving {filename}")
         plt.savefig(filename)
         plt.close()
+
 
 def main():
     ##################
