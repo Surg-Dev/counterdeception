@@ -181,6 +181,7 @@ def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
 
             total_time = 0.0
             for round in range(rounds):
+                print(f"Round {round}: target count = {target_count}, {width = }")
                 G, s, targets, budget = factory()
                 start_time = time.perf_counter()
                 mst, pred = compute_tree(G, s, targets, budget, loc=None)
@@ -243,9 +244,6 @@ def main():
     # HEATMAP BENCHMARK #
     #####################
 
-    if os.path.exists("images/heatmap/*"):
-        print("Remove files and rerun benchmark")
-        return
     if not os.path.exists("images/heatmap/"):
         os.makedirs("images/heatmap/")
 
