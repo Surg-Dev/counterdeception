@@ -158,48 +158,51 @@ def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
     # For now only triangulated grid graph
     # Saves progress to textfile in case of hang
 
-    avgs = [[0.0 for _ in range(max_width + 1)] for _ in range(target_max + 1)]
-    for width in range(min_width, max_width + 1):
-        for target_count in range(target_min, target_max + 1):
+    with open(f"{loc}/heatmap.txt", "w") as f:
+        f.write("width, target_count\n")
+        avgs = [[0.0 for _ in range(max_width + 1)] for _ in range(target_max + 1)]
+        for width in range(min_width, max_width + 1):
+            for target_count in range(target_min, target_max + 1):
 
-            def factory():
-                s, targets = random_points(target_count)
+                def factory():
+                    s, targets = random_points(target_count)
 
-                G = form_grid_graph(s, targets, width, width)
-                # G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
-                # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
-                # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
+                    G = form_grid_graph(s, targets, width, width)
+                    # G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
+                    # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
+                    # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
 
-                round_targets_to_graph(G, s, targets)
-                targets = [f"target {i}" for i in range(target_count)]
-                s = "start"
-                nx.set_node_attributes(G, 0, "paths")
+                    round_targets_to_graph(G, s, targets)
+                    targets = [f"target {i}" for i in range(target_count)]
+                    s = "start"
+                    nx.set_node_attributes(G, 0, "paths")
 
-                # budget = float("inf")
-                budget = nx.minimum_spanning_tree(G).size(weight="weight") * 1.5
+                    # budget = float("inf")
+                    budget = nx.minimum_spanning_tree(G).size(weight="weight") * 1.5
 
-                return G, s, targets, budget
+                    return G, s, targets, budget
 
-            total_time = 0.0
-            for round in range(rounds):
-                print(f"Round {round}: target count = {target_count}, {width = }")
-                G, s, targets, budget = factory()
-                start_time = time.perf_counter()
-                mst, pred = compute_tree(G, s, targets, budget, loc=None)
-                end_time = time.perf_counter()
-                total_time += end_time - start_time
-            avgs[target_count][width] = total_time / rounds
-            print(
-                f"{rounds} rounds with target count = {target_count}, {width = } took {total_time} seconds or {total_time / 60} minutes"
-            )
+                total_time = 0.0
+                for round in range(rounds):
+                    print(f"Round {round}: target count = {target_count}, {width = }")
+                    G, s, targets, budget = factory()
+                    start_time = time.perf_counter()
+                    mst, pred = compute_tree(G, s, targets, budget, loc=None)
+                    end_time = time.perf_counter()
+                    total_time += end_time - start_time
+                avgs[target_count][width] = total_time / rounds
+                print(
+                    f"{rounds} rounds with target count = {target_count}, {width = } took {total_time} seconds or {total_time / 60} minutes"
+                )
+                f.write(f"{width}, {target_count}, {avgs[target_count][width]}\n")
 
-    sns.set()
-    sns.heatmap(avgs)
-    if loc != None:
-        filename = f"{loc}/heatmap.png"
-        print(f"saving {filename}")
-        plt.savefig(filename)
-        plt.close()
+        sns.set()
+        sns.heatmap(avgs)
+        if loc != None:
+            filename = f"{loc}/heatmap.png"
+            print(f"saving {filename}")
+            plt.savefig(filename)
+            plt.close()
 
 
 def main():
