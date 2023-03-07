@@ -2,7 +2,7 @@ from math import isclose
 
 import networkx as nx
 
-from util import display_tree
+from util import display_tree, bcolors
 
 
 def brute_force(G, s, targets, budget, loc=None):
@@ -300,9 +300,18 @@ def reattachment(
 
         best_seen_metric = best_tree["metric"]
         # For each node on the remaining tree:
+
+        load_counter = 0  # used to select current state of loading wheel
+        spacer = 9  # change this to change how often the wheel turns
         for potential in mstprime.nodes():
+            print(
+                f"{bcolors.OKBLUE}{bcolors.LOADING[load_counter // spacer]}{bcolors.ENDC}"
+            )
+
             # Skip reattaching to a target.
             if potential in targets:
+                print(bcolors.CLEAR_LAST_LINE)
+                load_counter = (load_counter + 1) % 4 * spacer
                 continue
 
             # Retrieve the pred shortest path
@@ -316,6 +325,8 @@ def reattachment(
                     break
 
             if dist_path == float("inf"):
+                print(bcolors.CLEAR_LAST_LINE)
+                load_counter = (load_counter + 1) % 4 * spacer
                 continue
 
             # Make a new tree to reattach the target to.
@@ -347,6 +358,8 @@ def reattachment(
                     new_metric_v = m
                     break
             if trynext:
+                print(bcolors.CLEAR_LAST_LINE)
+                load_counter = (load_counter + 1) % 4 * spacer
                 continue
 
             # heurmetric = target_listp[c][0]
@@ -412,41 +425,42 @@ def reattachment(
                 orig_metric_v = new_metric_v
                 count += 1
 
-        if not updated:
-            print(f"    Made no reattachments for {v}")
-        else:
-            # Don't try to reattach any other targets if we updated the tree.
-            # The same or earlier targets may be reattached multiple times.
-            # Note that if we change "reattaching the minimum target", this condition may need to change
+            print(bcolors.CLEAR_LAST_LINE)
+            load_counter = (load_counter + 1) % 4 * spacer
 
-            print(f"    reattached {count} times")
-            if start_tuple[0] == 1 and best_tuple[0] == 0:
-                print("    Unforced tree")
-            if start_tuple[1] < best_tuple[1]:
-                print("    Increased minimum metric")
-            if start_tuple[2] < best_tuple[2]:
-                print("    Increased sum of metrics")
-            if (
-                not isclose(start_tuple[3], best_tuple[3])
-                and start_tuple[3] > best_tuple[3]
-            ):
-                print("    Found cheaper tree")
-                print(f"    starting cost = {start_tuple[3]}")
-                print(f"    ending cost   = {best_tuple[3]}")
+        # Don't try to reattach any other targets if we updated the tree.
+        # The same or earlier targets may be reattached multiple times.
+        # Note that if we change "reattaching the minimum target", this condition may need to change
 
-            if best_tree["metric"] != best_seen_metric:
-                print("        !!  saw better metric, didn't take it  !!")
-                # TODO: Figure out when and why this happens and if it's what we expect
-                # assert False
+        print(f"    reattached {count} times")
+        if start_tuple[0] == 1 and best_tuple[0] == 0:
+            print("    Unforced tree")
+        if start_tuple[1] < best_tuple[1]:
+            print("    Increased minimum metric")
+        if start_tuple[2] < best_tuple[2]:
+            print("    Increased sum of metrics")
+        if (
+            not isclose(start_tuple[3], best_tuple[3])
+            and start_tuple[3] > best_tuple[3]
+        ):
+            print("    Found cheaper tree")
+            print(f"    starting cost = {start_tuple[3]}")
+            print(f"    ending cost   = {best_tuple[3]}")
 
-            return (
-                best_tree["tree"],
-                best_tree["forced"],
-                best_tree["metric"],
-                best_tree["target_list"],
-                best_tree["pred"],
-                updated,
-            )
+        if best_tree["metric"] != best_seen_metric:
+            print("        !!  saw better metric, didn't take it  !!")
+            # TODO: Figure out when and why this happens and if it's what we expect
+            # assert False
+
+        print(bcolors.CLEAR_LAST_LINE)
+        return (
+            best_tree["tree"],
+            best_tree["forced"],
+            best_tree["metric"],
+            best_tree["target_list"],
+            best_tree["pred"],
+            updated,
+        )
 
     print("Made no updates")
     assert not updated

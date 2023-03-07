@@ -156,6 +156,7 @@ def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
     # on various size graphs between min_width and max_width
     # ranges are inclusive
     # For now only triangulated grid graph
+    # Saves progress to textfile in case of hang
 
     avgs = [[0.0 for _ in range(max_width + 1)] for _ in range(target_max + 1)]
     for width in range(min_width, max_width + 1):
@@ -188,6 +189,9 @@ def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
                 end_time = time.perf_counter()
                 total_time += end_time - start_time
             avgs[target_count][width] = total_time / rounds
+            print(
+                f"{rounds} rounds with target count = {target_count}, {width = } took {total_time} seconds or {total_time / 60} minutes"
+            )
 
     sns.set()
     sns.heatmap(avgs)
@@ -204,9 +208,9 @@ def main():
     ##################
 
     # # Initial Parameters
-    # target_count = 10
-    # graphx = 50
-    # graphy = 50
+    # target_count = 7
+    # graphx = 30
+    # graphy = 30
     # brute = False  # WARNING: This is really really slow
 
     # def factory():
@@ -227,7 +231,7 @@ def main():
 
     #     return G, s, targets, budget
 
-    # bench_count = 10
+    # bench_count = 1
     # if os.path.exists("images/current/*"):
     #     print("Remove files and rerun benchmark")
     #     return
@@ -247,11 +251,11 @@ def main():
     if not os.path.exists("images/heatmap/"):
         os.makedirs("images/heatmap/")
 
-    min_width = 3
-    max_width = 10
+    min_width = 5
+    max_width = 30
     target_min = 2
-    target_max = 4
-    rounds = 1
+    target_max = 10
+    rounds = 3
 
     heatmap(min_width, max_width, target_min, target_max, rounds, loc="images/heatmap")
 
