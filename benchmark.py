@@ -191,9 +191,13 @@ def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
                     end_time = time.perf_counter()
                     total_time += end_time - start_time
                 avgs[target_count][width] = total_time / rounds
-                print(
-                    f"{rounds} rounds with target count = {target_count}, {width = } took {total_time} seconds or {total_time / 60} minutes"
-                )
+
+                print()
+                print(f"{rounds} rounds with target count = {target_count}, {width = } took {total_time} seconds or {total_time / 60} minutes")
+                print(f"    took {total_time} seconds")
+                print(f"    or   {total_time / 60} minutes")
+                print()
+
                 f.write(f"{width}, {target_count}, {avgs[target_count][width]}\n")
 
         sns.set()

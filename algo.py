@@ -450,10 +450,8 @@ def reattachment(
 
             if best_tree["metric"] != best_seen_metric:
                 print("        !!  saw better metric, didn't take it  !!")
-                # TODO: Figure out when and why this happens and if it's what we expect
                 # assert False
 
-            print(bcolors.CLEAR_LAST_LINE)
             return (
                 best_tree["tree"],
                 best_tree["forced"],
@@ -486,7 +484,7 @@ def reattachment_approximation(
             display_tree(G, mst, loc=curr_loc)
         print()
         count += 1
-        print(f"round {count}")
+        print(f"Iteration {count}")
 
         old_metric = metric
         mst, forced, metric, target_list, pred, updated = reattachment(
