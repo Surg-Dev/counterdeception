@@ -432,35 +432,36 @@ def reattachment(
         # The same or earlier targets may be reattached multiple times.
         # Note that if we change "reattaching the minimum target", this condition may need to change
 
-        print(f"    reattached {count} times")
-        if start_tuple[0] == 1 and best_tuple[0] == 0:
-            print("    Unforced tree")
-        if start_tuple[1] < best_tuple[1]:
-            print("    Increased minimum metric")
-        if start_tuple[2] < best_tuple[2]:
-            print("    Increased sum of metrics")
-        if (
-            not isclose(start_tuple[3], best_tuple[3])
-            and start_tuple[3] > best_tuple[3]
-        ):
-            print("    Found cheaper tree")
-            print(f"    starting cost = {start_tuple[3]}")
-            print(f"    ending cost   = {best_tuple[3]}")
+        if updated:
+            print(f"    reattached {count} times")
+            if start_tuple[0] == 1 and best_tuple[0] == 0:
+                print("    Unforced tree")
+            if start_tuple[1] < best_tuple[1]:
+                print("    Increased minimum metric")
+            if start_tuple[2] < best_tuple[2]:
+                print("    Increased sum of metrics")
+            if (
+                not isclose(start_tuple[3], best_tuple[3])
+                and start_tuple[3] > best_tuple[3]
+            ):
+                print("    Found cheaper tree")
+                print(f"    starting cost = {start_tuple[3]}")
+                print(f"    ending cost   = {best_tuple[3]}")
 
-        if best_tree["metric"] != best_seen_metric:
-            print("        !!  saw better metric, didn't take it  !!")
-            # TODO: Figure out when and why this happens and if it's what we expect
-            # assert False
+            if best_tree["metric"] != best_seen_metric:
+                print("        !!  saw better metric, didn't take it  !!")
+                # TODO: Figure out when and why this happens and if it's what we expect
+                # assert False
 
-        print(bcolors.CLEAR_LAST_LINE)
-        return (
-            best_tree["tree"],
-            best_tree["forced"],
-            best_tree["metric"],
-            best_tree["target_list"],
-            best_tree["pred"],
-            updated,
-        )
+            print(bcolors.CLEAR_LAST_LINE)
+            return (
+                best_tree["tree"],
+                best_tree["forced"],
+                best_tree["metric"],
+                best_tree["target_list"],
+                best_tree["pred"],
+                updated,
+            )
 
     print("Made no updates")
     assert not updated
