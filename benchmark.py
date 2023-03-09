@@ -150,6 +150,24 @@ def benchmark(n, factory, loc=None, brute=False):
     print()
     # TODO: Smarter Stats
 
+def create_heatmap(min_width, max_width, target_min, target_max, loc=None):
+    if loc is not None:
+        avgs = [[0.0 for _ in range(max_width + 1)] for _ in range(target_max + 1)]
+        with open(f"{loc}/heatmap.txt", "r") as f:
+            for line in f:
+                if line != "width, target_count\n":
+                    parts = line.split(", ")
+                    width = int(parts[0])
+                    target_count = int(parts[1])
+                    avg = float(parts[2])
+                    avgs[target_count][width] = avg
+
+        sns.set()
+        sns.heatmap(avgs)
+        filename = f"{loc}/heatmap.png"
+        print(f"saving {filename}")
+        plt.savefig(filename)
+        plt.close()
 
 def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
     # Create a heatmap of average times of running the algorithm
@@ -192,7 +210,6 @@ def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
                     total_time += end_time - start_time
                 avgs[target_count][width] = total_time / rounds
 
-                print()
                 print(f"{rounds} rounds with target count = {target_count}, {width = } took {total_time} seconds or {total_time / 60} minutes")
                 print(f"    took {total_time} seconds")
                 print(f"    or   {total_time / 60} minutes")
@@ -200,14 +217,7 @@ def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
 
                 f.write(f"{width}, {target_count}, {avgs[target_count][width]}\n")
 
-        sns.set()
-        sns.heatmap(avgs)
-        if loc != None:
-            filename = f"{loc}/heatmap.png"
-            print(f"saving {filename}")
-            plt.savefig(filename)
-            plt.close()
-
+    create_heatmap(min_width, max_width, target_min, target_max, loc=loc)
 
 def main():
     ##################
@@ -259,10 +269,10 @@ def main():
         os.makedirs("images/heatmap/")
 
     min_width = 5
-    max_width = 30
+    max_width = 7
     target_min = 2
-    target_max = 10
-    rounds = 3
+    target_max = 3
+    rounds = 1
 
     heatmap(min_width, max_width, target_min, target_max, rounds, loc="images/heatmap")
 

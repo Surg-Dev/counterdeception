@@ -462,6 +462,8 @@ def reattachment(
             )
 
     print("Made no updates")
+    print()
+
     assert not updated
     return mst, forced, metric, target_list, pred, updated
 
