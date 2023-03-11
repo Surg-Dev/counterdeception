@@ -207,10 +207,10 @@ def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
                     print(f"Round {round}: target count = {target_count}, {width = }")
                     G, s, targets, budget = factory()
                     start_time = time.perf_counter()
-                    mst, pred, rounds = compute_tree(G, s, targets, budget, loc=None)
+                    mst, pred, count = compute_tree(G, s, targets, budget, loc=None)
                     end_time = time.perf_counter()
                     total_time += end_time - start_time
-                    total_rounds += rounds
+                    total_rounds += count
                 avgs[target_count][width] = total_time / rounds
 
                 print(f"{rounds} rounds with target count = {target_count}, {width = } took {total_time} seconds")
@@ -272,10 +272,10 @@ def main():
         os.makedirs("images/heatmap/")
 
     min_width = 5
-    max_width = 7
+    max_width = 30
     target_min = 2
-    target_max = 3
-    rounds = 1
+    target_max = 10
+    rounds = 5
 
     heatmap(min_width, max_width, target_min, target_max, rounds, loc="images/heatmap")
 
