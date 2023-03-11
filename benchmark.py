@@ -55,7 +55,7 @@ def benchmark(n, factory, loc=None, brute=False):
 
         # get after for minimum
         start_time = time.perf_counter()
-        mst, pred = compute_tree(G, s, targets, budget, loc=curr_loc)
+        mst, pred, rounds = compute_tree(G, s, targets, budget, loc=curr_loc)
         end_time = time.perf_counter()
         heur_times_min.append(end_time - start_time)
         forced, metric, target_list = compute_metric(mst, s, targets, pred)
@@ -79,6 +79,7 @@ def benchmark(n, factory, loc=None, brute=False):
                 minimum_stats["both_forced"] += 1
                 print("    Still Forced")
         print(f"Benchmark {i} / {n - 1} took {end_time} seconds")
+        print(f"Took {rounds} rounds")
         print()
 
         # # Do benchmark on maximum spanning tree
@@ -155,7 +156,7 @@ def create_heatmap(min_width, max_width, target_min, target_max, loc=None):
         avgs = [[0.0 for _ in range(max_width + 1)] for _ in range(target_max + 1)]
         with open(f"{loc}/heatmap.txt", "r") as f:
             for line in f:
-                if line != "width, target_count\n":
+                if "width" not in line:
                     parts = line.split(", ")
                     width = int(parts[0])
                     target_count = int(parts[1])
@@ -177,7 +178,7 @@ def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
     # Saves progress to textfile in case of hang
 
     with open(f"{loc}/heatmap.txt", "w") as f:
-        f.write("width, target_count\n")
+        f.write("width, target_count, time, average_number_of_rounds\n")
         avgs = [[0.0 for _ in range(max_width + 1)] for _ in range(target_max + 1)]
         for width in range(min_width, max_width + 1):
             for target_count in range(target_min, target_max + 1):
@@ -201,21 +202,23 @@ def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
                     return G, s, targets, budget
 
                 total_time = 0.0
+                total_rounds = 0
                 for round in range(rounds):
                     print(f"Round {round}: target count = {target_count}, {width = }")
                     G, s, targets, budget = factory()
                     start_time = time.perf_counter()
-                    mst, pred = compute_tree(G, s, targets, budget, loc=None)
+                    mst, pred, rounds = compute_tree(G, s, targets, budget, loc=None)
                     end_time = time.perf_counter()
                     total_time += end_time - start_time
+                    total_rounds += rounds
                 avgs[target_count][width] = total_time / rounds
 
-                print(f"{rounds} rounds with target count = {target_count}, {width = } took {total_time} seconds or {total_time / 60} minutes")
-                print(f"    took {total_time} seconds")
+                print(f"{rounds} rounds with target count = {target_count}, {width = } took {total_time} seconds")
                 print(f"    or   {total_time / 60} minutes")
-                print()
+                print(f"and {total_rounds} rounds")
+                print(f"")
 
-                f.write(f"{width}, {target_count}, {avgs[target_count][width]}\n")
+                f.write(f"{width}, {target_count}, {avgs[target_count][width]}, {total_rounds / rounds}\n")
 
     create_heatmap(min_width, max_width, target_min, target_max, loc=loc)
 

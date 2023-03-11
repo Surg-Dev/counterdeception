@@ -498,7 +498,7 @@ def reattachment_approximation(
     #     curr_loc = f"{loc}/{count}"
     #     display_tree(G, mst, loc=curr_loc)
 
-    return mst, pred
+    return mst, pred, count
 
 
 def compute_tree(G, s, targets, budget, loc=None):
@@ -517,7 +517,7 @@ def compute_tree(G, s, targets, budget, loc=None):
     # print("FORCED: ", forced)
     # display_tree(G, mst)
 
-    mst, pred = reattachment_approximation(
+    mst, pred, rounds = reattachment_approximation(
         G, s, targets, budget, mst, forced, metric, target_list, pred, loc=loc
     )
 
@@ -531,4 +531,4 @@ def compute_tree(G, s, targets, budget, loc=None):
 
     # display_tree(G, mst)
 
-    return mst, pred
+    return mst, pred, rounds
