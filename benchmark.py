@@ -8,6 +8,22 @@ from matplotlib import pyplot as plt
 from algo import brute_force, build_stiener_seed, compute_metric, compute_tree
 from util import *
 
+def random_bench(n, G, s, targets, budget, loc=None):
+    # Build n random spanning trees over G, compute metric, take max
+
+    best = float("-inf")
+    for i in range(n):
+        print(f"Generating Random Spanning Tree {bcolors.OKGREEN}{i + 1}/{n}{bcolors.ENDC}")
+        size = float("inf")
+        while size > budget: # TODO: Add failsafe here
+            rst, pred = build_stiener_seed(G, s, targets, minimum=False)
+            size = rst.size(weight="weight")
+        forced, metric, _ = compute_metric(rst, s, targets)
+        res = metric if not forced else 0.0
+        best = max(best, res)
+        print(bcolors.CLEAR_LAST_LINE)
+
+    return best
 
 def benchmark(n, factory, loc=None, brute=False):
     # To make life a little easier, this function will require you to pass a function
@@ -223,33 +239,33 @@ def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
     create_heatmap(min_width, max_width, target_min, target_max, loc=loc)
 
 def main():
+    # Initial Parameters
+    target_count = 3
+    graphx = 10
+    graphy = 10
+    def factory():
+        s, targets = random_points(target_count)
+
+        G = form_grid_graph(s, targets, graphx, graphy)
+        # G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
+        # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
+        # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
+
+        round_targets_to_graph(G, s, targets)
+        targets = [f"target {i}" for i in range(target_count)]
+        s = "start"
+        nx.set_node_attributes(G, 0, "paths")
+
+        # budget = float("inf")
+        budget = nx.minimum_spanning_tree(G).size(weight="weight") * 1.5
+
+        return G, s, targets, budget
+
     ##################
     # MASS BENCHMARK #
     ##################
 
-    # # Initial Parameters
-    # target_count = 7
-    # graphx = 30
-    # graphy = 30
     # brute = False  # WARNING: This is really really slow
-
-    # def factory():
-    #     s, targets = random_points(target_count)
-
-    #     G = form_grid_graph(s, targets, graphx, graphy)
-    #     # G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
-    #     # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
-    #     # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
-
-    #     round_targets_to_graph(G, s, targets)
-    #     targets = [f"target {i}" for i in range(target_count)]
-    #     s = "start"
-    #     nx.set_node_attributes(G, 0, "paths")
-
-    #     # budget = float("inf")
-    #     budget = nx.minimum_spanning_tree(G).size(weight="weight") * 1.5
-
-    #     return G, s, targets, budget
 
     # bench_count = 1
     # if os.path.exists("images/current/*"):
@@ -268,16 +284,52 @@ def main():
     # HEATMAP BENCHMARK #
     #####################
 
-    if not os.path.exists("images/heatmap/"):
-        os.makedirs("images/heatmap/")
+    # if not os.path.exists("images/heatmap/"):
+    #     os.makedirs("images/heatmap/")
 
-    min_width = 5
-    max_width = 30
-    target_min = 2
-    target_max = 10
-    rounds = 5
+    # min_width = 5
+    # max_width = 7
+    # target_min = 2
+    # target_max = 3
+    # rounds = 1
 
-    heatmap(min_width, max_width, target_min, target_max, rounds, loc="images/heatmap")
+    # heatmap(min_width, max_width, target_min, target_max, rounds, loc="images/heatmap")
+
+    ####################
+    # RANDOM BENCHMARK #
+    ####################
+    benches = 3
+    num_rand = 10
+    rand_res = []
+    rand_times = []
+    algo_res = []
+    algo_times = []
+    for _ in range(benches):
+        G, s, targets, budget = factory()
+        for u, v, dat in G.edges(data=True):
+            assert "weight" in dat
+
+
+        start_time = time.perf_counter()
+        rand_res.append(random_bench(num_rand, G, s, targets, budget))
+        end_time = time.perf_counter()
+        rand_times.append(end_time - start_time)
+
+        start_time = time.perf_counter()
+        mst, pred, rounds = compute_tree(G, s, targets, budget, loc=None)
+        end_time = time.perf_counter()
+        algo_times.append(end_time - start_time)
+        forced, metric, target_list = compute_metric(mst, s, targets, pred)
+        algo_res.append(metric if not forced else 0.0)
+
+    alg_beat = 0
+    for rand, alg in zip(rand_res, algo_res):
+        if alg >= rand:
+            alg_beat += 1
+
+    print(f"Algorithm beat random spanning trees {alg_beat}/{benches} times")
+    print(f"Average Random Spanning Tree Run = {sum(rand_times) / benches} seconds")
+    print(f"Average Algorithm Run            = {sum(algo_times) / benches} seconds")
 
 
 if __name__ == "__main__":

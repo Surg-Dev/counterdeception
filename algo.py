@@ -150,7 +150,10 @@ def build_stiener_seed(G, s, targets, minimum=True):
     if minimum:
         mst = nx.minimum_spanning_tree(G)
     else:
-        mst = nx.maximum_spanning_tree(G)
+        mst = nx.random_spanning_tree(G)
+        # This is dumb
+        for u, v in mst.edges():
+            mst.edges[u, v]["weight"] = G.edges[u, v]["weight"]
 
     # Mark paths from targets towards the source.
     pred = mark_paths(mst, s, targets)
@@ -185,6 +188,11 @@ def compute_metric(mst, s, targets, pred=None):
         cur = v
         curdist = 0
         while cur != s and mst.nodes[cur]["paths"] == 1:
+            if "weight" not in mst.edges[cur, pred[cur]]:
+                print(cur)
+                print(pred[cur])
+                print(mst.edges[cur, pred[cur]])
+
             curdist += mst.edges[cur, pred[cur]]["weight"]
             cur = pred[cur]
         if curdist == 0:
