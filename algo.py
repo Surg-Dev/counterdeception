@@ -1,9 +1,103 @@
+from itertools import count
 from math import isclose
 
 import networkx as nx
 
 from util import display_tree, bcolors
+import queue
+from heapq import heappop, heappush
 
+def dijkstra_st_func(G, s, target):
+    G_succ = G._adj
+    push = heappush
+    pop = heappop
+
+    dist = {}
+    seen = {}
+    pred = {}
+    c = count()
+    fringe = []
+
+    seen[s] = 0
+    push(fringe, (0, next(c), s))
+
+    while fringe:
+        (d, _, v) = pop(fringe)
+        if v in dist:
+            continue
+        dist[v] = d
+        if v == target:
+            break
+        for u, e in G_succ[v].items():
+            mid = (
+                (G.nodes[u]["pos"][0] + G.nodes[v]["pos"][0]) / 2,
+                (G.nodes[u]["pos"][1] + G.nodes[v]["pos"][1]) / 2,
+            )
+
+            cost = (
+                (mid[0] - G.nodes[target]["pos"][0])**2 + (mid[1] - G.nodes[target]["pos"][1])**2
+            ) ** 0.5
+
+            vu_dist = dist[v] + cost
+            if u in dist:
+                u_dist = dist[u]
+                if vu_dist < u_dist:
+                    raise ValueError("Contradictory paths found:", "negative weights?")
+            elif u not in seen or vu_dist < seen[u]:
+                seen[u] = vu_dist
+                push(fringe, (vu_dist, next(c), u))
+                pred[u] = v
+
+    return dist, pred
+    
+"""
+def dijkstra_st_func(G, s, target):
+    # Initialize
+    dist = dict()
+    prev = dict()
+    seen = dict()
+    dist[s] = 0
+
+    # Initialize priority queue
+    Q = queue.PriorityQueue()
+    Q.put((0, s))
+
+    while not Q.empty():
+        # Get the next node
+        _, u = Q.get()
+
+        if u == target:
+            return dist, prev
+        # Check if we have already seen this node
+        if u in seen:
+            continue
+        seen[u] = True
+
+        # Get the neighbors
+        neighbors = list(G.neighbors(u))
+
+        # Update the distance to each neighbor
+        for v in neighbors:
+            # Get the weight of the edge
+            mid = (
+                (G.nodes[u]["pos"][0] + G.nodes[v]["pos"][0]) / 2,
+                (G.nodes[u]["pos"][1] + G.nodes[v]["pos"][1]) / 2,
+            )
+
+            w = (
+                (mid[0] - G.nodes[target]["pos"][0])**2 + (mid[1] - G.nodes[target]["pos"][1])**2
+            ) ** 0.5
+           
+            # w = weightfunc(u, v)
+
+            # Check if we have found a shorter path
+            if v not in dist or dist[v] > dist[u] + w:
+                dist[v] = dist[u] + w
+                prev[v] = u
+                Q.put((dist[v], v))
+
+    return dist, prev
+"""
 
 def brute_force(G, s, targets, budget, loc=None):
     best_tree = None
@@ -67,7 +161,7 @@ def compute_SSSP(G, targets):
 
 
 def compute_Astar(G, tree, s, t):
-    nx.set_edge_attributes(G, 0.0, "a_star")
+    # nx.set_edge_attributes(G, 0.0, "a_star")
 
     # Compute the A* heuristic for each edge
     # print(s, t)
@@ -75,27 +169,43 @@ def compute_Astar(G, tree, s, t):
     # print("HERE")
     # print(G.nodes())
     # print("Init dists")
-    for u, v in G.edges():
-        # print (u, v)
-        # Compute midpoint between u,v
-        mid = (
-            (G.nodes[u]["pos"][0] + G.nodes[v]["pos"][0]) / 2,
-            (G.nodes[u]["pos"][1] + G.nodes[v]["pos"][1]) / 2,
-        )
+    # for u, v in G.edges():
+    #     # print (u, v)
+    #     # Compute midpoint between u,v
+    #     mid = (
+    #         (G.nodes[u]["pos"][0] + G.nodes[v]["pos"][0]) / 2,
+    #         (G.nodes[u]["pos"][1] + G.nodes[v]["pos"][1]) / 2,
+    #     )
 
-        # Compute distance from midpoint to target
-        dist = (
-            (mid[0] - G.nodes[t]["pos"][0]) ** 2 + (mid[1] - G.nodes[t]["pos"][1]) ** 2
-        ) ** 0.5
+    #     # Compute distance from midpoint to target
+    #     dist = (
+    #         (mid[0] - G.nodes[t]["pos"][0]) ** 2 + (mid[1] - G.nodes[t]["pos"][1]) ** 2
+    #     ) ** 0.5
 
-        # Set the heuristic to the distance
-        G[u][v]["a_star"] = dist
+    #     # Set the heuristic to the distance
+    #     G[u][v]["a_star"] = dist
 
     filtered = [x for x in G.nodes() if (x not in tree.nodes())]
     filtered.append(s)
     filtered.append(t)
 
     H = G.subgraph(filtered)
+
+    # wf = build_weightfunc(H, t)
+    dist, prev = dijkstra_st_func(H, s, t)
+
+    if t not in dist:
+        return [], float("inf")
+    
+    path = []
+
+    curr = t
+    while curr != s:
+        path.append(curr)
+        curr = prev[curr]
+    path.append(s)
+
+    return path, dist[t]
 
     # print("Done dists")
     # neighbors = list(G.neighbors(s))
@@ -116,15 +226,15 @@ def compute_Astar(G, tree, s, t):
     # Make sure s and t are traversable
 
     # Run Dijkstra's
-    try:
-        path = nx.shortest_path(H, s, t, weight="a_star")
-        length = nx.shortest_path_length(H, s, t, weight="a_star")
-    except nx.NetworkXNoPath:
-        path = []
-        length = float("inf")
+    # try:
+    #     path = nx.shortest_path(H, s, t, weight="a_star")
+    #     length = nx.shortest_path_length(H, s, t, weight="a_star")
+    # except nx.NetworkXNoPath:
+    #     path = []
+    #     length = float("inf")
     # print("Done Dijkstra's")
 
-    return path, length
+    # return path, length
 
 
 def mark_paths(tree, s, targets):

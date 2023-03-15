@@ -299,7 +299,7 @@ def main():
     # RANDOM BENCHMARK #
     ####################
     benches = 3
-    num_rand = 10
+    num_rand = 0
     rand_res = []
     rand_times = []
     algo_res = []
