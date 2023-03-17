@@ -7,7 +7,12 @@ from util import display_tree, bcolors
 import queue
 from heapq import heappop, heappush
 
+
 def dijkstra_st_func(G, s, target):
+    # Base code from
+    #   https://networkx.org/documentation/stable/_modules/networkx/algorithms/shortest_paths/weighted.html#dijkstra_path
+    #   _dijkstra_multisource
+
     G_succ = G._adj
     push = heappush
     pop = heappop
@@ -35,7 +40,8 @@ def dijkstra_st_func(G, s, target):
             )
 
             cost = (
-                (mid[0] - G.nodes[target]["pos"][0])**2 + (mid[1] - G.nodes[target]["pos"][1])**2
+                (mid[0] - G.nodes[target]["pos"][0]) ** 2
+                + (mid[1] - G.nodes[target]["pos"][1]) ** 2
             ) ** 0.5
 
             vu_dist = dist[v] + cost
@@ -49,6 +55,7 @@ def dijkstra_st_func(G, s, target):
                 pred[u] = v
 
     return dist, pred
+
 
 def brute_force(G, s, targets, budget, loc=None):
     best_tree = None
@@ -124,7 +131,7 @@ def compute_Astar(G, tree, s, t):
 
     if t not in dist:
         return [], float("inf")
-    
+
     path = []
 
     # Reconstruct the path
@@ -135,7 +142,6 @@ def compute_Astar(G, tree, s, t):
     path.append(s)
 
     return path, dist[t]
-
 
 
 def mark_paths(tree, s, targets):

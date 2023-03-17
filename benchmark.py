@@ -8,14 +8,17 @@ from matplotlib import pyplot as plt
 from algo import brute_force, build_stiener_seed, compute_metric, compute_tree
 from util import *
 
+
 def random_bench(n, G, s, targets, budget, loc=None):
     # Build n random spanning trees over G, compute metric, take max
 
     best = float("-inf")
     for i in range(n):
-        print(f"Generating Random Spanning Tree {bcolors.OKGREEN}{i + 1}/{n}{bcolors.ENDC}")
+        print(
+            f"Generating Random Spanning Tree {bcolors.OKGREEN}{i + 1}/{n}{bcolors.ENDC}"
+        )
         size = float("inf")
-        while size > budget: # TODO: Add failsafe here
+        while size > budget:  # TODO: Add failsafe here
             rst, pred = build_stiener_seed(G, s, targets, minimum=False)
             size = rst.size(weight="weight")
         forced, metric, _ = compute_metric(rst, s, targets)
@@ -24,6 +27,7 @@ def random_bench(n, G, s, targets, budget, loc=None):
         print(bcolors.CLEAR_LAST_LINE)
 
     return best
+
 
 def benchmark(n, factory, loc=None, brute=False):
     # To make life a little easier, this function will require you to pass a function
@@ -98,42 +102,6 @@ def benchmark(n, factory, loc=None, brute=False):
         print(f"Took {rounds} rounds")
         print()
 
-        # # Do benchmark on maximum spanning tree
-        # curr_loc = f"{loc}/{i}_max" if loc != None else None
-
-        # # get before for maximum
-        # mst, pred = build_stiener_seed(G, s, targets, minimum=False)
-        # forced, metric, target_list = compute_metric(mst, s, targets, pred)
-        # before = metric if not forced else 0.0
-        # metric_before_max.append(before)
-
-        # # get after for maximum
-        # start_time = time.perf_counter()
-        # mst, pred = compute_tree(G, s, targets, budget, loc=curr_loc)
-        # end_time = time.perf_counter()
-        # heur_times_max.append(end_time - start_time)
-        # forced, metric, target_list = compute_metric(mst, s, targets, pred)
-        # after = metric if not forced else 0.0
-        # metric_after_max.append(after)
-
-        # improvement = True if after > before else False
-        # if improvement:
-        #     maximum_stats["improved"] += 1
-        #     print("Made Improvements")
-        #     if before == 0.0:
-        #         maximum_stats["now_unforced"] += 1
-        #         print("    Now Unforced")
-        #     else:
-        #         print(f"    Before: {before}")
-        #         print(f"    After:  {after}")
-        # else:
-        #     maximum_stats["unimproved"] += 1
-        #     print("No Improvements")
-        #     if after == 0.0:
-        #         maximum_stats["both_forced"] += 1
-        #         print("    Still Forced")
-        # print()
-
         if brute:
             print("Starting brute force computation")
             start_time = time.perf_counter()
@@ -153,19 +121,11 @@ def benchmark(n, factory, loc=None, brute=False):
     print(f"Shortest Minimum Heuristic Run = {min(heur_times_min)} seconds")
     print(f"Average Minimum Heuristic Run  = {sum(heur_times_min) / n} seconds")
     print()
-    # print("Maximum Spanning Seed Tree:")
-    # print("    both_forced  =", maximum_stats["both_forced"])
-    # print("    now_unforced =", maximum_stats["now_unforced"])
-    # print("    unimproved   =", maximum_stats["unimproved"])
-    # print("    improved     =", maximum_stats["improved"])
-    # print(f"Longest Maximum Heuristic Run  = {max(heur_times_max)} seconds")
-    # print(f"Shortest Maximum Heuristic Run = {min(heur_times_max)} seconds")
-    # print(f"Average Maximum Heuristic Run  = {sum(heur_times_max) / n} seconds")
-    # print()
     if brute:
         print(f"longest brute calc     = {max(brute_times)}")
     print()
     # TODO: Smarter Stats
+
 
 def create_heatmap(min_width, max_width, target_min, target_max, loc=None):
     if loc is not None:
@@ -185,6 +145,7 @@ def create_heatmap(min_width, max_width, target_min, target_max, loc=None):
         print(f"saving {filename}")
         plt.savefig(filename)
         plt.close()
+
 
 def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
     # Create a heatmap of average times of running the algorithm
@@ -229,20 +190,26 @@ def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
                     total_rounds += count
                 avgs[target_count][width] = total_time / rounds
 
-                print(f"{rounds} rounds with target count = {target_count}, {width = } took {total_time} seconds")
+                print(
+                    f"{rounds} rounds with target count = {target_count}, {width = } took {total_time} seconds"
+                )
                 print(f"    or   {total_time / 60} minutes")
                 print(f"and {total_rounds} rounds")
                 print(f"")
 
-                f.write(f"{width}, {target_count}, {avgs[target_count][width]}, {total_rounds / rounds}\n")
+                f.write(
+                    f"{width}, {target_count}, {avgs[target_count][width]}, {total_rounds / rounds}\n"
+                )
 
     create_heatmap(min_width, max_width, target_min, target_max, loc=loc)
+
 
 def main():
     # Initial Parameters
     target_count = 3
     graphx = 10
     graphy = 10
+
     def factory():
         s, targets = random_points(target_count)
 
@@ -274,7 +241,6 @@ def main():
 
     # for i in range(bench_count):
     #     os.makedirs(f"images/current/{i}_min")
-    #     os.makedirs(f"images/current/{i}_max")
     #     if brute:
     #         os.makedirs(f"images/current/{i}_brute")
 
@@ -308,7 +274,6 @@ def main():
         G, s, targets, budget = factory()
         for u, v, dat in G.edges(data=True):
             assert "weight" in dat
-
 
         start_time = time.perf_counter()
         rand_res.append(random_bench(num_rand, G, s, targets, budget))
