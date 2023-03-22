@@ -133,7 +133,7 @@ def create_heatmap(min_width, max_width, target_min, target_max, loc=None):
         with open(f"{loc}/heatmap.txt", "r") as f:
             for line in f:
                 if "width" not in line:
-                    parts = line.split(", ")
+                    parts = line.split()
                     width = int(parts[0])
                     target_count = int(parts[1])
                     avg = float(parts[2])
@@ -146,7 +146,6 @@ def create_heatmap(min_width, max_width, target_min, target_max, loc=None):
         plt.savefig(filename)
         plt.close()
 
-
 def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
     # Create a heatmap of average times of running the algorithm
     # on various size graphs between min_width and max_width
@@ -155,7 +154,7 @@ def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
     # Saves progress to textfile in case of hang
 
     with open(f"{loc}/heatmap.txt", "w") as f:
-        f.write("width, target_count, time, average_number_of_rounds\n")
+        f.write("width, target, time,      average_number_of_rounds\n")
         avgs = [[0.0 for _ in range(max_width + 1)] for _ in range(target_max + 1)]
         for width in range(min_width, max_width + 1):
             for target_count in range(target_min, target_max + 1):
@@ -197,8 +196,13 @@ def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
                 print(f"and {total_rounds} rounds")
                 print(f"")
 
+                width_s = f"{width:<6}"
+                target_s = f"{target_count:<7}"
+                time_s = f"{avgs[target_count][width]:.5f}"
+                time_s = f"{time_s:<10}"
+                rounds_s = f"{total_rounds / rounds:.5f}"
                 f.write(
-                    f"{width}, {target_count}, {avgs[target_count][width]}, {total_rounds / rounds}\n"
+                    f"{width_s} {target_s} {time_s} {rounds_s}\n"
                 )
 
     create_heatmap(min_width, max_width, target_min, target_max, loc=loc)
@@ -250,51 +254,51 @@ def main():
     # HEATMAP BENCHMARK #
     #####################
 
-    # if not os.path.exists("images/heatmap/"):
-    #     os.makedirs("images/heatmap/")
+    if not os.path.exists("images/heatmap/"):
+        os.makedirs("images/heatmap/")
 
-    # min_width = 5
-    # max_width = 7
-    # target_min = 2
-    # target_max = 3
-    # rounds = 1
+    min_width = 5
+    max_width = 7
+    target_min = 2
+    target_max = 3
+    rounds = 1
 
-    # heatmap(min_width, max_width, target_min, target_max, rounds, loc="images/heatmap")
+    heatmap(min_width, max_width, target_min, target_max, rounds, loc="images/heatmap")
 
     ####################
     # RANDOM BENCHMARK #
     ####################
-    benches = 3
-    num_rand = 0
-    rand_res = []
-    rand_times = []
-    algo_res = []
-    algo_times = []
-    for _ in range(benches):
-        G, s, targets, budget = factory()
-        for u, v, dat in G.edges(data=True):
-            assert "weight" in dat
+    # benches = 3
+    # num_rand = 0
+    # rand_res = []
+    # rand_times = []
+    # algo_res = []
+    # algo_times = []
+    # for _ in range(benches):
+    #     G, s, targets, budget = factory()
+    #     for u, v, dat in G.edges(data=True):
+    #         assert "weight" in dat
 
-        start_time = time.perf_counter()
-        rand_res.append(random_bench(num_rand, G, s, targets, budget))
-        end_time = time.perf_counter()
-        rand_times.append(end_time - start_time)
+    #     start_time = time.perf_counter()
+    #     rand_res.append(random_bench(num_rand, G, s, targets, budget))
+    #     end_time = time.perf_counter()
+    #     rand_times.append(end_time - start_time)
 
-        start_time = time.perf_counter()
-        mst, pred, rounds = compute_tree(G, s, targets, budget, loc=None)
-        end_time = time.perf_counter()
-        algo_times.append(end_time - start_time)
-        forced, metric, target_list = compute_metric(mst, s, targets, pred)
-        algo_res.append(metric if not forced else 0.0)
+    #     start_time = time.perf_counter()
+    #     mst, pred, rounds = compute_tree(G, s, targets, budget, loc=None)
+    #     end_time = time.perf_counter()
+    #     algo_times.append(end_time - start_time)
+    #     forced, metric, target_list = compute_metric(mst, s, targets, pred)
+    #     algo_res.append(metric if not forced else 0.0)
 
-    alg_beat = 0
-    for rand, alg in zip(rand_res, algo_res):
-        if alg >= rand:
-            alg_beat += 1
+    # alg_beat = 0
+    # for rand, alg in zip(rand_res, algo_res):
+    #     if alg >= rand:
+    #         alg_beat += 1
 
-    print(f"Algorithm beat random spanning trees {alg_beat}/{benches} times")
-    print(f"Average Random Spanning Tree Run = {sum(rand_times) / benches} seconds")
-    print(f"Average Algorithm Run            = {sum(algo_times) / benches} seconds")
+    # print(f"Algorithm beat random spanning trees {alg_beat}/{benches} times")
+    # print(f"Average Random Spanning Tree Run = {sum(rand_times) / benches} seconds")
+    # print(f"Average Algorithm Run            = {sum(algo_times) / benches} seconds")
 
 
 if __name__ == "__main__":
