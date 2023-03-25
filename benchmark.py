@@ -211,9 +211,9 @@ def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
 
 def main():
     # Initial Parameters
-    target_count = 3
-    graphx = 6
-    graphy = 6
+    target_count = 5
+    graphx = 14
+    graphy = 14
 
     def factory():
         s, targets = random_points(target_count)
@@ -270,7 +270,7 @@ def main():
     # RANDOM BENCHMARK #
     ####################
 
-    benches = 3
+    benches = 10
     num_rand = 0 # 0 means use number of rounds
     rand_res = []
     rand_times = []
@@ -297,6 +297,8 @@ def main():
     alg_beat = 0
     rand_beat_alg = []
     alg_beat_rand = []
+    alg_forced = 0
+    rand_forced = 0
     for rand, alg in zip(rand_res, algo_res):
         if alg > rand:
             alg_beat += 1
@@ -305,13 +307,20 @@ def main():
                 rand_beat_alg.append((rand - alg) / alg * 100)
             elif alg >= rand:
                 alg_beat_rand.append((alg - rand) / rand * 100)
+        else:
+            if rand == 0:
+                rand_forced += 1
+            if alg == 0:
+                alg_forced += 1
 
     print(f"Algorithm beat random spanning trees {alg_beat}/{benches} times")
-    if alg_beat > 0:
+    if len(alg_beat_rand) > 0:
         print(f"    Algorithm was on average {sum(alg_beat_rand) / len(alg_beat_rand)}% better")
+    print(f"Algorithm produced {alg_forced} forced trees") 
     print(f"Random spanning trees beat algorithm {benches - alg_beat}/{benches} times")
-    if benches - alg_beat > 0:
-        print(f"    Algorithm was on average {sum(rand_beat_alg) / len(rand_beat_alg)}% better")
+    if len(rand_beat_alg) > 0:
+        print(f"    Random spanning trees was on average {sum(rand_beat_alg) / len(rand_beat_alg)}% better")
+    print(f"Random spanning trees produced {rand_forced} forced trees") 
     print(f"Average Random Spanning Tree Run = {sum(rand_times) / benches} seconds")
     print(f"Average Algorithm Run            = {sum(algo_times) / benches} seconds")
 
