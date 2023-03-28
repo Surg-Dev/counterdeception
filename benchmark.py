@@ -13,21 +13,25 @@ def random_bench(n, G, s, targets, budget, loc=None):
     # Build n random spanning trees over G, compute metric, take max
 
     best = float("-inf")
+    attempts = []
     for i in range(n):
         print(
             f"Generating Random Spanning Tree {bcolors.OKGREEN}{i + 1}/{n}{bcolors.ENDC}"
         )
         size = float("inf")
 
+        attempt_count = 0
         while size > budget:  # TODO: Add failsafe here
             rst, pred = build_stiener_seed(G, s, targets, minimum=False)
             size = rst.size(weight="weight")
+            attempt_count += 1
         forced, metric, _ = compute_metric(rst, s, targets)
         res = metric if not forced else 0.0
         best = max(best, res)
         print(bcolors.CLEAR_LAST_LINE)
+        attempts.append(attempt_count)
 
-    return best
+    return best, sum(attempts) / len(attempts)
 
 
 def benchmark(n, factory, loc=None, brute=False):
@@ -211,9 +215,10 @@ def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
 
 def main():
     # Initial Parameters
-    target_count = 3
-    graphx = 6
-    graphy = 6
+    target_count = 5
+    graphx = 20
+    graphy = 20
+    scale = 0.05
 
     def factory():
         s, targets = random_points(target_count)
@@ -229,7 +234,11 @@ def main():
         nx.set_node_attributes(G, 0, "paths")
 
         # budget = float("inf")
-        budget = nx.minimum_spanning_tree(G).size(weight="weight") * 1.2
+        budget = nx.minimum_spanning_tree(G).size(weight="weight") * 0.6
+
+        # rescale weights
+        for u, v in G.edges:
+            G[u][v]["weight"] = G[u][v]["weight"] * scale
 
         return G, s, targets, budget
 
@@ -270,9 +279,10 @@ def main():
     # RANDOM BENCHMARK #
     ####################
 
-    benches = 3
+    benches = 1
     num_rand = 0 # 0 means use number of rounds
     rand_res = []
+    rand_attempts = []
     rand_times = []
     algo_res = []
     algo_times = []
@@ -290,7 +300,9 @@ def main():
         #   is the number of random trees generated
         num_trees = rounds if num_rand == 0 else num_rand
         start_time = time.perf_counter()
-        rand_res.append(random_bench(num_trees, G, s, targets, budget))
+        rand_metric, attempts = random_bench(num_trees, G, s, targets, budget)
+        rand_res.append(rand_metric)
+        rand_attempts.append(attempts)
         end_time = time.perf_counter()
         rand_times.append(end_time - start_time)
 
@@ -312,6 +324,7 @@ def main():
     print(f"Random spanning trees beat algorithm {benches - alg_beat}/{benches} times")
     if benches - alg_beat > 0:
         print(f"    Algorithm was on average {sum(rand_beat_alg) / len(rand_beat_alg)}% better")
+    print(f"Random Spanning Trees Average Number of Attempts = {sum(rand_attempts) / len(rand_attempts)}")
     print(f"Average Random Spanning Tree Run = {sum(rand_times) / benches} seconds")
     print(f"Average Algorithm Run            = {sum(algo_times) / benches} seconds")
 
