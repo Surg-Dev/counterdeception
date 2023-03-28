@@ -330,15 +330,9 @@ def main():
         print(f"    Algorithm was on average {sum(alg_beat_rand) / len(alg_beat_rand)}% better")
     print(f"Algorithm produced {alg_forced} forced trees") 
     print(f"Random spanning trees beat algorithm {benches - alg_beat}/{benches} times")
-<<<<<<< HEAD
-    if benches - alg_beat > 0:
-        print(f"    Algorithm was on average {sum(rand_beat_alg) / len(rand_beat_alg)}% better")
-    print(f"Random Spanning Trees Average Number of Attempts = {sum(rand_attempts) / len(rand_attempts)}")
-=======
     if len(rand_beat_alg) > 0:
         print(f"    Random spanning trees was on average {sum(rand_beat_alg) / len(rand_beat_alg)}% better")
     print(f"Random spanning trees produced {rand_forced} forced trees") 
->>>>>>> 82c35f2adcb5b7065d280eba5dcfd18fe242f3d8
     print(f"Average Random Spanning Tree Run = {sum(rand_times) / benches} seconds")
     print(f"Average Algorithm Run            = {sum(algo_times) / benches} seconds")
 
