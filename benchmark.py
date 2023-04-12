@@ -151,6 +151,7 @@ def create_heatmap(min_width, max_width, target_min, target_max, loc=None):
         plt.savefig(filename)
         plt.close()
 
+
 def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
     # Create a heatmap of average times of running the algorithm
     # on various size graphs between min_width and max_width
@@ -206,9 +207,7 @@ def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
                 time_s = f"{avgs[target_count][width]:.5f}"
                 time_s = f"{time_s:<10}"
                 rounds_s = f"{total_rounds / rounds:.5f}"
-                f.write(
-                    f"{width_s} {target_s} {time_s} {rounds_s}\n"
-                )
+                f.write(f"{width_s} {target_s} {time_s} {rounds_s}\n")
 
     create_heatmap(min_width, max_width, target_min, target_max, loc=loc)
 
@@ -280,7 +279,7 @@ def main():
     ####################
 
     benches = 10
-    num_rand = 0 # 0 means use number of rounds
+    num_rand = 0  # 0 means use number of rounds
     rand_res = []
     rand_attempts = []
     rand_times = []
@@ -327,12 +326,16 @@ def main():
 
     print(f"Algorithm beat random spanning trees {alg_beat}/{benches} times")
     if len(alg_beat_rand) > 0:
-        print(f"    Algorithm was on average {sum(alg_beat_rand) / len(alg_beat_rand)}% better")
-    print(f"Algorithm produced {alg_forced} forced trees") 
+        print(
+            f"    Algorithm was on average {sum(alg_beat_rand) / len(alg_beat_rand)}% better"
+        )
+    print(f"Algorithm produced {alg_forced} forced trees")
     print(f"Random spanning trees beat algorithm {benches - alg_beat}/{benches} times")
     if len(rand_beat_alg) > 0:
-        print(f"    Random spanning trees was on average {sum(rand_beat_alg) / len(rand_beat_alg)}% better")
-    print(f"Random spanning trees produced {rand_forced} forced trees") 
+        print(
+            f"    Random spanning trees was on average {sum(rand_beat_alg) / len(rand_beat_alg)}% better"
+        )
+    print(f"Random spanning trees produced {rand_forced} forced trees")
     print(f"Average Random Spanning Tree Run = {sum(rand_times) / benches} seconds")
     print(f"Average Algorithm Run            = {sum(algo_times) / benches} seconds")
 

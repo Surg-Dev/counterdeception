@@ -64,7 +64,9 @@ def display_tree(G, mst, loc=None):
         print(f"saving {filename}")
         plt.savefig(filename)
         plt.close()
-    # plt.show()
+    else:
+        # if loc is none, display for debugging
+        plt.show()
 
 
 def random_points(n, x_max=100.0, y_max=100.0):
