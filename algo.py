@@ -3,6 +3,7 @@ from math import isclose
 
 import networkx as nx
 
+from random_span import random_tree_with_root
 from util import display_tree, bcolors
 import queue
 from heapq import heappop, heappush
@@ -167,10 +168,11 @@ def build_stiener_seed(G, s, targets, minimum=True):
     if minimum:
         mst = nx.minimum_spanning_tree(G)
     else:
-        mst = nx.random_spanning_tree(G)
-        # This is dumb
-        for u, v in mst.edges():
-            mst.edges[u, v]["weight"] = G.edges[u, v]["weight"]
+        mst = random_tree_with_root(G, s)
+        # mst = nx.random_spanning_tree(G)
+        # # This is dumb
+        # for u, v in mst.edges():
+        #     mst.edges[u, v]["weight"] = G.edges[u, v]["weight"]
 
     # Mark paths from targets towards the source.
     pred = mark_paths(mst, s, targets)

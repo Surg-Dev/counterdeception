@@ -215,9 +215,8 @@ def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
 def main():
     # Initial Parameters
     target_count = 5
-    graphx = 20
-    graphy = 20
-    scale = 0.05
+    graphx = 15
+    graphy = 15
 
     def factory():
         s, targets = random_points(target_count)
@@ -237,7 +236,7 @@ def main():
 
         # rescale weights
         for u, v in G.edges:
-            G[u][v]["weight"] = G[u][v]["weight"] * scale
+            G[u][v]["weight"] = G[u][v]["weight"]
 
         return G, s, targets, budget
 
