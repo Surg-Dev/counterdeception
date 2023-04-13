@@ -215,8 +215,8 @@ def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
 def main():
     # Initial Parameters
     target_count = 5
-    graphx = 15
-    graphy = 15
+    graphx = 20
+    graphy = 20
 
     def factory():
         s, targets = random_points(target_count)
