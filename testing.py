@@ -11,6 +11,7 @@ from util import (
     round_targets_to_graph,
 )
 
+
 def main():
     target_count = 5
     graphx = 20

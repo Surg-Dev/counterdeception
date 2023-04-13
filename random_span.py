@@ -1,6 +1,7 @@
 import networkx as nx
 import random
 
+
 def mst_from_pred(G, pred):
     mst = G.copy()
     mst.remove_edges_from(mst.edges())
