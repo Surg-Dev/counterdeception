@@ -13,6 +13,7 @@ def random_bench(n, G, s, targets, budget, loc=None):
     # Build n random spanning trees over G, compute metric, take max
 
     best = float("-inf")
+    best_tree = None
     attempts = []
     for i in range(n):
         print(
@@ -27,10 +28,14 @@ def random_bench(n, G, s, targets, budget, loc=None):
             attempt_count += 1
         forced, metric, _ = compute_metric(rst, s, targets)
         res = metric if not forced else 0.0
-        best = max(best, res)
+        if res > best:
+            best = res
+            best_tree = rst
         print(bcolors.CLEAR_LAST_LINE)
         attempts.append(attempt_count)
 
+    if loc != None:
+        display_tree(G, rst, loc=loc)
     return best, sum(attempts) / len(attempts)
 
 
@@ -214,9 +219,9 @@ def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
 
 def main():
     # Initial Parameters
-    target_count = 5
-    graphx = 14
-    graphy = 14
+    target_count = 3
+    graphx = 10
+    graphy = 10
 
     def factory():
         s, targets = random_points(target_count)
@@ -277,18 +282,21 @@ def main():
     # RANDOM BENCHMARK #
     ####################
 
-    benches = 500
+    benches = 5
     num_rand = 0  # 0 means use number of rounds
     rand_res = []
     rand_attempts = []
     rand_times = []
     algo_res = []
     algo_times = []
-    for _ in range(benches):
+    for i in range(benches):
         G, s, targets, budget = factory()
 
+        if not os.path.exists(f"images/{i}/"):
+            os.makedirs(f"images/{i}/")
+
         start_time = time.perf_counter()
-        mst, pred, rounds = compute_tree(G, s, targets, budget, loc=None)
+        mst, pred, rounds = compute_tree(G, s, targets, budget, loc=f"images/{i}")
         end_time = time.perf_counter()
         algo_times.append(end_time - start_time)
         forced, metric, target_list = compute_metric(mst, s, targets, pred)
@@ -298,7 +306,9 @@ def main():
         #   is the number of random trees generated
         num_trees = rounds if num_rand == 0 else num_rand
         start_time = time.perf_counter()
-        rand_metric, attempts = random_bench(num_trees, G, s, targets, budget)
+        rand_metric, attempts = random_bench(
+            num_trees, G, s, targets, budget, loc=f"images/{i}/random"
+        )
         rand_res.append(rand_metric)
         rand_attempts.append(attempts)
         end_time = time.perf_counter()
