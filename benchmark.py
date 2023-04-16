@@ -22,7 +22,7 @@ def random_bench(n, G, s, targets, budget, loc=None):
 
         attempt_count = 0
         while size > budget:  # TODO: Add failsafe here
-            rst, pred = build_stiener_seed(G, s, targets, minimum=False)
+            rst, pred = build_stiener_seed(G, s, targets, minimum=None)
             size = rst.size(weight="weight")
             attempt_count += 1
         forced, metric, _ = compute_metric(rst, s, targets)
@@ -215,8 +215,8 @@ def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
 def main():
     # Initial Parameters
     target_count = 5
-    graphx = 20
-    graphy = 20
+    graphx = 14
+    graphy = 14
 
     def factory():
         s, targets = random_points(target_count)
@@ -277,7 +277,7 @@ def main():
     # RANDOM BENCHMARK #
     ####################
 
-    benches = 10
+    benches = 500
     num_rand = 0  # 0 means use number of rounds
     rand_res = []
     rand_attempts = []

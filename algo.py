@@ -165,14 +165,16 @@ def mark_paths(tree, s, targets):
 def build_stiener_seed(G, s, targets, minimum=True):
     # Build the seed MST and trim it.
 
-    if minimum:
-        mst = nx.minimum_spanning_tree(G)
-    else:
+    if minimum != None:
+        if minimum == True:
+            mst = nx.minimum_spanning_tree(G)
+        elif minimum == False:
+            mst = nx.random_spanning_tree(G)
+            # This is dumb
+            for u, v in mst.edges():
+                mst.edges[u, v]["weight"] = G.edges[u, v]["weight"]
+    elif minimum == None:
         mst = random_tree_with_root(G, s)
-        # mst = nx.random_spanning_tree(G)
-        # # This is dumb
-        # for u, v in mst.edges():
-        #     mst.edges[u, v]["weight"] = G.edges[u, v]["weight"]
 
     # Mark paths from targets towards the source.
     pred = mark_paths(mst, s, targets)
