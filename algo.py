@@ -535,11 +535,12 @@ def compute_tree(G, s, targets, budget, loc=None):
     nx.set_edge_attributes(G, 0.0, "a_star")
 
     # Build the seed MST and trim it.
+    count = 0
     forced = True
     while forced:
         mst, pred = build_stiener_seed(G, s, targets, minimum=None)
-
         forced, _, _ = compute_metric(mst, s, targets, pred)
+        count += 1
 
     # Get original characteristics of the tree
     forced, metric, target_list = compute_metric(mst, s, targets, pred)
@@ -564,4 +565,4 @@ def compute_tree(G, s, targets, budget, loc=None):
 
     # display_tree(G, mst)
 
-    return mst, pred, rounds
+    return mst, pred, rounds + count
