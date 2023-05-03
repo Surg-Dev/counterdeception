@@ -8,6 +8,8 @@ from matplotlib import pyplot as plt
 from algo import brute_force, build_stiener_seed, compute_metric, compute_tree
 from util import *
 
+from collections import defaultdict
+
 
 def random_bench(n, G, s, targets, budget, loc=None):
     # Build n random spanning trees over G, compute metric, take max
@@ -218,52 +220,112 @@ def heatmap(min_width, max_width, target_min, target_max, rounds, loc=None):
     create_heatmap(min_width, max_width, target_min, target_max, loc=loc)
 
 
-def mixed_benchmark(total, algo_weight, n, factory, loc=None):
-    # algo_weight is how many random runs the algorithm is worth
-    # for each iteration of i, take average of n runs
+def create_mixed_graphs(rand_vals, algo_vals, loc=None):
+    # put values into a list
+    n = max(rand_vals.keys())
 
-    vals = []
-    i = 0
-    while i * algo_weight <= total:
-        res = []
-        j = total - i * algo_weight
-        for _ in range(n):
-            G, s, targets, budget = factory()
+    rand_val_list = [None for _ in range(n + 1)]
+    algo_val_list = [None for _ in range(n + 1)]
+    for i in range(n + 1):
+        if i in rand_vals.keys():
+            rand_val_list[i] = rand_vals[i]
+            algo_val_list[i] = algo_vals[i]
 
-            # rand runs
-            rand_res, _ = random_bench(j, G, s, targets, budget)
-
-            # algo runs
-            algo_res = float("-inf")
-            for _ in range(i):
-                mst, pred, _ = compute_tree(G, s, targets, budget)
-                forced, metric, _ = compute_metric(mst, s, targets, pred)
-                curr_algo_res = metric if not forced else 0.0
-                algo_res = max(algo_res, curr_algo_res)
-
-            res.append(max(rand_res, algo_res))
-
-        avg = sum(res) / n
-        vals.append(avg)
-        i += 1
+    maximums = [None for _ in range(n + 1)]
+    pdiff = [None for _ in range(n + 1)]
+    for i in range(n + 1):
+        if i in rand_vals.keys():
+            maximums[i] = max(rand_val_list[i], algo_val_list[i])
+            if rand_val_list[i] != float("-inf") and algo_val_list[i] != float("-inf"):
+                pdiff[i] = (
+                    (algo_val_list[i] - rand_val_list[i]) / algo_val_list[i] * 100
+                )
 
     # plot vals and save
-    plt.plot(vals, "bo")
     if loc != None:
-        filename = f"{loc}/mixed.png"
+        plt.plot(maximums, "bo")
+        filename = f"{loc}/mixed_max.png"
         print(f"saving {filename}")
         plt.savefig(filename)
         plt.close()
-    else:
-        plt.show()
-    return vals
+
+        plt.plot(pdiff, "bo")
+        filename = f"{loc}/mixed_pdiff.png"
+        print(f"saving {filename}")
+        plt.savefig(filename)
+        plt.close()
+
+
+def read_mixed_benchmark(loc):
+    rand_vals = dict()
+    algo_vals = dict()
+    with open(f"{loc}/mixed.txt", "r") as f:
+        for line in f:
+            if "number" not in line:
+                parts = line.split()
+                i = int(parts[0])
+                r = float(parts[1])
+                a = float(parts[2])
+
+                rand_vals[i] = r
+                algo_vals[i] = a
+
+    return rand_vals, algo_vals
+
+
+def split_benchmark(rand_runs, algo_runs, G, s, targets, budget):
+    # rand runs
+    rand_res, _ = random_bench(rand_runs, G, s, targets, budget)
+
+    # algo runs
+    algo_res = float("-inf")
+    for _ in range(algo_runs):
+        mst, pred, _ = compute_tree(G, s, targets, budget)
+        forced, metric, _ = compute_metric(mst, s, targets, pred)
+        curr_algo_res = metric if not forced else 0.0
+        algo_res = max(algo_res, curr_algo_res)
+
+    return rand_res, algo_res
+
+
+def mixed_benchmark(total, algo_weight, n, start, end, factory, loc=None, jump=1):
+    # algo_weight is how many random runs the algorithm is worth
+    # for each iteration of i, take average of n runs
+
+    rand_vals = dict()
+    algo_vals = dict()
+    i = start
+    while i * algo_weight <= total and i <= end:
+        rand_results = []
+        algo_results = []
+        j = total - i * algo_weight
+        for _ in range(n):
+            G, s, targets, budget = factory()
+            rand_res, algo_res = split_benchmark(j, i, G, s, targets, budget)
+            rand_results.append(rand_res)
+            algo_results.append(algo_res)
+
+        rand_avg = sum(rand_results) / n
+        algo_avg = sum(algo_results) / n
+        rand_vals[i] = rand_avg
+        algo_vals[i] = algo_avg
+        i += jump
+
+    # save vals
+    if loc != None:
+        with open(f"{loc}/mixed.txt", "w") as f:
+            f.write("number of algo runs, rand_res, algo_res\n")
+            for i in rand_vals:
+                f.write(f"{i}, {rand_vals[i]}, {algo_vals[i]}\n")
+
+    return rand_vals, algo_vals
 
 
 def main():
     # Initial Parameters
-    target_count = 5
-    graphx = 20
-    graphy = 20
+    target_count = 3
+    graphx = 6
+    graphy = 6
 
     def factory():
         s, targets = random_points(target_count)
@@ -403,11 +465,14 @@ def main():
     # MIXED BENCHMARK #
     ###################
 
-    total = 120
+    total = 600
     algo_weight = 60
-    n = 1
-    loc = "images/mixed/"
-    mixed_benchmark(total, algo_weight, n, factory, loc=loc)
+    n = 3
+    loc = "images/mixed"
+    rand_res, algo_res = mixed_benchmark(
+        total, algo_weight, n, 0, 20, factory, loc=loc, jump=2
+    )
+    create_mixed_graphs(rand_res, algo_res, loc=loc)
 
 
 if __name__ == "__main__":
