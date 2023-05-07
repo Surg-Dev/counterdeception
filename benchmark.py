@@ -5,6 +5,7 @@ import networkx as nx
 import seaborn as sns
 from matplotlib import pyplot as plt
 from math import ceil
+import numpy as np
 
 from algo import brute_force, build_stiener_seed, compute_metric, compute_tree
 from util import *
@@ -244,12 +245,14 @@ def create_mixed_graphs(rand_vals, algo_vals, loc=None):
 
     # plot vals and save
     if loc != None:
+        plt.xticks(np.arange(0, n + 1, 1.0))
         plt.plot(maximums, "bo")
         filename = f"{loc}/mixed_max.png"
         print(f"saving {filename}")
         plt.savefig(filename)
         plt.close()
 
+        plt.xticks(np.arange(0, n + 1, 1.0))
         plt.plot(pdiff, "bo")
         filename = f"{loc}/mixed_pdiff.png"
         print(f"saving {filename}")
@@ -303,7 +306,7 @@ def mixed_benchmark(total, algo_weight, n, start, end, factory, loc=None, jump=1
         print(f"Number of algo runs: {i}")
         print(f"Number of rand runs: {j}")
         for run in range(n):
-            print(f"Split benchmark {run} / {n}")
+            print(f"Split benchmark {run + 1} / {n}")
             G, s, targets, budget = factory()
             rand_res, algo_res = split_benchmark(j, i, G, s, targets, budget)
             rand_results.append(rand_res)
@@ -330,9 +333,9 @@ def mixed_benchmark(total, algo_weight, n, start, end, factory, loc=None, jump=1
 
 def main():
     # Initial Parameters
-    target_count = 8
-    graphx = 8
-    graphy = 8
+    target_count = 4
+    graphx = 4
+    graphy = 4
 
     def factory():
         s, targets = random_points(target_count)
