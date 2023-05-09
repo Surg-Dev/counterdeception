@@ -240,7 +240,7 @@ def create_mixed_graphs(rand_vals, algo_vals, loc=None):
             maximums[i] = max(rand_val_list[i], algo_val_list[i])
             if rand_val_list[i] != float("-inf") and algo_val_list[i] != float("-inf"):
                 pdiff[i] = (
-                    (algo_val_list[i] - rand_val_list[i]) / algo_val_list[i] * 100
+                    (algo_val_list[i] - rand_val_list[i]) / rand_val_list[i] * 100
                 )
 
     # plot vals and save
@@ -266,7 +266,7 @@ def read_mixed_benchmark(loc):
     with open(f"{loc}/mixed.txt", "r") as f:
         for line in f:
             if "#" not in line:
-                parts = line.split()
+                parts = line.split(",")
                 i = int(parts[0])
                 r = float(parts[1])
                 a = float(parts[2])
@@ -333,9 +333,9 @@ def mixed_benchmark(total, algo_weight, n, start, end, factory, loc=None, jump=1
 
 def main():
     # Initial Parameters
-    target_count = 4
-    graphx = 4
-    graphy = 4
+    target_count = 6
+    graphx = 6
+    graphy = 6
 
     def factory():
         s, targets = random_points(target_count)
@@ -481,7 +481,7 @@ def main():
     ###################
 
     # Compute weights
-    samples = 5
+    samples = 20
 
     rand_time = 0.0
     algo_time = 0.0
@@ -502,12 +502,12 @@ def main():
 
     print(f"Algo Weight = {algo_weight}")
 
-    total = algo_weight * 10
-    n = 3
+    end = 10
+    total = algo_weight * end
+    n = 20
     loc = "images/mixed"
-    rand_res, algo_res = mixed_benchmark(
-        total, algo_weight, n, 0, 20, factory, loc=loc, jump=1
-    )
+    mixed_benchmark(total, algo_weight, n, 0, end, factory, loc=loc, jump=1)
+    rand_res, algo_res = read_mixed_benchmark(loc)
     create_mixed_graphs(rand_res, algo_res, loc=loc)
 
 
