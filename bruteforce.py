@@ -3,13 +3,22 @@ from networkx.algorithms.tree.mst import SpanningTreeIterator
 from algo import compute_metric, mark_paths
 import pickle
 
-from util import random_graph, display_tree, display_graph, random_points, form_grid_graph, round_targets_to_graph, bcolors
+from util import (
+    random_graph,
+    display_tree,
+    display_graph,
+    random_points,
+    form_grid_graph,
+    round_targets_to_graph,
+    bcolors,
+)
+
 
 def bruteforce(G, s, targets, budget):
-    best = float('-inf')
+    best = float("-inf")
     best_tree = None
     count = 0
-    spacer = 100
+    spacer = 10
     for t in SpanningTreeIterator(G):
         if count % spacer == 0:
             print(f"Num Trees: {bcolors.OKBLUE}{count}{bcolors.ENDC}")
@@ -49,11 +58,29 @@ def bruteforce(G, s, targets, budget):
     # if we don't early return, we've explored everything
     return best_tree
 
+
 def main():
     # Initial Parameters
     target_count = 2
-    graphx = 2
-    graphy = 2
+
+    # number n you put here = a(n)
+    # https://oeis.org/A007341
+    a = [
+        1,
+        4,
+        192,
+        100352,
+        557568000,
+        32565539635200,
+        19872369301840986112,
+        126231322912498539682594816,
+        8326627661691818545121844900397056,
+        5694319004079097795957215725765328371712000,
+        40325021721404118513276859513497679249183623593590784,
+    ]
+    graphx = graphy = 2
+
+    print(f"Total Number of Trees: {bcolors.WARNING}{a[graphx]}{bcolors.ENDC}")
 
     def factory():
         s, targets = random_points(target_count)
@@ -80,11 +107,13 @@ def main():
     prefix = "results/brute/"
     for i in range(3):
         G, s, targets, budget = factory()
+        # display_graph(G)
         best_tree = bruteforce(G, s, targets, budget)
 
-        pickle.dump(G, open(f"{prefix}G_{i + 1}.pickle", 'wb'))
-        pickle.dump(best_tree, open(f"{prefix}best_tree_{i + 1}.pickle", 'wb'))
+        pickle.dump(G, open(f"{prefix}G_{i + 1}.pickle", "wb"))
+        pickle.dump(best_tree, open(f"{prefix}best_tree_{i + 1}.pickle", "wb"))
         print()
+
 
 if __name__ == "__main__":
     main()
