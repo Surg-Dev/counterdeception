@@ -185,54 +185,54 @@ def compute_metric(mst, s, targets, pred=None):
 
 # TODO: Run a pathfinding algorithm to find a greedy path to reattach to if it runs into a blocked path via the heuristic.
 
+def is_better_tuple(old, new):
+    # (forced, min_metric, sum_metric, cost, potential_vert)
+    #
+    # forced = 0 if not forced, 1 if forced
+    # min_metric = the change of minimum metric from the initial tree on this reattachment cycle for this target
+    # sum_metric = the sum of metric for each target.
+    #   TODO: Maybe something other than sum?
+    # cost = the cost of the tree (mainly used for a tie breaker for the previous values)
+    # potential_vert = vertex we are reattaching too (used for reference)
+    #
+    # Returns true iff new is better than old in some measure
+
+    # 0 := not forced, 1 := forced
+    if old[0] == 0 and new[0] == 1:
+        return False
+    if old[0] == 1 and new[0] == 0:
+        return True
+    # If we get here, forcing hasn't changed
+
+    # See if minimum metric improved
+    if old[1] > new[1]:
+        return False
+    if old[1] < new[1]:
+        return True
+    # If we get here, minimum metric is same
+
+    # See if sum of metrics improved
+    if old[2] > new[2]:
+        return False
+    if old[2] < new[2]:
+        return True
+    # If we get here, sum of metrics is same
+
+    # See if cost improved
+    #   Floats are weird so we first check if they are close
+    if not isclose(new[3], old[3]):
+        if old[3] < new[3]:
+            return False
+        if old[3] > new[3]:
+            return True
+    # If we get here, cost is same
+
+    # if no improvement, retain old
+    return False
 
 def reattachment(
     G, s, targets, budget, mst, forced, metric, target_list, pred, target_paths
 ):
-    def is_better_tuple(old, new):
-        # (forced, min_metric, sum_metric, cost, potential_vert)
-        #
-        # forced = 0 if not forced, 1 if forced
-        # min_metric = the change of minimum metric from the initial tree on this reattachment cycle for this target
-        # sum_metric = the sum of metric for each target.
-        #   TODO: Maybe something other than sum?
-        # cost = the cost of the tree (mainly used for a tie breaker for the previous values)
-        # potential_vert = vertex we are reattaching too (used for reference)
-        #
-        # Returns true iff new is better than old in some measure
-
-        # 0 := not forced, 1 := forced
-        if old[0] == 0 and new[0] == 1:
-            return False
-        if old[0] == 1 and new[0] == 0:
-            return True
-        # If we get here, forcing hasn't changed
-
-        # See if minimum metric improved
-        if old[1] > new[1]:
-            return False
-        if old[1] < new[1]:
-            return True
-        # If we get here, minimum metric is same
-
-        # See if sum of metrics improved
-        if old[2] > new[2]:
-            return False
-        if old[2] < new[2]:
-            return True
-        # If we get here, sum of metrics is same
-
-        # See if cost improved
-        #   Floats are weird so we first check if they are close
-        if not isclose(new[3], old[3]):
-            if old[3] < new[3]:
-                return False
-            if old[3] > new[3]:
-                return True
-        # If we get here, cost is same
-
-        # if no improvement, retain old
-        return False
 
     best_tree = {
         "tree": mst,
