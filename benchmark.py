@@ -26,7 +26,7 @@ def random_bench(n, G, s, targets, budget, loc=None):
         size = float("inf")
 
         attempt_count = 0
-        while size > budget:  # TODO: Add failsafe here
+        while size > budget or size == float("inf"):  # TODO: Add failsafe here
             rst, pred = build_stiener_seed(G, s, targets, minimum=None)
             size = rst.size(weight="weight")
             attempt_count += 1
@@ -496,8 +496,8 @@ def main():
         _, _, _ = compute_tree(G, s, targets, budget)
         end_time = time.perf_counter()
         algo_time += end_time - start_time
-    rand_time /= 100
-    algo_time /= 100
+    rand_time /= samples
+    algo_time /= samples
     algo_weight = ceil(algo_time / rand_time)
 
     print(f"Algo Weight = {algo_weight}")

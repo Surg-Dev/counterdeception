@@ -1,7 +1,9 @@
 import networkx as nx
 from networkx.algorithms.tree.mst import SpanningTreeIterator
-from algo import compute_metric, mark_paths
+from algo import compute_metric, mark_paths, compute_tree, build_stiener_seed
 import pickle
+import time
+import os
 
 from util import (
     random_graph,
@@ -21,7 +23,7 @@ def bruteforce(G, s, targets, budget):
     spacer = 10
     for t in SpanningTreeIterator(G):
         if count % spacer == 0:
-            print(f"Num Trees: {bcolors.OKBLUE}{count}{bcolors.ENDC}")
+            print(f"Num Trees: ~{bcolors.OKBLUE}{count}{bcolors.ENDC}")
             print(f"Metric: {bcolors.OKBLUE}{best}{bcolors.ENDC}")
         count += 1
 
@@ -41,7 +43,7 @@ def bruteforce(G, s, targets, budget):
         # janky early return
         if t.size(weight="weight") > budget:
             print(bcolors.CLEAR_LAST_LINE)
-            return best_tree
+            return best_tree, best
 
         # compute metric
         forced, metric, target_metrics = compute_metric(t, s, targets, pred=pred)
@@ -56,13 +58,118 @@ def bruteforce(G, s, targets, budget):
             print(f"{bcolors.CLEAR_LAST_LINE}")
 
     # if we don't early return, we've explored everything
-    return best_tree
+    return best_tree, best
+
+
+def generate_bruteforce_graphs(factory, count, prefix=None):
+    # We need to store some information for later
+
+    total_time = 0.0
+    for i in range(count):
+        os.makedirs(f"{prefix}/{i + 1}")
+        G, s, targets, budget = factory()
+        # display_graph(G)
+
+        start = time.perf_counter()
+        best_tree, best = bruteforce(G, s, targets, budget)
+        end = time.perf_counter()
+
+        if prefix != None:
+            pickle.dump(G, open(f"{prefix}/{i + 1}/G.pickle", "wb"))
+            pickle.dump(best_tree, open(f"{prefix}/{i + 1}/best_tree.pickle", "wb"))
+            ellapsed = end - start
+            total_time += ellapsed
+            info = {
+                "s": s,
+                "targets": targets,
+                "budget": budget,
+                "time": ellapsed,
+                "metric": best,
+            }
+            pickle.dump(info, open(f"{prefix}/{i + 1}/info.pickle", "wb"))
+        else:
+            display_tree(G, best_tree)
+        print()
+
+    if prefix != None:
+        stats = {
+            "count": count,
+            "total_time": ellapsed,
+            "avg_time": ellapsed / count,
+        }
+        pickle.dump(stats, open(f"{prefix}/stats.pickle", "wb"))
+
+def sample_algo(prefix, count, rounds):
+    for i in range(count):
+        G = pickle.load(open(f"{prefix}/{i + 1}/G.pickle", "rb"))
+
+        info = pickle.load(open(f"{prefix}/{i + 1}/info.pickle", "rb"))
+        s = info["s"]
+        targets = info["targets"]
+        budget = info["budget"]
+
+        best_algo_metric = float("-inf")
+        best_algo_tree = None
+        for _ in range(rounds):
+            res, pred, _ = compute_tree(G, s, targets, budget)
+            forced, metric, _ = compute_metric(res, s, targets, pred)
+            metric = 0.0 if forced else metric
+            if metric > best_algo_metric:
+                best_algo_metric = metric
+                best_algo_tree = res
+
+        pickle.dump(best_algo_tree, open(f"{prefix}/{i + 1}/best_algo.pickle", "wb"))
+        algo_res = {
+            "metric": best_algo_metric,
+        }
+        pickle.dump(algo_res, open(f"{prefix}/{i + 1}/algo_res.pickle", "wb"))
+
+def sample_rand(prefix, count, rounds):
+    for i in range(count):
+        G = pickle.load(open(f"{prefix}/{i + 1}/G.pickle", "rb"))
+
+        info = pickle.load(open(f"{prefix}/{i + 1}/info.pickle", "rb"))
+        s = info["s"]
+        targets = info["targets"]
+        budget = info["budget"]
+
+        best_rand_metric = float("-inf")
+        best_rand_tree = None
+        for _ in range(rounds):
+            size = float("inf")
+            while size > budget or size == float("inf"):  # TODO: Add failsafe here
+                res, pred = build_stiener_seed(G, s, targets, minimum=None)
+                size = res.size(weight="weight")
+            forced, metric, _ = compute_metric(res, s, targets, pred)
+            metric = metric if not forced else 0.0
+            if metric > best_rand_metric:
+                best_rand_metric = metric
+                best_rand_tree = res
+
+        pickle.dump(best_rand_tree, open(f"{prefix}/{i + 1}/best_rand.pickle", "wb"))
+        rand_res = {
+            "metric": best_rand_metric,
+        }
+        pickle.dump(rand_res, open(f"{prefix}/{i + 1}/rand_res.pickle", "wb"))
 
 
 def main():
+
+    ##################################
+    # GENERATE GRAPHS AND BRUTEFORCE #
+    ##################################
+
+    loc = "results/brute"
+    n = 3
+
+    for i in range(n):
+        if os.path.exists(f"{loc}/{i + 1}/"):
+            print("Remove files and rerun bruteforce")
+            return
+
     # Initial Parameters
     target_count = 2
-
+    graphx = graphy = 3
     # number n you put here = a(n)
     # https://oeis.org/A007341
     a = [
@@ -78,9 +185,7 @@ def main():
         5694319004079097795957215725765328371712000,
         40325021721404118513276859513497679249183623593590784,
     ]
-    graphx = graphy = 2
-
-    print(f"Total Number of Trees: {bcolors.WARNING}{a[graphx]}{bcolors.ENDC}")
+    print(f"Total Number of Trees: {bcolors.FAIL}{a[graphx]}{bcolors.ENDC}")
 
     def factory():
         s, targets = random_points(target_count)
@@ -104,14 +209,73 @@ def main():
 
         return G, s, targets, budget
 
-    prefix = "results/brute/"
-    for i in range(3):
-        G, s, targets, budget = factory()
-        # display_graph(G)
-        best_tree = bruteforce(G, s, targets, budget)
+    generate_bruteforce_graphs(factory, n, prefix=loc)
 
-        pickle.dump(G, open(f"{prefix}G_{i + 1}.pickle", "wb"))
-        pickle.dump(best_tree, open(f"{prefix}best_tree_{i + 1}.pickle", "wb"))
+    ########################################
+    # GET TIMINGS FOR ALGORITHM AND RANDOM #
+    ########################################
+
+    stats = pickle.load(open(f"{loc}/stats.pickle", "rb"))
+
+    # budget in seconds
+    allotted = stats["avg_time"]
+    count = stats["count"]
+
+    samples = 100
+    algo_time = 0.0
+    for _ in range(samples):
+        G, s, targets, budget = factory()
+        start_time = time.perf_counter()
+        _, _, _ = compute_tree(G, s, targets, budget)
+        end_time = time.perf_counter()
+        algo_time += end_time - start_time
+    algo_time /= samples
+
+    rounds = int(allotted / algo_time)
+
+    stats["algo_time"] = algo_time
+    stats["algo_rounds"] = rounds
+
+    sample_algo(loc, count, rounds)
+
+
+    rand_time = 0.0
+    for _ in range(samples):
+        G, s, targets, budget = factory()
+        size = float("inf")
+        start_time = time.perf_counter()
+        while size > budget or size == float("inf"):
+            rst, _ = build_stiener_seed(G, s, targets, minimum=None)
+            size = rst.size(weight="weight")
+        end_time = time.perf_counter()
+        rand_time += end_time - start_time
+    rand_time /= samples
+
+    rounds = int(allotted / rand_time)
+
+    stats["rand_time"] = rand_time
+    stats["rand_rounds"] = rounds
+
+    sample_rand(loc, count, rounds)
+
+    pickle.dump(stats, open(f"{loc}/stats.pickle", "wb"))
+
+    ###################
+    # GET FINAL STATS #
+    ###################
+
+    stats = pickle.load(open(f"{loc}/stats.pickle", "rb"))
+    for k, v in stats.items():
+        print(f"{k}: {v}")
+    print()
+
+    for i in range(count):
+        algo_res = pickle.load(open(f"{loc}/{i + 1}/algo_res.pickle", "rb"))
+        rand_res = pickle.load(open(f"{loc}/{i + 1}/rand_res.pickle", "rb"))
+        brute_res = pickle.load(open(f"{loc}/{i + 1}/info.pickle", "rb"))
+        print(f"    Bruteforce Metric: {brute_res['metric']}")
+        print(f"    Algorithm Metric:  {algo_res['metric']}")
+        print(f"    Random Metric:     {rand_res['metric']}")
         print()
 
 
