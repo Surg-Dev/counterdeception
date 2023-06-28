@@ -1,17 +1,19 @@
 import time
+import imageio
+import os
 
 import networkx as nx
 from math import ceil
 
-from algo import compute_tree
+from algo import compute_tree, build_stiener_seed
 from util import random_points, form_grid_graph, round_targets_to_graph, form_hex_graph, form_triangle_graph
-from benchmark import random_bench, mixed_benchmark, read_mixed_benchmark, create_mixed_graphs
+from benchmark import random_bench, mixed_benchmark, read_mixed_benchmark, create_mixed_graphs, test_budget
 
 def main():
     # Initial Parameters
     target_count = 6
-    graphx = 6
-    graphy = 6
+    graphx = 20
+    graphy = 20
 
     def factory():
         s, targets = random_points(target_count)
@@ -34,6 +36,27 @@ def main():
             G[u][v]["weight"] = G[u][v]["weight"]
 
         return G, s, targets, budget
+
+    ####################
+    # BUDGET BENCHMARK #
+    ####################
+
+    G, s, targets, _ = factory()
+    mst, _ = build_stiener_seed(G, s, targets, minimum=True)
+    cost = mst.size(weight="weight")
+    budget_low = 0.9 * cost
+    budget_high = 3.0 * cost
+    n = 30
+    loc = "results"
+    test_budget(G, s, targets, budget_low, budget_high, n, loc=loc)
+
+    # make gif
+    frames = []
+    for i in range(n):
+        if os.path.exists(f"results/{i + 1}.png"):
+            image = imageio.v2.imread(f"results/{i + 1}.png")
+            frames.append(image)
+    imageio.mimsave(f"{loc}/budgets.gif", frames, duration=300)
 
     ##################
     # MASS BENCHMARK #
@@ -152,39 +175,39 @@ def main():
     # algo_weight = ceil((sum(algo_times) / benches) / (sum(rand_times) / benches))
     # print(f"{algo_weight = }")
 
-    ###################
-    # MIXED BENCHMARK #
-    ###################
+    # ###################
+    # # MIXED BENCHMARK #
+    # ###################
 
-    # Compute weights
-    samples = 20
+    # # Compute weights
+    # samples = 20
 
-    rand_time = 0.0
-    algo_time = 0.0
-    for _ in range(samples):
-        G, s, targets, budget = factory()
-        start_time = time.perf_counter()
-        rand_metric, attempts = random_bench(1, G, s, targets, budget)
-        end_time = time.perf_counter()
-        rand_time += end_time - start_time
+    # rand_time = 0.0
+    # algo_time = 0.0
+    # for _ in range(samples):
+    #     G, s, targets, budget = factory()
+    #     start_time = time.perf_counter()
+    #     rand_metric, attempts = random_bench(1, G, s, targets, budget)
+    #     end_time = time.perf_counter()
+    #     rand_time += end_time - start_time
 
-        start_time = time.perf_counter()
-        _, _, _ = compute_tree(G, s, targets, budget)
-        end_time = time.perf_counter()
-        algo_time += end_time - start_time
-    rand_time /= samples
-    algo_time /= samples
-    algo_weight = ceil(algo_time / rand_time)
+    #     start_time = time.perf_counter()
+    #     _, _, _ = compute_tree(G, s, targets, budget)
+    #     end_time = time.perf_counter()
+    #     algo_time += end_time - start_time
+    # rand_time /= samples
+    # algo_time /= samples
+    # algo_weight = ceil(algo_time / rand_time)
 
-    print(f"Algo Weight = {algo_weight}")
+    # print(f"Algo Weight = {algo_weight}")
 
-    end = 10
-    total = algo_weight * end
-    n = 20
-    loc = "images/mixed"
-    mixed_benchmark(total, algo_weight, n, 0, end, factory, loc=loc, jump=1)
-    rand_res, algo_res = read_mixed_benchmark(loc)
-    create_mixed_graphs(rand_res, algo_res, loc=loc)
+    # end = 10
+    # total = algo_weight * end
+    # n = 20
+    # loc = "images/mixed"
+    # mixed_benchmark(total, algo_weight, n, 0, end, factory, loc=loc, jump=1)
+    # rand_res, algo_res = read_mixed_benchmark(loc)
+    # create_mixed_graphs(rand_res, algo_res, loc=loc)
 
 
 if __name__ == "__main__":

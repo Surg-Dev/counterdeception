@@ -7,11 +7,25 @@ from matplotlib import pyplot as plt
 from math import ceil
 import numpy as np
 
-from algo import brute_force, build_stiener_seed, compute_metric, compute_tree
+from algo import build_stiener_seed, compute_metric, compute_tree
 from util import *
+from bruteforce import bruteforce
 
 from collections import defaultdict
 
+def test_budget(G, s, targets, budget_low, budget_high, n, loc=None):
+    # run algorithms n times on budget from low to high
+    # save graph, tree, pics
+
+    # make directory
+    interval = (budget_high - budget_low) / (n - 1)
+    for i in range(n):
+        curr_loc = loc + f"/{i + 1}"
+        budget = budget_low + i * interval
+        mst, pred, rounds = compute_tree(G, s, targets, budget, loc=None, minimum=True)
+        if mst!= None and loc != None:
+            display_tree(G, mst, loc=curr_loc)
+    return
 
 def random_bench(n, G, s, targets, budget, loc=None):
     # Build n random spanning trees over G, compute metric, take max
@@ -120,7 +134,7 @@ def benchmark(n, factory, loc=None, brute=False):
         if brute:
             print("Starting brute force computation")
             start_time = time.perf_counter()
-            best_tree, metric = brute_force(G, s, targets, budget, loc=loc)
+            best_tree, metric = bruteforce(G, s, targets, budget)
             end_time = time.perf_counter()
             brute_times.append(end_time - start_time)
 

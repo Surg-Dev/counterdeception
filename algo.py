@@ -351,11 +351,12 @@ def reattachment(
 
             # form new tuple
 
+            curr_size = mstcheck.size(weight="weight")
             curr_tuple = (
                 1 if forcedp else 0,
                 metricp,
                 sum(met for (met, v) in target_listp),
-                mstcheck.size(weight="weight"),
+                curr_size,
                 None,
             )
 
@@ -376,7 +377,9 @@ def reattachment(
             #     ))
             #     and mstcheck.size(weight="weight") < budget
             # ):
-            if is_better_tuple(best_tuple, curr_tuple):
+
+            # if under budget + better tuple, update
+            if curr_size < budget and is_better_tuple(best_tuple, curr_tuple):
                 # or (forcedp == False and best_tree["forced"] == False and heurmetric > best_tree["target_list"][c][0] and metricp >= best_tree["metric"]):
                 # or (sum(abs(i) for i,j in target_listp) > sum(abs(i) for i,j in best_tree["target_list"])):
                 # or (forcedp == False and best_tree["forced"] == False and sum(i for i,j in target_listp) > sum(i for i,j in best_tree["target_list"]))
@@ -480,7 +483,7 @@ def reattachment_approximation(
     return mst, pred, count
 
 
-def compute_tree(G, s, targets, budget, loc=None):
+def compute_tree(G, s, targets, budget, loc=None, minimum=None):
     # Initialize A* property on every edge in graph
     nx.set_edge_attributes(G, 0.0, "a_star")
 
@@ -488,7 +491,7 @@ def compute_tree(G, s, targets, budget, loc=None):
     count = 0
     forced = True
     while forced:
-        mst, pred = build_stiener_seed(G, s, targets, minimum=None)
+        mst, pred = build_stiener_seed(G, s, targets, minimum=minimum)
         forced, _, _ = compute_metric(mst, s, targets, pred)
         count += 1
 
@@ -513,6 +516,9 @@ def compute_tree(G, s, targets, budget, loc=None):
     #     f"final tree: {mst} final metric: {metric} final size: {mst.size(weight='weight')} forced: {forced}"
     # )
 
-    # display_tree(G, mst)
+    # if tree is over budget, we didn't find anything
+    if mst.size(weight="weight") > budget:
+        print(f"{bcolors.WARNING}OVERBUDGET!!{bcolors.ENDC}")
+        mst, pred = None, None
 
     return mst, pred, rounds + count
