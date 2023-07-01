@@ -13,6 +13,7 @@ from bruteforce import bruteforce
 
 from collections import defaultdict
 
+
 def test_budget(G, s, targets, budget_low, budget_high, n, loc=None):
     # run algorithms n times on budget from low to high
     # save graph, tree, pics
@@ -23,9 +24,10 @@ def test_budget(G, s, targets, budget_low, budget_high, n, loc=None):
         curr_loc = loc + f"/{i + 1}"
         budget = budget_low + i * interval
         mst, pred, rounds = compute_tree(G, s, targets, budget, loc=None, minimum=True)
-        if mst!= None and loc != None:
+        if mst != None and loc != None:
             display_tree(G, mst, loc=curr_loc)
     return
+
 
 def random_bench(n, G, s, targets, budget, loc=None):
     # Build n random spanning trees over G, compute metric, take max
@@ -343,5 +345,3 @@ def mixed_benchmark(total, algo_weight, n, start, end, factory, loc=None, jump=1
                 f.write(f"{i}, {rand_vals[i]}, {algo_vals[i]}\n")
 
     return rand_vals, algo_vals
-
-

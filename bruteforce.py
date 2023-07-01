@@ -18,7 +18,7 @@ from util import (
 # number n you put here = a(n)
 #  Number of spanning trees in n x n grid
 # https://oeis.org/A007341
-a = [
+num_span = [
     1,
     4,
     192,
@@ -120,7 +120,6 @@ def generate_bruteforce_graphs(factory, count, prefix=None):
             print(k, v)
         print()
         pickle.dump(stats, open(f"{prefix}/stats.pickle", "wb"))
-
 
 
 def sample_algo(prefix, count, rounds):

@@ -6,57 +6,72 @@ import networkx as nx
 from math import ceil
 
 from algo import compute_tree, build_stiener_seed
-from util import random_points, form_grid_graph, round_targets_to_graph, form_hex_graph, form_triangle_graph
-from benchmark import random_bench, mixed_benchmark, read_mixed_benchmark, create_mixed_graphs, test_budget
+from util import (
+    random_points,
+    form_grid_graph,
+    round_targets_to_graph,
+    form_hex_graph,
+    form_triangle_graph,
+    bcolors,
+)
+from benchmark import (
+    random_bench,
+    mixed_benchmark,
+    read_mixed_benchmark,
+    create_mixed_graphs,
+    test_budget,
+)
+from bruteforce import generate_bruteforce_graphs, num_span
+
 
 def main():
-    # Initial Parameters
-    target_count = 6
-    graphx = 20
-    graphy = 20
+    # # Initial Parameters
+    # target_count = 6
+    # graphx = 20
+    # graphy = 20
 
-    def factory():
-        s, targets = random_points(target_count)
+    # def factory():
+    #     s, targets = random_points(target_count)
 
-        G = form_grid_graph(s, targets, graphx, graphy)
-        # G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
-        # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
-        # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
+    #     G = form_grid_graph(s, targets, graphx, graphy)
+    #     # G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
+    #     # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
+    #     # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
 
-        round_targets_to_graph(G, s, targets)
-        targets = [f"target {i}" for i in range(target_count)]
-        s = "start"
-        nx.set_node_attributes(G, 0, "paths")
+    #     round_targets_to_graph(G, s, targets)
+    #     targets = [f"target {i}" for i in range(target_count)]
+    #     s = "start"
+    #     nx.set_node_attributes(G, 0, "paths")
 
-        # budget = float("inf")
-        budget = nx.minimum_spanning_tree(G).size(weight="weight") * 0.5
+    #     # budget = float("inf")
+    #     budget = nx.minimum_spanning_tree(G).size(weight="weight") * 0.5
 
-        # rescale weights
-        for u, v in G.edges:
-            G[u][v]["weight"] = G[u][v]["weight"]
+    #     # rescale weights
+    #     for u, v in G.edges:
+    #         G[u][v]["weight"] = G[u][v]["weight"]
 
-        return G, s, targets, budget
+    #     return G, s, targets, budget
 
     ####################
     # BUDGET BENCHMARK #
     ####################
 
-    G, s, targets, _ = factory()
-    mst, _ = build_stiener_seed(G, s, targets, minimum=True)
-    cost = mst.size(weight="weight")
-    budget_low = 0.9 * cost
-    budget_high = 3.0 * cost
-    n = 30
-    loc = "results"
-    test_budget(G, s, targets, budget_low, budget_high, n, loc=loc)
+    # G, s, targets, _ = factory()
+    # mst, _ = build_stiener_seed(G, s, targets, minimum=True)
+    # cost = mst.size(weight="weight")
+    # budget_low = 0.9 * cost
+    # budget_high = 3.0 * cost
+    # n = 30
+    # loc = "results"
+    # test_budget(G, s, targets, budget_low, budget_high, n, loc=loc)
 
-    # make gif
-    frames = []
-    for i in range(n):
-        if os.path.exists(f"results/{i + 1}.png"):
-            image = imageio.v2.imread(f"results/{i + 1}.png")
-            frames.append(image)
-    imageio.mimsave(f"{loc}/budgets.gif", frames, duration=300)
+    # # make gif
+    # frames = []
+    # for i in range(n):
+    #     if os.path.exists(f"results/{i + 1}.png"):
+    #         image = imageio.v2.imread(f"results/{i + 1}.png")
+    #         frames.append(image)
+    # imageio.mimsave(f"{loc}/budgets.gif", frames, duration=300)
 
     ##################
     # MASS BENCHMARK #
@@ -208,6 +223,47 @@ def main():
     # mixed_benchmark(total, algo_weight, n, 0, end, factory, loc=loc, jump=1)
     # rand_res, algo_res = read_mixed_benchmark(loc)
     # create_mixed_graphs(rand_res, algo_res, loc=loc)
+
+    ##################################
+    # GENERATE GRAPHS AND BRUTEFORCE #
+    ##################################
+
+    loc = "results/brute"
+    n = 1
+
+    for i in range(n):
+        if os.path.exists(f"{loc}/{i + 1}/"):
+            print("Remove files and rerun bruteforce")
+            return
+
+    # Initial Parameters
+    target_count = 2
+    graphx = graphy = 3
+    print(f"Total Number of Trees: {bcolors.FAIL}{num_span[graphx]}{bcolors.ENDC}")
+
+    def factory():
+        s, targets = random_points(target_count)
+
+        # G = form_grid_graph(s, targets, graphx, graphy)
+        G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
+        # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
+        # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
+
+        round_targets_to_graph(G, s, targets)
+        targets = [f"target {i}" for i in range(target_count)]
+        s = "start"
+        nx.set_node_attributes(G, 0, "paths")
+
+        budget = float("inf")
+        # budget = nx.minimum_spanning_tree(G).size(weight="weight") * 0.5
+
+        # rescale weights
+        for u, v in G.edges:
+            G[u][v]["weight"] = G[u][v]["weight"]
+
+        return G, s, targets, budget
+
+    generate_bruteforce_graphs(factory, n, prefix=loc)
 
 
 if __name__ == "__main__":
