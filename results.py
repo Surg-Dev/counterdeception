@@ -257,9 +257,9 @@ def main():
         budget = float("inf")
         # budget = nx.minimum_spanning_tree(G).size(weight="weight") * 0.5
 
-        # rescale weights
-        for u, v in G.edges:
-            G[u][v]["weight"] = G[u][v]["weight"]
+        # # rescale weights
+        # for u, v in G.edges:
+        #     G[u][v]["weight"] = G[u][v]["weight"]
 
         return G, s, targets, budget
 

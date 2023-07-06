@@ -21,13 +21,12 @@ class bcolors:
     LOAD_SQUARE = ["▛", "▜", "▟", "▙"]
 
 
-def display_graph(G, loc=None):
+def display_graph(G, loc=None, labels=False):
     positions = dict()
     colors = []
     for node in G.nodes():
         if node == "start":
             colors.append("blue")
-
         elif "target" in node:
             colors.append("red")
         else:
@@ -36,15 +35,16 @@ def display_graph(G, loc=None):
         positions[node] = G.nodes[node]["pos"]
 
     plt.figure(figsize=(15, 15))
-    nx.draw(G, pos=positions, node_color=colors, with_labels=False, node_size=100)
-    # if loc != None:
-    #     filename = f"{loc}.png"
-    #     plt.savefig(filename)
-    #     plt.close()
-    plt.show()
+    nx.draw(G, pos=positions, node_color=colors, with_labels=labels, node_size=100)
+    if loc != None:
+        filename = f"{loc}.png"
+        plt.savefig(filename)
+        plt.close()
+    else:
+        plt.show()
 
 
-def display_tree(G, mst, loc=None):
+def display_tree(G, mst, loc=None, labels=False):
     # Standardized function to display the mst over G
     colors = []
     for node in mst.nodes():
@@ -57,7 +57,7 @@ def display_tree(G, mst, loc=None):
             colors.append("green")
     plt.figure(figsize=(15, 15))
     positions = nx.get_node_attributes(G, "pos")
-    nx.draw(mst, pos=positions, node_color=colors, with_labels=False, node_size=50)
+    nx.draw(mst, pos=positions, node_color=colors, with_labels=labels, node_size=50)
 
     if loc != None:
         filename = f"{loc}.png"
