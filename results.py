@@ -27,7 +27,7 @@ from bruteforce import generate_bruteforce_graphs, num_span
 
 
 def determine_budget(
-    brute_location,
+    factory,
     num_graphs,
     budget_mult_low,
     budget_mult_high,
@@ -43,25 +43,12 @@ def determine_budget(
     starts = []
     targets = []
     metrics = []
-    # get graphs and their info
-    for i in range(num_graphs):
-        print(f"Getting data from graph {i + 1}")
-        graphs.append(pickle.load(open(f"{brute_location}/{i + 1}/G.pickle", "rb")))
-        trees.append(
-            pickle.load(open(f"{brute_location}/{i + 1}/best_tree.pickle", "rb"))
-        )
-        info = pickle.load(open(f"{brute_location}/{i + 1}/info.pickle", "rb"))
-        starts.append(info["s"])
-        targets.append(info["targets"])
-        metrics.append(info["metric"])
-
     if loc != None:
         txt = open(f"{loc}/data.txt", "w")
 
     results = []
-    for i, (G, t, s, tars, met) in enumerate(
-        zip(graphs, trees, starts, targets, metrics)
-    ):
+    for i in range(num_graphs):
+        G, s, tars, _ = factory()
         print(f"Testing graph {i + 1}")
         mst, _ = build_stiener_seed(G, s, tars, minimum=True)
         size = mst.size(weight="weight")
@@ -71,7 +58,6 @@ def determine_budget(
 
         if loc != None:
             txt.write(f"Graph {i + 1}:\n")
-            txt.write(f"    Best Metric: {met}\n\n")
 
         mst_results = []
         avg_results = []
@@ -119,7 +105,10 @@ def determine_budget(
     if loc != None:
         for i in range(num_graphs):
             # TODO: come up with better x-axis labels
-            x_axis_labels = [f"{j + 1}" for j in range(gran)]
+            interval = (budget_mult_high - budget_mult_low) / gran
+            x_axis_labels = [
+                f"{round(budget_mult_low + (j + 1) * interval, 2)}" for j in range(gran)
+            ]
             mst_results, avg_results = results[i]
             data = {
                 "MST Seed": mst_results,
@@ -197,7 +186,34 @@ def main():
     ###############################
     # DETERMINE BUDGET MULTIPLIER #
     ###############################
-    determine_budget("results/brute", 10, 1, 3, 60, 50, loc="results/budget")
+
+    # Initial Parameters
+    target_count = 2
+    graphx = graphy = 4
+
+    def factory():
+        s, targets = random_points(target_count)
+
+        # G = form_grid_graph(s, targets, graphx, graphy)
+        G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
+        # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
+        # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
+
+        round_targets_to_graph(G, s, targets)
+        targets = [f"target {i}" for i in range(target_count)]
+        s = "start"
+        nx.set_node_attributes(G, 0, "paths")
+
+        budget = float("inf")
+        # budget = nx.minimum_spanning_tree(G).size(weight="weight") * 0.5
+
+        # # rescale weights
+        # for u, v in G.edges:
+        #     G[u][v]["weight"] = G[u][v]["weight"]
+
+        return G, s, targets, budget
+
+    determine_budget(factory, 1, 1, 3, 60, 50, loc="results/budget")
 
     # # Initial Parameters
     # target_count = 6
