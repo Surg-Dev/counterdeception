@@ -188,8 +188,8 @@ def main():
     ###############################
 
     # Initial Parameters
-    target_count = 2
-    graphx = graphy = 4
+    target_count = 3
+    graphx = graphy = 6
 
     def factory():
         s, targets = random_points(target_count)
@@ -213,7 +213,7 @@ def main():
 
         return G, s, targets, budget
 
-    determine_budget(factory, 1, 1, 3, 60, 50, loc="results/budget")
+    determine_budget(factory, 10, 1, 3, 60, 50, loc="results/budget")
 
     # # Initial Parameters
     # target_count = 6
