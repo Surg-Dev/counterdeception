@@ -1,2360 +1,2440 @@
 Graph 1:
     Best Metric: 61.25871263050858
 
-    Budget: 67.4789210226919
+    Budget: 61.34447365699263
     Metric w/ MST seed:  0.2572830794521508
-    Metric w/ Rand seed: 0.12349587813703237
+    Metric w/ Rand seed: 0.07718492383564524
 
-    Budget: 69.52373681125833
+    Budget: 63.42394734028052
     Metric w/ MST seed:  0.2572830794521508
     Metric w/ Rand seed: 0.0977675701918173
 
-    Budget: 71.56855259982476
+    Budget: 65.50342102356841
+    Metric w/ MST seed:  0.2572830794521508
+    Metric w/ Rand seed: 0.08233058542468825
+
+    Budget: 67.5828947068563
     Metric w/ MST seed:  0.2572830794521508
     Metric w/ Rand seed: 0.11835021654798936
 
-    Budget: 73.61336838839117
+    Budget: 69.66236839014418
     Metric w/ MST seed:  0.2572830794521508
-    Metric w/ Rand seed: 0.11320455495894635
+    Metric w/ Rand seed: 0.0977675701918173
 
-    Budget: 75.65818417695759
+    Budget: 71.74184207343205
     Metric w/ MST seed:  0.2572830794521508
-    Metric w/ Rand seed: 0.1337872013151184
+    Metric w/ Rand seed: 0.09262190860277428
 
-    Budget: 77.70299996552401
+    Budget: 73.82131575671994
     Metric w/ MST seed:  0.2572830794521508
-    Metric w/ Rand seed: 0.11320455495894635
+    Metric w/ Rand seed: 0.08747624701373127
 
-    Budget: 79.74781575409042
+    Budget: 75.90078944000783
     Metric w/ MST seed:  0.2572830794521508
-    Metric w/ Rand seed: 0.11320455495894635
+    Metric w/ Rand seed: 0.07203926224660222
 
-    Budget: 81.79263154265685
+    Budget: 77.98026312329571
+    Metric w/ MST seed:  0.2572830794521508
+    Metric w/ Rand seed: 0.10291323178086031
+
+    Budget: 80.0597368065836
+    Metric w/ MST seed:  0.2572830794521508
+    Metric w/ Rand seed: 0.14922418608224747
+
+    Budget: 82.13921048987149
     Metric w/ MST seed:  20.505331903320243
-    Metric w/ Rand seed: 16.862398335553667
+    Metric w/ Rand seed: 17.258783209382624
 
-    Budget: 83.83744733122327
+    Budget: 84.21868417315937
     Metric w/ MST seed:  20.505331903320243
-    Metric w/ Rand seed: 16.82980914548973
+    Metric w/ Rand seed: 16.85896789449431
 
-    Budget: 85.8822631197897
+    Budget: 86.29815785644726
     Metric w/ MST seed:  20.505331903320243
-    Metric w/ Rand seed: 17.26564409150135
+    Metric w/ Rand seed: 17.258783209382624
 
-    Budget: 87.92707890835612
+    Budget: 88.37763153973515
     Metric w/ MST seed:  20.505331903320243
-    Metric w/ Rand seed: 17.650022421622538
+    Metric w/ Rand seed: 17.658598524270943
 
-    Budget: 89.97189469692253
+    Budget: 90.45710522302304
     Metric w/ MST seed:  20.505331903320243
-    Metric w/ Rand seed: 17.250207106734223
+    Metric w/ Rand seed: 17.680896391156796
 
-    Budget: 92.01671048548896
+    Budget: 92.53657890631092
     Metric w/ MST seed:  20.505331903320243
-    Metric w/ Rand seed: 17.67746595009743
+    Metric w/ Rand seed: 18.48910312358184
 
-    Budget: 94.06152627405538
+    Budget: 94.61605258959881
     Metric w/ MST seed:  20.505331903320243
-    Metric w/ Rand seed: 16.43856993324982
+    Metric w/ Rand seed: 18.91293152588569
 
-    Budget: 96.10634206262179
+    Budget: 96.6955262728867
     Metric w/ MST seed:  20.505331903320243
-    Metric w/ Rand seed: 18.911216305356014
+    Metric w/ Rand seed: 18.49767922623024
 
-    Budget: 98.15115785118822
+    Budget: 98.77499995617458
     Metric w/ MST seed:  20.505331903320243
-    Metric w/ Rand seed: 17.665459406389665
+    Metric w/ Rand seed: 18.916361966945054
 
-    Budget: 100.19597363975464
+    Budget: 100.85447363946246
     Metric w/ MST seed:  20.505331903320243
-    Metric w/ Rand seed: 17.675750729567753
+    Metric w/ Rand seed: 19.31446206130369
 
-    Budget: 102.24078942832107
+    Budget: 102.93394732275034
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 21.78539321288021
+    Metric w/ Rand seed: 25.05423977370368
 
-    Budget: 104.28560521688749
+    Budget: 105.01342100603823
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 25.872737829306807
+    Metric w/ Rand seed: 23.007137024431014
 
-    Budget: 106.3304210054539
+    Budget: 107.09289468932612
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 25.88817481407393
+    Metric w/ Rand seed: 26.679229341202173
 
-    Budget: 108.37523679402032
+    Budget: 109.172368372614
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 22.59703038636461
+    Metric w/ Rand seed: 25.478068176007532
 
-    Budget: 110.42005258258675
+    Budget: 111.25184205590189
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 25.88302915248489
+    Metric w/ Rand seed: 25.867592167717756
 
-    Budget: 112.46486837115316
+    Budget: 113.33131573918976
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 25.043948450525594
+    Metric w/ Rand seed: 23.41552844196774
 
-    Budget: 114.50968415971958
+    Budget: 115.41078942247765
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 25.87445304983649
+    Metric w/ Rand seed: 23.83249596215287
 
-    Budget: 116.55449994828601
+    Budget: 117.49026310576554
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 25.07139197900049
+    Metric w/ Rand seed: 24.649278797226312
 
-    Budget: 118.59931573685243
+    Budget: 119.56973678905342
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 23.425819765145828
+    Metric w/ Rand seed: 26.674083679613123
 
-    Budget: 120.64413152541886
+    Budget: 121.64921047234131
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 23.842787285330957
+    Metric w/ Rand seed: 23.44125674991296
 
-    Budget: 122.68894731398527
+    Budget: 123.7286841556292
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 31.928285050640742
+    Metric w/ Rand seed: 31.121793538745397
 
-    Budget: 124.73376310255169
+    Budget: 125.80815783891708
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 27.485720853097522
+    Metric w/ Rand seed: 28.280205821285126
 
-    Budget: 126.77857889111812
+    Budget: 127.88763152220497
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 29.102134317947616
+    Metric w/ Rand seed: 30.318732467909385
 
-    Budget: 128.82339467968453
+    Budget: 129.96710520549286
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 29.906910609313297
+    Metric w/ Rand seed: 30.30158026261257
 
-    Budget: 130.86821046825094
+    Budget: 132.04657888878074
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 32.341822129766506
+    Metric w/ Rand seed: 30.72369344438674
 
-    Budget: 132.91302625681737
+    Budget: 134.12605257206863
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 27.47199908886007
+    Metric w/ Rand seed: 27.073898994501437
 
-    Budget: 134.9578420453838
+    Budget: 136.20552625535652
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 32.3435373502962
+    Metric w/ Rand seed: 31.93857637381883
 
-    Budget: 137.00265783395022
+    Budget: 138.2849999386444
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 26.656931474316323
+    Metric w/ Rand seed: 31.113217436096967
 
-    Budget: 139.04747362251663
+    Budget: 140.3644736219323
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 27.887251388515534
+    Metric w/ Rand seed: 30.72540866491642
 
-    Budget: 141.09228941108307
+    Budget: 142.44394730522015
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 29.92234759408042
+    Metric w/ Rand seed: 31.93343071222979
 
-    Budget: 143.13710519964948
+    Budget: 144.52342098850806
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 32.734776562536105
+    Metric w/ Rand seed: 35.98132525647372
 
-    Budget: 145.1819209882159
+    Budget: 146.60289467179592
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 29.503664853365613
+    Metric w/ Rand seed: 32.34525257082586
 
-    Budget: 147.22673677678233
+    Budget: 148.68236835508384
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 30.315302026850013
+    Metric w/ Rand seed: 30.73226954703515
 
-    Budget: 149.27155256534874
+    Budget: 150.7618420383717
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 33.54984417707987
+    Metric w/ Rand seed: 38.42138243851596
 
-    Budget: 151.31636835391515
+    Budget: 152.8413157216596
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 35.58665560317444
+    Metric w/ Rand seed: 31.130369641393784
 
-    Budget: 153.3611841424816
+    Budget: 154.92078940494747
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 31.50960230992593
+    Metric w/ Rand seed: 34.35805090950491
 
-    Budget: 155.405999931048
+    Budget: 157.00026308823539
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 34.78187931180876
+    Metric w/ Rand seed: 28.288781923933524
 
-    Budget: 157.4508157196144
+    Budget: 159.07973677152324
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 33.15860496483995
+    Metric w/ Rand seed: 30.711686900678973
 
-    Budget: 159.49563150818085
+    Budget: 161.15921045481116
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 33.96509647673531
+    Metric w/ Rand seed: 30.298149821553203
 
-    Budget: 161.54044729674726
+    Budget: 163.23868413809902
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 35.99676224124084
+    Metric w/ Rand seed: 34.361481350564276
 
-    Budget: 163.58526308531367
+    Budget: 165.3181578213869
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 33.54126807443147
+    Metric w/ Rand seed: 32.3332460271181
 
-    Budget: 165.6300788738801
+    Budget: 167.3976315046748
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 34.347759586326816
+    Metric w/ Rand seed: 31.126939200334427
 
-    Budget: 167.67489466244655
+    Budget: 169.47710518796268
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 39.21758262723324
+    Metric w/ Rand seed: 30.71511734173833
 
-    Budget: 169.71971045101296
+    Budget: 171.55657887125057
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 35.55749685416987
+    Metric w/ Rand seed: 32.73820700359547
 
-    Budget: 171.76452623957937
+    Budget: 173.63605255453845
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 29.906910609313297
+    Metric w/ Rand seed: 31.138945744042193
 
-    Budget: 173.8093420281458
+    Budget: 175.71552623782634
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 29.917201932491384
+    Metric w/ Rand seed: 34.76129666545258
 
-    Budget: 175.85415781671222
+    Budget: 177.79499992111423
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 32.745067885714185
+    Metric w/ Rand seed: 35.97617959488467
 
-    Budget: 177.89897360527863
+    Budget: 179.8744736044021
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 33.55155939760954
+    Metric w/ Rand seed: 34.34261392473778
 
-    Budget: 179.94378939384507
+    Budget: 181.95394728769
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 33.54298329496115
-
-    Budget: 181.98860518241148
-    Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 36.3845710124214
+    Metric w/ Rand seed: 37.191062524316756
 
     Budget: 184.0334209709779
     Metric w/ MST seed:  40.92490278015644
-    Metric w/ Rand seed: 35.16797286245962
+    Metric w/ Rand seed: 33.163750626429
 
 
 Graph 2:
     Best Metric: 83.08347196788799
 
-    Budget: 125.3278184831652
+    Budget: 113.93438043924108
+    Metric w/ MST seed:  48.26176297019805
+    Metric w/ Rand seed: 25.572612807663415
+
+    Budget: 117.79656282701197
+    Metric w/ MST seed:  48.26176297019805
+    Metric w/ Rand seed: 24.955594638236356
+
+    Budget: 121.65874521478285
+    Metric w/ MST seed:  48.26176297019805
+    Metric w/ Rand seed: 44.48023794310899
+
+    Budget: 125.52092760255374
     Metric w/ MST seed:  45.10534515480764
-    Metric w/ Rand seed: 44.89158338939367
+    Metric w/ Rand seed: 41.09377070808563
 
-    Budget: 129.12563116447325
+    Budget: 129.3831099903246
     Metric w/ MST seed:  45.10534515480764
-    Metric w/ Rand seed: 43.86321977368191
+    Metric w/ Rand seed: 41.93274925487399
 
-    Budget: 132.92344384578126
+    Budget: 133.2452923780955
     Metric w/ MST seed:  45.10534515480764
-    Metric w/ Rand seed: 43.119944891639236
+    Metric w/ Rand seed: 44.06889249682426
 
-    Budget: 136.7212565270893
+    Budget: 137.10747476586639
     Metric w/ MST seed:  55.388981311925335
-    Metric w/ Rand seed: 46.67950954136704
+    Metric w/ Rand seed: 43.45187432739719
 
-    Budget: 140.51906920839735
+    Budget: 140.96965715363729
     Metric w/ MST seed:  55.388981311925335
-    Metric w/ Rand seed: 46.062491371939984
-
-    Budget: 144.31688188970537
-    Metric w/ MST seed:  55.388981311925335
-    Metric w/ Rand seed: 39.67034930030808
-
-    Budget: 148.11469457101342
-    Metric w/ MST seed:  65.67261746904302
     Metric w/ Rand seed: 43.594418694231734
 
-    Budget: 151.91250725232146
+    Budget: 144.83183954140816
     Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 43.30932996056264
+    Metric w/ Rand seed: 43.65754705053954
 
-    Budget: 155.71031993362948
+    Budget: 148.69402192917903
     Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 47.85041752391336
+    Metric w/ Rand seed: 45.16038446884383
 
-    Budget: 159.50813261493752
+    Budget: 152.55620431694993
     Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 49.25957353803989
+    Metric w/ Rand seed: 46.82205390820159
 
-    Budget: 163.30594529624557
+    Budget: 156.4183867047208
     Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 46.69579719558597
+    Metric w/ Rand seed: 46.34758010560908
 
-    Budget: 167.10375797755358
+    Budget: 160.2805690924917
     Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 48.294338278635934
+    Metric w/ Rand seed: 47.92983353444009
 
-    Budget: 170.90157065886163
+    Budget: 164.14275148026258
     Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 48.31062593285485
+    Metric w/ Rand seed: 47.80357682182447
 
-    Budget: 174.69938334016967
+    Budget: 168.00493386803345
     Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 48.43688264547046
+    Metric w/ Rand seed: 48.08866555549356
 
-    Budget: 178.4971960214777
+    Budget: 171.86711625580435
     Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 50.14539278691712
+    Metric w/ Rand seed: 46.443283770354746
 
-    Budget: 182.29500870278574
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 49.528374617490044
-
-    Budget: 186.09282138409378
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 46.56954048297036
-
-    Budget: 189.8906340654018
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 49.93972006377475
-
-    Budget: 193.68844674670987
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 46.901469918728345
-
-    Budget: 197.4862594280179
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 47.55106339659324
-
-    Budget: 201.28407210932593
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 50.019136074301485
-
-    Budget: 205.08188479063398
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 48.29433827863593
-
-    Budget: 208.879697471942
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 50.36735316427839
-
-    Budget: 212.67751015325004
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 49.95600771799367
-
-    Budget: 216.47532283455809
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 48.70568372492065
-
-    Budget: 220.2731355158661
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 48.08866555549357
-
-    Budget: 224.07094819717415
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 49.19644518173207
-
-    Budget: 227.8687608784822
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 48.72197137913957
-
-    Budget: 231.6665735597902
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 49.59150297379785
-
-    Budget: 235.46438624109825
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 46.38015541404693
-
-    Budget: 239.2621989224063
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 49.40211790487444
-
-    Budget: 243.06001160371432
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 49.322701894347695
-
-    Budget: 246.85782428502236
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 48.025537199185756
-
-    Budget: 250.6556369663304
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 49.259573538039895
-
-    Budget: 254.45344964763842
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 48.02553719918576
-
-    Budget: 258.2512623289465
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 50.27164949953272
-
-    Budget: 262.0490750102545
+    Budget: 175.72929864357525
     Metric w/ MST seed:  65.67261746904302
     Metric w/ Rand seed: 49.52837461749005
 
-    Budget: 265.84688769156253
+    Budget: 179.59148103134612
     Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 51.55454880104364
+    Metric w/ Rand seed: 47.375943721320844
 
-    Budget: 269.6447003728706
+    Budget: 183.453663419117
     Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 52.629753118844285
+    Metric w/ Rand seed: 47.756736119735606
 
-    Budget: 273.4425130541786
+    Budget: 187.3158458068879
     Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 50.841826966870904
+    Metric w/ Rand seed: 49.52837461749005
 
-    Budget: 277.24032573548664
+    Budget: 191.1780281946588
     Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 51.23688475893668
+    Metric w/ Rand seed: 50.09855208482823
 
-    Budget: 281.0381384167947
+    Budget: 195.04021058242967
     Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 49.19644518173208
+    Metric w/ Rand seed: 45.80997794670875
 
-    Budget: 284.8359510981027
+    Budget: 198.90239297020054
     Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 50.77869861056309
+    Metric w/ Rand seed: 49.3227018943477
 
-    Budget: 288.63376377941074
+    Budget: 202.7645753579714
     Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 47.26597466292415
+    Metric w/ Rand seed: 49.05390081489753
 
-    Budget: 292.4315764607188
+    Budget: 206.6267577457423
     Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 48.64255536861283
+    Metric w/ Rand seed: 49.25957353803989
 
-    Budget: 296.22938914202683
+    Budget: 210.4889401335132
     Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 48.08866555549357
+    Metric w/ Rand seed: 47.81986447604341
 
-    Budget: 300.02720182333485
+    Budget: 214.35112252128408
     Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 50.35106551005945
+    Metric w/ Rand seed: 48.579427012305004
 
-    Budget: 303.8250145046429
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 48.16808156602031
-
-    Budget: 307.62282718595094
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 49.54466227170897
-
-    Budget: 311.42063986725896
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 51.45884513629797
-
-    Budget: 315.21845254856703
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 50.7155702542553
-
-    Budget: 319.01626522987505
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 48.848228091755175
-
-    Budget: 322.81407791118306
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 50.841826966870904
-
-    Budget: 326.61189059249114
-    Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 45.952522313543305
-
-    Budget: 330.40970327379915
+    Budget: 218.21330490905495
     Metric w/ MST seed:  65.67261746904302
     Metric w/ Rand seed: 46.7120848498049
 
-    Budget: 334.20751595510717
+    Budget: 222.07548729682583
     Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 47.55106339659326
+    Metric w/ Rand seed: 50.52618518533186
 
-    Budget: 338.00532863641524
+    Budget: 225.93766968459673
     Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 50.50989753111293
+    Metric w/ Rand seed: 49.40211790487442
+
+    Budget: 229.79985207236763
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 48.29433827863591
+
+    Budget: 233.6620344601385
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 50.98437133370546
+
+    Budget: 237.52421684790937
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 50.8418269668709
+
+    Budget: 241.38639923568027
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 50.968083679486526
+
+    Budget: 245.24858162345117
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 50.36735316427839
+
+    Budget: 249.11076401122205
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 48.50001100177828
+
+    Budget: 252.97294639899292
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 49.7971756969402
+
+    Budget: 256.8351287867638
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 52.64604077306321
+
+    Budget: 260.6973111745347
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 46.665244147716024
+
+    Budget: 264.5594935623056
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 47.55106339659324
+
+    Budget: 268.42167595007646
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 49.92343240955583
+
+    Budget: 272.28385833784733
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 49.54466227170897
+
+    Budget: 276.1460407256182
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 50.71557025425529
+
+    Budget: 280.00822311338914
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 47.773023773954534
+
+    Budget: 283.87040550116
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 47.74044846551667
+
+    Budget: 287.7325878889309
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 47.186558652397416
+
+    Budget: 291.59477027670175
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 48.278050624417
+
+    Budget: 295.4569526644727
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 50.14539278691712
+
+    Budget: 299.31913505224355
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 49.13331682542426
+
+    Budget: 303.1813174400144
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 49.59150297379786
+
+    Budget: 307.0434998277853
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 49.544662271708965
+
+    Budget: 310.90568221555617
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 47.455359731847594
+
+    Budget: 314.7678646033271
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 48.294338278635934
+
+    Budget: 318.63004699109797
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 49.133316825424274
+
+    Budget: 322.49222937886884
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 48.579427012305004
+
+    Budget: 326.3544117666397
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 51.17375640262889
+
+    Budget: 330.2165941544106
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 49.33898954856662
+
+    Budget: 334.0787765421815
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 47.89928048657015
+
+    Budget: 337.9409589299524
+    Metric w/ MST seed:  65.67261746904302
+    Metric w/ Rand seed: 47.59790409868212
 
     Budget: 341.80314131772326
     Metric w/ MST seed:  65.67261746904302
-    Metric w/ Rand seed: 50.968083679486526
+    Metric w/ Rand seed: 50.27164949953272
 
 
 Graph 3:
     Best Metric: 43.08131424925317
 
-    Budget: 70.38317845399222
+    Budget: 63.98470768544747
     Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 21.759891092855497
+    Metric w/ Rand seed: 19.203909154813335
 
-    Budget: 72.51600204350713
+    Budget: 66.15368082732704
     Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 22.084493620609315
+    Metric w/ Rand seed: 21.205873637266055
 
-    Budget: 74.64882563302204
+    Budget: 68.32265396920661
     Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 22.45326450468623
+    Metric w/ Rand seed: 20.201485026663956
 
-    Budget: 76.78164922253697
+    Budget: 70.49162711108619
     Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 22.680995322094244
+    Metric w/ Rand seed: 21.413204386940123
 
-    Budget: 78.91447281205188
+    Budget: 72.66060025296576
     Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 22.308818068641582
+    Metric w/ Rand seed: 22.228940056653965
 
-    Budget: 81.0472964015668
+    Budget: 74.82957339484534
     Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 22.38528971125346
+    Metric w/ Rand seed: 22.021609306979894
 
-    Budget: 83.18011999108171
+    Budget: 76.99854653672492
     Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 22.934216687039545
+    Metric w/ Rand seed: 22.504245599760825
 
-    Budget: 85.31294358059662
+    Budget: 79.16751967860449
     Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 22.490658270778372
+    Metric w/ Rand seed: 23.02259154820625
 
-    Budget: 87.44576717011154
+    Budget: 81.33649282048407
     Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.112650519800585
+    Metric w/ Rand seed: 21.722497326763374
 
-    Budget: 89.57859075962645
+    Budget: 83.50546596236364
     Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 22.820351278335536
+    Metric w/ Rand seed: 22.038603005338086
 
-    Budget: 91.71141434914136
+    Budget: 85.67443910424322
     Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 22.77786703244005
+    Metric w/ Rand seed: 24.02357378943261
 
-    Budget: 93.84423793865629
+    Budget: 87.8434122461228
     Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 21.747987874300662
+    Metric w/ Rand seed: 22.658911143932688
 
-    Budget: 95.9770615281712
+    Budget: 90.01238538800237
     Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.909708380728606
+    Metric w/ Rand seed: 23.38627195247982
 
-    Budget: 98.10988511768612
+    Budget: 92.18135852988195
     Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 22.72347956798973
+    Metric w/ Rand seed: 22.786363881619152
 
-    Budget: 100.24270870720103
+    Budget: 94.35033167176152
     Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 24.213910840748486
+    Metric w/ Rand seed: 22.570536282765975
 
-    Budget: 102.37553229671595
+    Budget: 96.5193048136411
     Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 22.89682292094741
+    Metric w/ Rand seed: 23.732958658395177
 
-    Budget: 104.50835588623087
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.986180023340484
-
-    Budget: 106.64117947574579
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 22.90872613950225
-
-    Budget: 108.7740030652607
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.014094699027154
-
-    Budget: 110.90682665477561
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 22.714982718810635
-
-    Budget: 113.03965024429053
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.039585246564442
-
-    Budget: 115.17247383380544
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 22.96820408375594
-
-    Budget: 117.30529742332035
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 22.95121038539774
-
-    Budget: 119.43812101283527
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 22.871332373410112
-
-    Budget: 121.5709446023502
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.51204057973866
-
-    Budget: 123.70376819186511
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.99467687251958
-
-    Budget: 125.83659178138002
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.11605688917632
-
-    Budget: 127.96941537089494
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.318297159047038
-
-    Budget: 130.10223896040986
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.26390969459672
-
-    Budget: 132.23506254992478
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.002191480472316
-
-    Budget: 134.3678861394397
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.559615305437504
-
-    Budget: 136.5007097289546
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 22.266333822746095
-
-    Budget: 138.63353331846952
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.275812913151555
-
-    Budget: 140.76635690798443
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.440659416930142
-
-    Budget: 142.89918049749934
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.027682028009608
-
-    Budget: 145.03200408701426
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 24.049064336969906
-
-    Budget: 147.16482767652917
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.602099551332984
-
-    Budget: 149.2976512660441
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 22.857745044427674
-
-    Budget: 151.430474855559
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 22.76596381388521
-
-    Budget: 153.56329844507394
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.22992229788033
-
-    Budget: 155.69612203458883
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.044675726367803
-
-    Budget: 157.82894562410377
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.369278254121628
-
-    Budget: 159.96176921361868
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 22.473664572420162
-
-    Budget: 162.0945928031336
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 22.79486073079824
-
-    Budget: 164.2274163926485
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.153450655268443
-
-    Budget: 166.36023998216342
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.943695777445
-
-    Budget: 168.49306357167833
-    Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.21633496889787
-
-    Budget: 170.62588716119325
+    Budget: 98.68827795552068
     Metric w/ MST seed:  20.9033934361943
     Metric w/ Rand seed: 23.525627908721116
 
-    Budget: 172.7587107507082
+    Budget: 100.85725109740025
     Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.909708380728606
+    Metric w/ Rand seed: 23.33869722678097
 
-    Budget: 174.89153434022307
+    Budget: 103.02622423927983
     Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 22.934216687039537
+    Metric w/ Rand seed: 23.301303460688843
 
-    Budget: 177.02435792973802
+    Budget: 105.1951973811594
     Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.09056634163902
+    Metric w/ Rand seed: 23.88930831299467
 
-    Budget: 179.1571815192529
+    Budget: 107.36417052303898
     Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 22.883235591964958
+    Metric w/ Rand seed: 22.635104706823018
 
-    Budget: 181.29000510876784
+    Budget: 109.53314366491855
     Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.229922297880336
+    Metric w/ Rand seed: 23.783939753469767
 
-    Budget: 183.42282869828273
+    Budget: 111.70211680679813
     Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.411762500017108
+    Metric w/ Rand seed: 23.52562790872111
 
-    Budget: 185.55565228779767
+    Budget: 113.8710899486777
     Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 22.456670874061974
+    Metric w/ Rand seed: 23.065075794101755
 
-    Budget: 187.68847587731258
+    Budget: 116.04006309055728
     Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.22992229788033
+    Metric w/ Rand seed: 23.428756198375307
 
-    Budget: 189.8212994668275
+    Budget: 118.20903623243686
     Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 23.457653115288334
+    Metric w/ Rand seed: 22.98860415148986
+
+    Budget: 120.37800937431643
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 23.36078140494253
+
+    Budget: 122.54698251619601
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 23.175534833429996
+
+    Budget: 124.71595565807559
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 23.40326565083801
+
+    Budget: 126.88492879995516
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 22.959707234576836
+
+    Budget: 129.05390194183474
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 23.70746811085789
+
+    Budget: 131.2228750837143
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 23.12114736897968
+
+    Budget: 133.3918482255939
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 22.752376484902758
+
+    Budget: 135.56082136747347
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 23.00559784984807
+
+    Budget: 137.72979450935304
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 22.448174024882874
+
+    Budget: 139.89876765123262
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 23.84682406709919
+
+    Budget: 142.0677407931122
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 22.92571983786045
+
+    Budget: 144.23671393499177
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 23.761855575308214
+
+    Budget: 146.40568707687135
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 23.212928599522144
+
+    Budget: 148.57466021875092
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 22.946119905594372
+
+    Budget: 150.7436333606305
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 23.116056889176324
+
+    Budget: 152.91260650251007
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 24.205413991569397
+
+    Budget: 155.08157964438965
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 22.951210385397737
+
+    Budget: 157.25055278626922
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 24.02357378943261
+
+    Budget: 159.4195259281488
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 23.432162567751043
+
+    Budget: 161.58849907002838
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 23.301303460688843
+
+    Budget: 163.75747221190795
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 23.23841914705943
+
+    Budget: 165.92644535378753
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 22.70989223900727
+
+    Budget: 168.09541849566708
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 23.534124757900212
+
+    Budget: 170.26439163754665
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 23.28090339295491
+
+    Budget: 172.43336477942623
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 23.6734807141415
+
+    Budget: 174.6023379213058
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 23.82983036874099
+
+    Budget: 176.77131106318538
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 23.21292859952213
+
+    Budget: 178.94028420506496
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 23.80433982120371
+
+    Budget: 181.10925734694453
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 23.175534833430007
+
+    Budget: 183.2782304888241
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 23.090566341639033
+
+    Budget: 185.44720363070368
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 22.65550477455695
+
+    Budget: 187.61617677258326
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 22.828848127514632
+
+    Budget: 189.78514991446283
+    Metric w/ MST seed:  20.9033934361943
+    Metric w/ Rand seed: 23.010688329651412
 
     Budget: 191.9541230563424
     Metric w/ MST seed:  20.9033934361943
-    Metric w/ Rand seed: 22.874738742785862
+    Metric w/ Rand seed: 23.078663123084194
 
 
 Graph 4:
     Best Metric: 65.60372037293129
 
-    Budget: 93.2368417367341
+    Budget: 84.76076521521281
+    Metric w/ MST seed:  30.964450353766527
+    Metric w/ Rand seed: 17.037688142628088
+
+    Budget: 87.6340114936946
+    Metric w/ MST seed:  30.964450353766527
+    Metric w/ Rand seed: 19.518464394957658
+
+    Budget: 90.50725777217639
+    Metric w/ MST seed:  30.964450353766527
+    Metric w/ Rand seed: 18.570251730010607
+
+    Budget: 93.38050405065819
     Metric w/ MST seed:  37.350131967860364
-    Metric w/ Rand seed: 19.82810889849532
+    Metric w/ Rand seed: 18.442538097728733
 
-    Budget: 96.0622005772412
+    Budget: 96.25375032913998
     Metric w/ MST seed:  37.350131967860364
-    Metric w/ Rand seed: 29.460848558609978
+    Metric w/ Rand seed: 25.99692155669351
 
-    Budget: 98.88755941774829
+    Budget: 99.12699660762176
     Metric w/ MST seed:  43.7358135819542
-    Metric w/ Rand seed: 30.645209333786738
+    Metric w/ Rand seed: 28.29214671373904
 
-    Budget: 101.71291825825539
+    Budget: 102.00024288610356
     Metric w/ MST seed:  43.7358135819542
-    Metric w/ Rand seed: 33.0874272774482
+    Metric w/ Rand seed: 29.42229024994188
 
-    Budget: 104.53827709876248
+    Budget: 104.87348916458535
     Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 31.848849263297538
+    Metric w/ Rand seed: 31.39221197314394
 
-    Budget: 107.36363593926957
+    Budget: 107.74673544306714
     Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 33.34285454201195
+    Metric w/ Rand seed: 31.976562895579406
 
-    Budget: 110.18899477977666
+    Budget: 110.61998172154892
     Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 33.524785413267736
+    Metric w/ Rand seed: 31.411491127477994
 
-    Budget: 113.01435362028377
+    Budget: 113.49322800003071
     Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 33.013930884140244
+    Metric w/ Rand seed: 33.45128901995977
 
-    Budget: 115.83971246079085
+    Budget: 116.36647427851251
     Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 31.864508193603346
+    Metric w/ Rand seed: 31.17172279322004
 
-    Budget: 118.66507130129796
+    Budget: 119.2397205569943
     Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 32.46813827037286
+    Metric w/ Rand seed: 32.68500722626852
 
-    Budget: 121.49043014180504
+    Budget: 122.11296683547609
     Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 33.34285454201195
+    Metric w/ Rand seed: 36.02122059590312
 
-    Budget: 124.31578898231214
+    Budget: 124.98621311395789
     Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 33.92720546444742
+    Metric w/ Rand seed: 35.25493880221185
 
-    Budget: 127.14114782281924
+    Budget: 127.85945939243967
     Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 32.65006914162865
+    Metric w/ Rand seed: 36.18387231282485
 
-    Budget: 129.96650666332633
+    Budget: 130.73270567092146
     Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 35.47542798213574
+    Metric w/ Rand seed: 35.45252860377345
 
-    Budget: 132.79186550383344
+    Budget: 133.60595194940325
     Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 36.07543783487703
+    Metric w/ Rand seed: 36.001941441569066
 
-    Budget: 135.6172243443405
+    Budget: 136.47919822788504
     Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 37.3682330880016
+    Metric w/ Rand seed: 35.638079699057485
 
-    Budget: 138.4425831848476
+    Budget: 139.35244450636685
     Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 36.4236406470828
+    Metric w/ Rand seed: 33.85008884711121
 
-    Budget: 141.2679420253547
+    Budget: 142.2256907848486
     Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 37.205581371079866
+    Metric w/ Rand seed: 36.91521602187626
 
-    Budget: 144.0933008658618
+    Budget: 145.09893706333042
     Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 33.3235753876779
+    Metric w/ Rand seed: 36.98509219115598
 
-    Budget: 146.91865970636889
+    Budget: 147.9721833418122
     Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 34.0091203400047
+    Metric w/ Rand seed: 35.548924375443704
 
-    Budget: 149.74401854687596
+    Budget: 150.845429620294
     Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 37.058588584463934
+    Metric w/ Rand seed: 37.31401584902768
 
-    Budget: 152.56937738738307
+    Budget: 153.71867589877579
     Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 38.09957679705299
+    Metric w/ Rand seed: 37.56944311359144
 
-    Budget: 155.39473622789018
-    Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 36.91521602187625
-
-    Budget: 158.22009506839726
-    Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 37.751373984847234
-
-    Budget: 161.04545390890436
-    Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 34.17901250498292
-
-    Budget: 163.87081274941147
-    Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 35.71157609236545
-
-    Budget: 166.69617158991855
-    Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 36.493516816362515
-
-    Budget: 169.52153043042563
-    Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 36.31158594510673
-
-    Budget: 172.34688927093273
-    Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 38.46343853956458
-
-    Budget: 175.17224811143984
-    Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 35.545304151415465
-
-    Budget: 177.99760695194692
-    Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 36.93087495218205
-
-    Budget: 180.822965792454
-    Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 37.55016395925739
-
-    Budget: 183.6483246329611
-    Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 37.09352666910379
-
-    Budget: 186.4736834734682
-    Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 37.770653139181285
-
-    Budget: 189.2990423139753
-    Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 38.006801249410984
-
-    Budget: 192.12440115448237
+    Budget: 156.59192217725757
     Metric w/ MST seed:  50.12149519604803
     Metric w/ Rand seed: 36.4392995773886
 
-    Budget: 194.94975999498948
+    Budget: 159.46516845573936
     Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 36.58629236400453
+    Metric w/ Rand seed: 38.15379403602691
 
-    Budget: 197.77511883549658
+    Budget: 162.33841473422115
     Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 38.552593863178345
+    Metric w/ Rand seed: 37.205581371079866
 
-    Budget: 200.60047767600366
+    Budget: 165.21166101270296
     Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 38.18873212066677
+    Metric w/ Rand seed: 34.21395058962278
 
-    Budget: 203.42583651651074
+    Budget: 168.08490729118472
     Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 36.25736870613282
+    Metric w/ Rand seed: 37.25979861005377
 
-    Budget: 206.25119535701785
-    Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 38.40922130059066
-
-    Budget: 209.07655419752496
-    Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 36.276647860466866
-
-    Budget: 211.90191303803203
-    Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 37.224860525413916
-
-    Budget: 214.72727187853914
-    Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 35.038069846316205
-
-    Budget: 217.55263071904625
-    Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 37.53450502895158
-
-    Budget: 220.37798955955333
-    Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 36.40436149274874
-
-    Budget: 223.2033484000604
-    Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 35.34409412582562
-
-    Budget: 226.0287072405675
-    Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 36.56701320967048
-
-    Budget: 228.85406608107462
-    Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 36.29230679077267
-
-    Budget: 231.6794249215817
-    Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 35.874227809287184
-
-    Budget: 234.5047837620888
-    Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 38.47909746987038
-
-    Budget: 237.33014260259588
-    Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 37.186302216745815
-
-    Budget: 240.155501443103
-    Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 36.69472684195235
-
-    Budget: 242.98086028361007
+    Budget: 170.95815356966654
     Metric w/ MST seed:  50.12149519604803
     Metric w/ Rand seed: 37.077867738797984
 
-    Budget: 245.80621912411718
+    Budget: 173.83139984814832
+    Metric w/ MST seed:  50.12149519604803
+    Metric w/ Rand seed: 35.82001057031327
+
+    Budget: 176.7046461266301
+    Metric w/ MST seed:  50.12149519604803
+    Metric w/ Rand seed: 34.58143255616261
+
+    Budget: 179.5778924051119
+    Metric w/ MST seed:  50.12149519604803
+    Metric w/ Rand seed: 34.65130872544233
+
+    Budget: 182.45113868359368
+    Metric w/ MST seed:  50.12149519604803
+    Metric w/ Rand seed: 36.8959368675422
+
+    Budget: 185.3243849620755
+    Metric w/ MST seed:  50.12149519604803
+    Metric w/ Rand seed: 38.22729042933488
+
+    Budget: 188.19763124055726
+    Metric w/ MST seed:  50.12149519604803
+    Metric w/ Rand seed: 37.058588584463934
+
+    Budget: 191.07087751903907
+    Metric w/ MST seed:  50.12149519604803
+    Metric w/ Rand seed: 35.928445048261096
+
+    Budget: 193.94412379752086
+    Metric w/ MST seed:  50.12149519604803
+    Metric w/ Rand seed: 32.04643906485913
+
+    Budget: 196.81737007600265
+    Metric w/ MST seed:  50.12149519604803
+    Metric w/ Rand seed: 36.27302763643862
+
+    Budget: 199.69061635448443
+    Metric w/ MST seed:  50.12149519604803
+    Metric w/ Rand seed: 35.38265243449373
+
+    Budget: 202.56386263296622
+    Metric w/ MST seed:  50.12149519604803
+    Metric w/ Rand seed: 39.0827275466399
+
+    Budget: 205.437108911448
+    Metric w/ MST seed:  50.12149519604803
+    Metric w/ Rand seed: 37.167023062411765
+
+    Budget: 208.3103551899298
+    Metric w/ MST seed:  50.12149519604803
+    Metric w/ Rand seed: 37.62366035256535
+
+    Budget: 211.1836014684116
+    Metric w/ MST seed:  50.12149519604803
+    Metric w/ Rand seed: 36.493516816362515
+
+    Budget: 214.0568477468934
+    Metric w/ MST seed:  50.12149519604803
+    Metric w/ Rand seed: 38.53693493287255
+
+    Budget: 216.93009402537518
+    Metric w/ MST seed:  50.12149519604803
+    Metric w/ Rand seed: 34.87179790536623
+
+    Budget: 219.80334030385697
+    Metric w/ MST seed:  50.12149519604803
+    Metric w/ Rand seed: 35.200721563237934
+
+    Budget: 222.67658658233876
+    Metric w/ MST seed:  50.12149519604803
+    Metric w/ Rand seed: 34.597091486468415
+
+    Budget: 225.54983286082054
+    Metric w/ MST seed:  50.12149519604803
+    Metric w/ Rand seed: 36.276647860466866
+
+    Budget: 228.42307913930233
+    Metric w/ MST seed:  50.12149519604803
+    Metric w/ Rand seed: 36.73328515062046
+
+    Budget: 231.29632541778412
+    Metric w/ MST seed:  50.12149519604803
+    Metric w/ Rand seed: 37.132084977771896
+
+    Budget: 234.1695716962659
+    Metric w/ MST seed:  50.12149519604803
+    Metric w/ Rand seed: 35.38265243449373
+
+    Budget: 237.04281797474772
     Metric w/ MST seed:  50.12149519604803
     Metric w/ Rand seed: 36.7140059962864
 
-    Budget: 248.63157796462426
+    Budget: 239.9160642532295
     Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 37.639319282871156
+    Metric w/ Rand seed: 36.8959368675422
 
-    Budget: 251.45693680513136
+    Budget: 242.7893105317113
     Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 36.45857873172265
+    Metric w/ Rand seed: 36.42364064708279
+
+    Budget: 245.66255681019308
+    Metric w/ MST seed:  50.12149519604803
+    Metric w/ Rand seed: 38.061018488384896
+
+    Budget: 248.53580308867487
+    Metric w/ MST seed:  50.12149519604803
+    Metric w/ Rand seed: 35.583862460083566
+
+    Budget: 251.40904936715665
+    Metric w/ MST seed:  50.12149519604803
+    Metric w/ Rand seed: 36.586292364004535
 
     Budget: 254.28229564563844
     Metric w/ MST seed:  50.12149519604803
-    Metric w/ Rand seed: 35.053728776622016
+    Metric w/ Rand seed: 36.183872312824846
 
 
 Graph 5:
     Best Metric: 9.664613985419201
 
-    Budget: 11.825733903143727
+    Budget: 10.750667184676114
+    Metric w/ MST seed:  3.258159597770735
+    Metric w/ Rand seed: 1.6290797988853682
+
+    Budget: 11.11509658076683
+    Metric w/ MST seed:  3.258159597770735
+    Metric w/ Rand seed: 1.2381006471528793
+
+    Budget: 11.479525976857545
+    Metric w/ MST seed:  3.258159597770735
+    Metric w/ Rand seed: 1.6290797988853682
+
+    Budget: 11.843955372948262
     Metric w/ MST seed:  4.2709695917656445
-    Metric w/ Rand seed: 2.5625817550593877
+    Metric w/ Rand seed: 2.762465923241351
 
-    Budget: 12.184089475966264
+    Budget: 12.208384769038977
     Metric w/ MST seed:  4.2709695917656445
-    Metric w/ Rand seed: 2.913048507032079
+    Metric w/ Rand seed: 2.2702057721093727
 
-    Budget: 12.542445048788801
+    Budget: 12.572814165129692
     Metric w/ MST seed:  4.2709695917656445
-    Metric w/ Rand seed: 2.2702057721093722
+    Metric w/ Rand seed: 2.7175589311658355
 
-    Budget: 12.900800621611339
+    Budget: 12.93724356122041
     Metric w/ MST seed:  4.307591194396646
-    Metric w/ Rand seed: 3.4250843235848003
+    Metric w/ Rand seed: 3.7045284271811174
 
-    Budget: 13.259156194433874
+    Budget: 13.301672957311125
     Metric w/ MST seed:  4.307591194396646
-    Metric w/ Rand seed: 3.145640219988483
+    Metric w/ Rand seed: 3.124651588055965
 
-    Budget: 13.617511767256412
+    Budget: 13.66610235340184
     Metric w/ MST seed:  4.307591194396646
-    Metric w/ Rand seed: 3.4250843235848003
+    Metric w/ Rand seed: 2.607740644728367
 
-    Budget: 13.975867340078949
+    Budget: 14.030531749492555
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 4.055475713612966
+    Metric w/ Rand seed: 4.268291761148628
 
-    Budget: 14.334222912901486
+    Budget: 14.39496114558327
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 3.9295439220178565
+    Metric w/ Rand seed: 4.5926428568204605
 
-    Budget: 14.692578485724024
+    Budget: 14.759390541673987
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.059519783704202
+    Metric w/ Rand seed: 4.232173953704551
 
-    Budget: 15.05093405854656
+    Budget: 15.123819937764702
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 4.422536505202456
+    Metric w/ Rand seed: 4.680991976866255
 
-    Budget: 15.409289631369097
+    Budget: 15.488249333855418
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 4.533339121286008
+    Metric w/ Rand seed: 4.7027130408513935
 
-    Budget: 15.767645204191634
+    Budget: 15.852678729946135
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 4.405210033533038
+    Metric w/ Rand seed: 4.791794592949806
 
-    Budget: 16.12600077701417
+    Budget: 16.217108126036848
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 4.707840065219734
+    Metric w/ Rand seed: 4.814980521040185
 
-    Budget: 16.48435634983671
+    Budget: 16.581537522127565
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 4.788132432686705
+    Metric w/ Rand seed: 4.682456840971494
 
-    Budget: 16.842711922659245
+    Budget: 16.945966918218282
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 4.957506352252091
+    Metric w/ Rand seed: 5.2774628556082055
 
-    Budget: 17.20106749548178
+    Budget: 17.310396314308996
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 4.895272888507156
+    Metric w/ Rand seed: 4.812050792829705
 
-    Budget: 17.55942306830432
+    Budget: 17.674825710399713
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.091494896426021
+    Metric w/ Rand seed: 5.1102862322006795
 
-    Budget: 17.91777864112686
+    Budget: 18.03925510649043
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 4.961168512515191
+    Metric w/ Rand seed: 4.812783224882325
 
-    Budget: 18.276134213949394
+    Budget: 18.403684502581143
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.242809912269369
+    Metric w/ Rand seed: 5.1102862322006795
 
-    Budget: 18.63448978677193
+    Budget: 18.76811389867186
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.406324375413794
+    Metric w/ Rand seed: 5.21889155212637
 
-    Budget: 18.99284535959447
+    Budget: 19.132543294762577
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 4.902597209033357
+    Metric w/ Rand seed: 5.128345135922718
 
-    Budget: 19.351200932417004
-    Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.365079543601378
-
-    Budget: 19.70955650523954
-    Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.070506264493502
-
-    Budget: 20.06791207806208
-    Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.47148756736921
-
-    Budget: 20.42626765088462
-    Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.596686926911698
-
-    Budget: 20.78462322370715
-    Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.275997991502964
-
-    Budget: 21.14297879652969
-    Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.493941063406967
-
-    Budget: 21.50133436935223
-    Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.304310943961683
-
-    Budget: 21.859689942174764
-    Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.1964380560886125
-
-    Budget: 22.2180455149973
-    Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.34262604756362
-
-    Budget: 22.57640108781984
-    Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.559104255362382
-
-    Budget: 22.934756660642375
-    Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.472952431474448
-
-    Budget: 23.29311223346491
-    Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.192775895825511
-
-    Budget: 23.65146780628745
-    Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.59815179101694
-
-    Budget: 24.00982337910999
-    Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.341161183458378
-
-    Budget: 24.36817895193252
-    Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.450498935436691
-
-    Budget: 24.72653452475506
-    Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.155193224276196
-
-    Budget: 25.0848900975776
+    Budget: 19.49697269085329
     Metric w/ MST seed:  6.406454387648466
     Metric w/ Rand seed: 5.3672768397592385
 
-    Budget: 25.443245670400135
+    Budget: 19.861402086944004
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.260136383938787
+    Metric w/ Rand seed: 5.67844415848391
 
-    Budget: 25.80160124322267
+    Budget: 20.22583148303472
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.195705624035993
+    Metric w/ Rand seed: 5.158122952486676
 
-    Budget: 26.15995681604521
+    Budget: 20.590260879125438
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.152263496065715
+    Metric w/ Rand seed: 5.5554420950992816
 
-    Budget: 26.518312388867745
+    Budget: 20.95469027521615
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.472952431474449
+    Metric w/ Rand seed: 5.234753159690549
 
-    Budget: 26.87666796169028
+    Budget: 21.31911967130687
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.3006487836985805
+    Metric w/ Rand seed: 5.44903407133145
 
-    Budget: 27.23502353451282
+    Budget: 21.683549067397585
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.3035785119090635
+    Metric w/ Rand seed: 5.553977230994041
 
-    Budget: 27.59337910733536
+    Budget: 22.0479784634883
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.281857447923925
+    Metric w/ Rand seed: 5.239147752006268
 
-    Budget: 27.95173468015789
+    Budget: 22.412407859579016
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.513464831234246
+    Metric w/ Rand seed: 5.514197263286867
 
-    Budget: 28.31009025298043
+    Budget: 22.776837255669733
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.55544209509928
+    Metric w/ Rand seed: 5.724083582612048
 
-    Budget: 28.66844582580297
+    Budget: 23.141266651760446
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.427313007346313
+    Metric w/ Rand seed: 5.528594006745802
 
-    Budget: 29.02680139862551
+    Budget: 23.505696047851163
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.4880816069860066
+    Metric w/ Rand seed: 5.368009271811858
 
-    Budget: 29.38515697144804
+    Budget: 23.87012544394188
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.046587904350505
+    Metric w/ Rand seed: 5.262333680096649
 
-    Budget: 29.74351254427058
+    Budget: 24.234554840032594
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.389730335796995
+    Metric w/ Rand seed: 5.509070238918525
 
-    Budget: 30.10186811709312
+    Budget: 24.59898423612331
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.449766503384072
+    Metric w/ Rand seed: 5.239147752006269
 
-    Budget: 30.46022368991565
+    Budget: 24.963413632214028
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.414381127992615
+    Metric w/ Rand seed: 5.323834711788961
 
-    Budget: 30.81857926273819
+    Budget: 25.32784302830474
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.365079543601379
+    Metric w/ Rand seed: 5.6813738866943915
 
-    Budget: 31.17693483556073
+    Budget: 25.692272424395455
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.700897654521668
+    Metric w/ Rand seed: 5.532988599061523
 
-    Budget: 31.53529040838326
+    Budget: 26.056701820486172
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.430242735556794
+    Metric w/ Rand seed: 5.783387318146502
 
-    Budget: 31.8936459812058
+    Budget: 26.42113121657689
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.4917437672491065
+    Metric w/ Rand seed: 5.197170488141231
+
+    Budget: 26.785560612667606
+    Metric w/ MST seed:  6.406454387648466
+    Metric w/ Rand seed: 5.6191404229494575
+
+    Budget: 27.14999000875832
+    Metric w/ MST seed:  6.406454387648466
+    Metric w/ Rand seed: 5.553977230994041
+
+    Budget: 27.514419404849036
+    Metric w/ MST seed:  6.406454387648466
+    Metric w/ Rand seed: 5.261601248044026
+
+    Budget: 27.87884880093975
+    Metric w/ MST seed:  6.406454387648466
+    Metric w/ Rand seed: 5.410718967729515
+
+    Budget: 28.243278197030467
+    Metric w/ MST seed:  6.406454387648466
+    Metric w/ Rand seed: 5.44756920722621
+
+    Budget: 28.607707593121184
+    Metric w/ MST seed:  6.406454387648466
+    Metric w/ Rand seed: 5.511999967129006
+
+    Budget: 28.972136989211897
+    Metric w/ MST seed:  6.406454387648466
+    Metric w/ Rand seed: 5.597419358964319
+
+    Budget: 29.336566385302614
+    Metric w/ MST seed:  6.406454387648466
+    Metric w/ Rand seed: 5.280392583818684
+
+    Budget: 29.700995781393328
+    Metric w/ MST seed:  6.406454387648466
+    Metric w/ Rand seed: 5.216694255968511
+
+    Budget: 30.065425177484045
+    Metric w/ MST seed:  6.406454387648466
+    Metric w/ Rand seed: 5.388997903744377
+
+    Budget: 30.42985457357476
+    Metric w/ MST seed:  6.406454387648466
+    Metric w/ Rand seed: 5.492476199301727
+
+    Budget: 30.794283969665475
+    Metric w/ MST seed:  6.406454387648466
+    Metric w/ Rand seed: 5.365811975653998
+
+    Budget: 31.158713365756192
+    Metric w/ MST seed:  6.406454387648466
+    Metric w/ Rand seed: 5.34262604756362
+
+    Budget: 31.52314276184691
+    Metric w/ MST seed:  6.406454387648466
+    Metric w/ Rand seed: 5.34775307193196
+
+    Budget: 31.887572157937623
+    Metric w/ MST seed:  6.406454387648466
+    Metric w/ Rand seed: 5.2586715198335465
 
     Budget: 32.25200155402834
     Metric w/ MST seed:  6.406454387648466
-    Metric w/ Rand seed: 5.616943126791596
+    Metric w/ Rand seed: 5.430975167609412
 
 
 Graph 6:
     Best Metric: 145.34290757196123
 
-    Budget: 135.16880709283637
+    Budget: 122.88073372076033
     Metric w/ MST seed:  10.492643875759883
-    Metric w/ Rand seed: 6.715292080486325
+    Metric w/ Rand seed: 5.036469060364744
 
-    Budget: 139.26483155019505
+    Budget: 127.04618232146407
     Metric w/ MST seed:  10.492643875759883
-    Metric w/ Rand seed: 6.715292080486325
+    Metric w/ Rand seed: 4.406910427819151
 
-    Budget: 143.36085600755374
+    Budget: 131.2116309221678
     Metric w/ MST seed:  10.492643875759883
-    Metric w/ Rand seed: 16.575288500140772
+    Metric w/ Rand seed: 6.505439202971128
 
-    Budget: 147.45688046491242
+    Budget: 135.37707952287155
     Metric w/ MST seed:  10.492643875759883
-    Metric w/ Rand seed: 16.694983799895184
+    Metric w/ Rand seed: 6.505439202971128
 
-    Budget: 151.5529049222711
+    Budget: 139.5425281235753
     Metric w/ MST seed:  10.492643875759883
-    Metric w/ Rand seed: 21.31020269344961
+    Metric w/ Rand seed: 17.26392257667361
 
-    Budget: 155.64892937962975
+    Budget: 143.70797672427904
     Metric w/ MST seed:  10.492643875759883
-    Metric w/ Rand seed: 24.60722887792562
+    Metric w/ Rand seed: 13.368419893425564
 
-    Budget: 159.74495383698843
+    Budget: 147.87342532498278
     Metric w/ MST seed:  10.492643875759883
-    Metric w/ Rand seed: 23.767817367864826
+    Metric w/ Rand seed: 18.3131869642496
 
-    Budget: 163.8409782943471
+    Budget: 152.03887392568652
+    Metric w/ MST seed:  10.492643875759883
+    Metric w/ Rand seed: 22.59885768053442
+
+    Budget: 156.20432252639026
+    Metric w/ MST seed:  10.492643875759883
+    Metric w/ Rand seed: 25.476178109980022
+
+    Budget: 160.369771127094
     Metric w/ MST seed:  53.94010547848054
-    Metric w/ Rand seed: 37.70208721450897
+    Metric w/ Rand seed: 38.60057416855701
 
-    Budget: 167.9370027517058
+    Budget: 164.53521972779774
     Metric w/ MST seed:  53.94010547848054
-    Metric w/ Rand seed: 47.50146377839629
+    Metric w/ Rand seed: 39.34982810085702
 
-    Budget: 172.03302720906447
+    Budget: 168.70066832850148
     Metric w/ MST seed:  53.94010547848054
-    Metric w/ Rand seed: 51.877292072441925
+    Metric w/ Rand seed: 47.38176847864189
 
-    Budget: 176.12905166642315
+    Budget: 172.86611692920522
     Metric w/ MST seed:  53.94010547848054
-    Metric w/ Rand seed: 49.50983497578749
+    Metric w/ Rand seed: 47.71131665591149
 
-    Budget: 180.22507612378183
+    Budget: 177.03156552990896
     Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 63.835817267248295
+    Metric w/ Rand seed: 65.99342148638752
 
-    Budget: 184.3211005811405
+    Budget: 181.1970141306127
     Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 65.15400997632672
+    Metric w/ Rand seed: 64.52445134378112
 
-    Budget: 188.4171250384992
+    Budget: 185.36246273131644
     Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 66.20327436390272
+    Metric w/ Rand seed: 64.10474558875075
 
-    Budget: 192.51314949585787
+    Budget: 189.52791133202018
     Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 62.666857579917895
+    Metric w/ Rand seed: 66.32296966365713
 
-    Budget: 196.60917395321655
+    Budget: 193.69335993272392
     Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 70.31017433644587
+    Metric w/ Rand seed: 73.00717961036989
 
-    Budget: 200.70519841057524
+    Budget: 197.85880853342766
     Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 73.21703248788509
+    Metric w/ Rand seed: 72.1677681003091
 
-    Budget: 204.80122286793392
-    Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 68.9608994935939
-
-    Budget: 208.8972473252926
+    Budget: 202.0242571341314
     Metric w/ MST seed:  74.92539323000031
     Metric w/ Rand seed: 72.5874738553395
 
-    Budget: 212.99327178265125
+    Budget: 206.18970573483514
     Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 71.53820946776352
+    Metric w/ Rand seed: 70.2495544806787
 
-    Budget: 217.08929624000993
+    Budget: 210.35515433553888
     Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 74.0859817199395
+    Metric w/ Rand seed: 71.6283670455243
 
-    Budget: 221.1853206973686
+    Budget: 214.52060293624262
     Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 78.94059121300275
+    Metric w/ Rand seed: 72.1677681003091
 
-    Budget: 225.2813451547273
+    Budget: 218.68605153694637
     Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 77.02237759337235
+    Metric w/ Rand seed: 73.6662759649091
 
-    Budget: 229.37736961208597
+    Budget: 222.8515001376501
     Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 77.56177864815714
+    Metric w/ Rand seed: 77.35192577064196
 
-    Budget: 233.47339406944465
+    Budget: 227.01694873835385
     Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 78.10117970294195
+    Metric w/ Rand seed: 78.76027605748116
 
-    Budget: 237.5694185268033
+    Budget: 231.1823973390576
     Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 77.98148440318754
+    Metric w/ Rand seed: 77.23223047088756
 
-    Budget: 241.66544298416198
+    Budget: 235.34784593976133
     Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 81.09819543214196
+    Metric w/ Rand seed: 77.35192577064196
 
-    Budget: 245.76146744152067
+    Budget: 239.51329454046507
     Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 82.38685041922677
+    Metric w/ Rand seed: 76.81252471585714
 
-    Budget: 249.85749189887935
+    Budget: 243.6787431411688
     Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 80.43909907760275
+    Metric w/ Rand seed: 80.34894149984197
 
-    Budget: 253.95351635623803
-    Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 81.30804830965715
-
-    Budget: 258.0495408135967
-    Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 82.50654571898117
-
-    Budget: 262.1455652709554
-    Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 85.62325674793561
-
-    Budget: 266.24158972831407
-    Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 85.20355099290522
-
-    Budget: 270.33761418567275
-    Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 83.34595722904197
-
-    Budget: 274.43363864303143
+    Budget: 247.84419174187255
     Metric w/ MST seed:  74.92539323000031
     Metric w/ Rand seed: 81.54743890916599
 
-    Budget: 278.5296631003901
+    Budget: 252.0096403425763
     Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 82.05730224195717
+    Metric w/ Rand seed: 78.94059121300275
 
-    Budget: 282.6256875577488
+    Budget: 256.17508894328
     Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 84.1247488833356
+    Metric w/ Rand seed: 80.55879437735716
 
-    Budget: 286.72171201510747
+    Budget: 260.34053754398377
     Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 83.37549495103559
+    Metric w/ Rand seed: 82.05730224195715
 
-    Budget: 290.8177364724661
+    Budget: 264.50598614468754
     Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 82.83609389625079
+    Metric w/ Rand seed: 80.76864725487235
 
-    Budget: 294.9137609298248
-    Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 84.544454638366
-
-    Budget: 299.00978538718346
-    Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 79.89969802281794
-
-    Budget: 303.10580984454214
-    Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 81.12773315413558
-
-    Budget: 307.2018343019008
+    Budget: 268.67143474539125
     Metric w/ MST seed:  74.92539323000031
     Metric w/ Rand seed: 83.79520070606598
 
-    Budget: 311.2978587592595
+    Budget: 272.83688334609496
     Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 81.30804830965714
+    Metric w/ Rand seed: 84.75430751588118
 
-    Budget: 315.3938832166182
-    Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 80.01939332257236
-
-    Budget: 319.48990767397686
-    Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 84.00505358358119
-
-    Budget: 323.58593213133554
-    Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 82.71639859649639
-
-    Budget: 327.6819565886942
-    Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 82.0868399639508
-
-    Budget: 331.7779810460529
-    Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 84.87400281563559
-
-    Budget: 335.8740055034116
-    Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 87.87101854483562
-
-    Budget: 339.97002996077026
-    Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 80.88834255462677
-
-    Budget: 344.06605441812894
-    Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 85.44294159241404
-
-    Budget: 348.1620788754876
-    Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 81.09819543214195
-
-    Budget: 352.2581033328463
-    Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 84.33460176085079
-
-    Budget: 356.354127790205
-    Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 81.51790118717234
-
-    Budget: 360.45015224756366
-    Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 83.13610435152677
-
-    Budget: 364.54617670492235
+    Budget: 277.00233194679873
     Metric w/ MST seed:  74.92539323000031
     Metric w/ Rand seed: 84.7543075158812
 
+    Budget: 281.1677805475025
+    Metric w/ MST seed:  74.92539323000031
+    Metric w/ Rand seed: 84.54445463836599
+
+    Budget: 285.3332291482062
+    Metric w/ MST seed:  74.92539323000031
+    Metric w/ Rand seed: 83.7050431283052
+
+    Budget: 289.4986777489099
+    Metric w/ MST seed:  74.92539323000031
+    Metric w/ Rand seed: 80.67848967711156
+
+    Budget: 293.6641263496137
+    Metric w/ MST seed:  74.92539323000031
+    Metric w/ Rand seed: 84.3346017608508
+
+    Budget: 297.82957495031746
+    Metric w/ MST seed:  74.92539323000031
+    Metric w/ Rand seed: 81.18835300990276
+
+    Budget: 301.9950235510212
+    Metric w/ MST seed:  74.92539323000031
+    Metric w/ Rand seed: 81.42774360941156
+
+    Budget: 306.1604721517249
+    Metric w/ MST seed:  74.92539323000031
+    Metric w/ Rand seed: 81.54743890916599
+
+    Budget: 310.32592075242866
+    Metric w/ MST seed:  74.92539323000031
+    Metric w/ Rand seed: 83.37549495103559
+
+    Budget: 314.4913693531324
+    Metric w/ MST seed:  74.92539323000031
+    Metric w/ Rand seed: 81.96714466419638
+
+    Budget: 318.65681795383614
+    Metric w/ MST seed:  74.92539323000031
+    Metric w/ Rand seed: 83.91489600582041
+
+    Budget: 322.82226655453985
+    Metric w/ MST seed:  74.92539323000031
+    Metric w/ Rand seed: 87.03160703477482
+
+    Budget: 326.9877151552436
+    Metric w/ MST seed:  74.92539323000031
+    Metric w/ Rand seed: 81.72775406468755
+
+    Budget: 331.1531637559474
+    Metric w/ MST seed:  74.92539323000031
+    Metric w/ Rand seed: 85.41340387042044
+
+    Budget: 335.3186123566511
+    Metric w/ MST seed:  74.92539323000031
+    Metric w/ Rand seed: 80.01939332257236
+
+    Budget: 339.4840609573548
+    Metric w/ MST seed:  74.92539323000031
+    Metric w/ Rand seed: 82.71639859649636
+
+    Budget: 343.6495095580586
+    Metric w/ MST seed:  74.92539323000031
+    Metric w/ Rand seed: 81.87698708643558
+
+    Budget: 347.81495815876235
+    Metric w/ MST seed:  74.92539323000031
+    Metric w/ Rand seed: 81.75729178668117
+
+    Budget: 351.98040675946606
+    Metric w/ MST seed:  74.92539323000031
+    Metric w/ Rand seed: 84.42475933861161
+
+    Budget: 356.1458553601698
+    Metric w/ MST seed:  74.92539323000031
+    Metric w/ Rand seed: 86.70205885750522
+
+    Budget: 360.31130396087354
+    Metric w/ MST seed:  74.92539323000031
+    Metric w/ Rand seed: 81.33758603165079
+
+    Budget: 364.4767525615773
+    Metric w/ MST seed:  74.92539323000031
+    Metric w/ Rand seed: 85.53309917017481
+
     Budget: 368.642201162281
     Metric w/ MST seed:  74.92539323000031
-    Metric w/ Rand seed: 83.16564207352039
+    Metric w/ Rand seed: 80.97850013238754
 
 
 Graph 7:
     Best Metric: 93.62016917518004
 
-    Budget: 114.56208809611557
+    Budget: 104.14735281465052
     Metric w/ MST seed:  10.527183639470492
-    Metric w/ Rand seed: 11.4674536454121
+    Metric w/ Rand seed: 3.158155091841147
 
-    Budget: 118.0336665232706
+    Budget: 107.6777715541302
     Metric w/ MST seed:  10.527183639470492
-    Metric w/ Rand seed: 10.023634164687676
+    Metric w/ Rand seed: 6.94794120205052
 
-    Budget: 121.5052449504256
+    Budget: 111.20819029360987
     Metric w/ MST seed:  10.527183639470492
-    Metric w/ Rand seed: 10.2716606234789
+    Metric w/ Rand seed: 6.526853856471701
 
-    Budget: 124.97682337758063
+    Budget: 114.73860903308956
+    Metric w/ MST seed:  10.527183639470492
+    Metric w/ Rand seed: 11.309385873025228
+
+    Budget: 118.26902777256923
+    Metric w/ MST seed:  10.527183639470492
+    Metric w/ Rand seed: 10.662761740256272
+
+    Budget: 121.79944651204892
+    Metric w/ MST seed:  10.527183639470492
+    Metric w/ Rand seed: 9.414492817920536
+
+    Budget: 125.32986525152859
     Metric w/ MST seed:  31.206723058393344
-    Metric w/ Rand seed: 24.96537844671468
+    Metric w/ Rand seed: 26.43168759904019
 
-    Budget: 128.44840180473565
+    Budget: 128.86028399100826
     Metric w/ MST seed:  31.206723058393344
-    Metric w/ Rand seed: 25.58951290788255
+    Metric w/ Rand seed: 25.800056580671956
 
-    Budget: 131.91998023189066
+    Budget: 132.39070273048796
     Metric w/ MST seed:  31.206723058393344
-    Metric w/ Rand seed: 27.048325503007696
+    Metric w/ Rand seed: 29.95845413605763
 
-    Budget: 135.39155865904567
+    Budget: 135.92112146996763
     Metric w/ MST seed:  31.206723058393344
-    Metric w/ Rand seed: 29.920971350055815
+    Metric w/ Rand seed: 28.680198984920438
 
-    Budget: 138.8631370862007
+    Budget: 139.4515402094473
     Metric w/ MST seed:  31.206723058393344
-    Metric w/ Rand seed: 30.334562138434276
+    Metric w/ Rand seed: 29.72542079166713
 
-    Budget: 142.33471551335572
+    Budget: 142.981958948927
     Metric w/ MST seed:  31.206723058393344
-    Metric w/ Rand seed: 30.778139155614184
+    Metric w/ Rand seed: 33.4777241158747
 
-    Budget: 145.80629394051073
+    Budget: 146.51237768840667
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 44.847722517682065
+    Metric w/ Rand seed: 46.73511901558638
 
-    Budget: 149.27787236766574
+    Budget: 150.04279642788634
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 45.90793743882948
+    Metric w/ Rand seed: 46.94566268837579
 
-    Budget: 152.74945079482075
+    Budget: 153.57321516736602
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 47.765347707932335
+    Metric w/ Rand seed: 44.238581170914934
 
-    Budget: 156.22102922197578
+    Budget: 157.1036339068457
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 45.080755862072564
+    Metric w/ Rand seed: 46.99064203157797
 
-    Budget: 159.6926076491308
+    Budget: 160.6340526463254
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 49.66024076303702
+    Metric w/ Rand seed: 50.682972898182626
 
-    Budget: 163.16418607628583
+    Budget: 164.16447138580506
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 46.54706501439806
+    Metric w/ Rand seed: 48.0058776095232
 
-    Budget: 166.63576450344084
+    Budget: 167.69489012528473
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 49.043602859069544
+    Metric w/ Rand seed: 49.6677373202374
 
-    Budget: 170.10734293059585
+    Budget: 171.22530886476443
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 48.39697872630057
+    Metric w/ Rand seed: 48.61501895629034
 
-    Budget: 173.57892135775086
+    Budget: 174.7557276042441
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 48.42696495510203
+    Metric w/ Rand seed: 48.82556262907975
 
-    Budget: 177.05049978490587
+    Budget: 178.28614634372377
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 49.41971086144618
+    Metric w/ Rand seed: 50.26938210980418
 
-    Budget: 180.5220782120609
+    Budget: 181.81656508320344
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 51.34459014535229
+    Metric w/ Rand seed: 49.02111318746843
 
-    Budget: 183.9936566392159
+    Budget: 185.34698382268311
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 49.87078443582644
+    Metric w/ Rand seed: 51.12654991536252
 
-    Budget: 187.46523506637095
+    Budget: 188.8774025621628
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 54.84886701076863
+    Metric w/ Rand seed: 49.855791321425706
 
-    Budget: 190.93681349352596
+    Budget: 192.40782130164249
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 53.01394641326686
+    Metric w/ Rand seed: 53.59310153123256
 
-    Budget: 194.40839192068097
+    Budget: 195.93824004112219
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 53.20200041445516
+    Metric w/ Rand seed: 51.7281947049293
 
-    Budget: 197.87997034783598
+    Budget: 199.46865878060186
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 53.585604974032165
+    Metric w/ Rand seed: 55.72852448792813
 
-    Budget: 201.351548774991
+    Budget: 202.99907752008153
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 54.45026933679089
+    Metric w/ Rand seed: 53.4275372016453
 
-    Budget: 204.82312720214603
+    Budget: 206.5294962595612
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 54.05916822001353
+    Metric w/ Rand seed: 54.65331645237996
 
-    Budget: 208.29470562930103
+    Budget: 210.05991499904087
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 55.713531373527374
+    Metric w/ Rand seed: 54.02168543401171
 
-    Budget: 211.76628405645607
+    Budget: 213.59033373852054
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 54.64581989517958
+    Metric w/ Rand seed: 53.5781084168318
 
-    Budget: 215.23786248361108
+    Budget: 217.12075247800024
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 54.01418887681136
+    Metric w/ Rand seed: 54.45776589399127
 
-    Budget: 218.7094409107661
+    Budget: 220.65117121747994
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 54.23972566400149
+    Metric w/ Rand seed: 54.63832333797924
 
-    Budget: 222.1810193379211
+    Budget: 224.1815899569596
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 52.983960184465396
+    Metric w/ Rand seed: 55.26245779914709
 
-    Budget: 225.6525977650761
+    Budget: 227.71200869643928
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 54.457765893991265
+    Metric w/ Rand seed: 56.736263508672984
 
-    Budget: 229.12417619223115
+    Budget: 231.24242743591896
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 55.29244402794855
+    Metric w/ Rand seed: 55.277450913547824
 
-    Budget: 232.59575461938616
+    Budget: 234.77284617539863
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 56.33766583469523
+    Metric w/ Rand seed: 57.157350854251774
 
-    Budget: 236.0673330465412
+    Budget: 238.3032649148783
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 56.10463249030474
+    Metric w/ Rand seed: 52.10430270730594
 
-    Budget: 239.5389114736962
+    Budget: 241.83368365435797
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 55.68354514472592
+    Metric w/ Rand seed: 55.69853825912663
 
-    Budget: 243.0104899008512
+    Budget: 245.3641023938377
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 56.96180029586309
+    Metric w/ Rand seed: 54.42777966518983
 
-    Budget: 246.48206832800622
+    Budget: 248.89452113331737
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 53.593101531232534
+    Metric w/ Rand seed: 55.4730014719365
 
-    Budget: 249.95364675516123
+    Budget: 252.42493987279704
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 54.03667854841244
+    Metric w/ Rand seed: 57.14985429705143
 
-    Budget: 253.42522518231624
+    Budget: 255.9553586122767
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 52.37481883769828
+    Metric w/ Rand seed: 53.826134875623055
 
-    Budget: 256.8968036094713
+    Budget: 259.4857773517564
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 58.202572660998456
+    Metric w/ Rand seed: 56.54071295028429
 
-    Budget: 260.3683820366263
+    Budget: 263.01619609123605
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 54.8938463539708
+    Metric w/ Rand seed: 53.81863831842267
 
-    Budget: 263.8399604637813
+    Budget: 266.5466148307157
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 54.450269336790896
+    Metric w/ Rand seed: 55.48799458633723
 
-    Budget: 267.31153889093633
+    Budget: 270.0770335701954
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 54.856363567969
+    Metric w/ Rand seed: 56.112129047505086
 
-    Budget: 270.78311731809134
+    Budget: 273.6074523096751
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 54.86386012516937
+    Metric w/ Rand seed: 54.43527622239019
 
-    Budget: 274.25469574524635
+    Budget: 277.1378710491548
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 55.69104170192627
+    Metric w/ Rand seed: 54.86386012516934
 
-    Budget: 277.72627417240136
+    Budget: 280.66828978863447
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 55.49549114353759
+    Metric w/ Rand seed: 54.66081300958032
 
-    Budget: 281.1978525995564
+    Budget: 284.19870852811414
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 54.698295795582155
+    Metric w/ Rand seed: 55.886592260314956
 
-    Budget: 284.66943102671144
+    Budget: 287.7291272675938
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 54.85636356796899
+    Metric w/ Rand seed: 53.39005441564348
 
-    Budget: 288.14100945386645
+    Budget: 291.2595460070735
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 55.706034816327026
+    Metric w/ Rand seed: 55.90908193191604
 
-    Budget: 291.61258788102145
+    Budget: 294.78996474655315
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 56.55570606468502
+    Metric w/ Rand seed: 55.262457799147086
 
-    Budget: 295.08416630817646
+    Budget: 298.3203834860329
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 56.142115276306555
+    Metric w/ Rand seed: 57.5784381998306
 
-    Budget: 298.5557447353315
+    Budget: 301.85080222551255
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 56.33016927749487
+    Metric w/ Rand seed: 55.05941068355806
 
-    Budget: 302.0273231624865
+    Budget: 305.3812209649922
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 53.80364520402196
+    Metric w/ Rand seed: 57.59343131423133
 
-    Budget: 305.4989015896415
+    Budget: 308.9116397044719
     Metric w/ MST seed:  51.8862624773162
     Metric w/ Rand seed: 54.8788532395701
 
-    Budget: 308.97048001679656
-    Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 56.75125662307369
-
     Budget: 312.44205844395157
     Metric w/ MST seed:  51.8862624773162
-    Metric w/ Rand seed: 55.72102793072773
+    Metric w/ Rand seed: 56.96180029586309
 
 
 Graph 8:
     Best Metric: 59.79749134486354
 
-    Budget: 92.97639123772687
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 34.41560526794608
+    Budget: 84.52399203429715
+    Metric w/ MST seed:  8.242166896477869
+    Metric w/ Rand seed: 30.631538967432547
 
-    Budget: 95.79385763887011
+    Budget: 87.38921210325638
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 34.41560526794606
+    Metric w/ Rand seed: 32.33937680288052
 
-    Budget: 98.61132404001334
+    Budget: 90.2544321722156
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 36.61463060955081
+    Metric w/ Rand seed: 33.040796615989116
 
-    Budget: 101.4287904411566
+    Budget: 93.11965224117483
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 35.4467117569138
+    Metric w/ Rand seed: 34.41560526794607
 
-    Budget: 104.24625684229983
+    Budget: 95.98487231013405
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 35.66761704336383
+    Metric w/ Rand seed: 33.44056072749885
 
-    Budget: 107.06372324344306
+    Budget: 98.85009237909328
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 39.669246122695505
+    Metric w/ Rand seed: 35.11702508105468
 
-    Budget: 109.8811896445863
+    Budget: 101.7153124480525
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 37.02841020819066
+    Metric w/ Rand seed: 31.115396001723
 
-    Budget: 112.69865604572954
+    Budget: 104.58053251701173
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 37.400143345440156
+    Metric w/ Rand seed: 37.02841020819067
 
-    Budget: 115.51612244687279
+    Budget: 107.44575258597095
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 37.8806578720987
+    Metric w/ Rand seed: 35.969272744962716
 
-    Budget: 118.33358884801602
+    Budget: 110.31097265493018
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 37.33006590978954
+    Metric w/ Rand seed: 35.295883906114355
 
-    Budget: 121.15105524915926
+    Budget: 113.1761927238894
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 35.804429407033155
+    Metric w/ Rand seed: 36.6706925580713
 
-    Budget: 123.9685216503025
+    Budget: 116.04141279284863
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 37.070456669581034
+    Metric w/ Rand seed: 37.16522257185998
 
-    Budget: 126.78598805144574
+    Budget: 118.90663286180785
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 36.36903685647244
+    Metric w/ Rand seed: 36.491833733011624
 
-    Budget: 129.60345445258898
+    Budget: 121.77185293076708
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 37.042425695320794
+    Metric w/ Rand seed: 36.477818245881515
 
-    Budget: 132.4209208537322
+    Budget: 124.63707299972631
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 38.11557864567888
+    Metric w/ Rand seed: 36.477818245881515
 
-    Budget: 135.23838725487545
+    Budget: 127.50229306868553
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 35.7763984327729
+
+    Budget: 130.36751313764475
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 34.938166255995
+
+    Budget: 133.232733206604
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 36.05336566774345
+
+    Budget: 136.0979532755632
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 36.89159784452136
+
+    Budget: 138.96317334452243
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 37.13719159759974
+
+    Budget: 141.82839341348165
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 35.30989939324448
+
+    Budget: 144.69361348244087
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 36.51986470727188
+
+    Budget: 147.5588335514001
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 38.59609317233743
+
+    Budget: 150.42405362035933
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 36.86356687026111
+
+    Budget: 153.28927368931858
     Metric w/ MST seed:  34.37021629892378
     Metric w/ Rand seed: 37.05644118245091
 
-    Budget: 138.05585365601868
+    Budget: 156.1544937582778
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 36.148131570022386
+    Metric w/ Rand seed: 38.04550121002825
 
-    Budget: 140.87332005716192
+    Budget: 159.019713827237
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 37.72983002129928
+    Metric w/ Rand seed: 36.13411608289228
 
-    Budget: 143.69078645830518
+    Budget: 161.88493389619623
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 37.824595923578215
+    Metric w/ Rand seed: 36.46380275875139
 
-    Budget: 146.50825285944842
+    Budget: 164.75015396515545
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 35.117025081054685
+    Metric w/ Rand seed: 37.3721123711799
 
-    Budget: 149.32571926059165
+    Budget: 167.61537403411467
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 37.20726903325035
+    Metric w/ Rand seed: 36.9863637468003
 
-    Budget: 152.1431856617349
+    Budget: 170.4805941030739
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 35.969272744962694
+    Metric w/ Rand seed: 38.403218860147625
 
-    Budget: 154.96065206287813
+    Budget: 173.34581417203313
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 36.67069255807131
+    Metric w/ Rand seed: 36.218209005673
 
-    Budget: 157.77811846402136
+    Budget: 176.21103424099238
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 37.894673359228825
+    Metric w/ Rand seed: 37.71581453416914
 
-    Budget: 160.5955848651646
+    Budget: 179.0762543099516
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 34.45765172933644
+    Metric w/ Rand seed: 37.68778355990891
 
-    Budget: 163.41305126630783
+    Budget: 181.9414743789108
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 35.92722628357234
+    Metric w/ Rand seed: 37.53695570910947
 
-    Budget: 166.23051766745107
+    Budget: 184.80669444787003
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 36.87758235739123
+    Metric w/ Rand seed: 36.53388019440199
 
-    Budget: 169.0479840685943
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 36.726754506591796
-
-    Budget: 171.86545046973754
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 38.22436003508794
-
-    Budget: 174.68291687088077
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 38.22436003508795
-
-    Budget: 177.50038327202404
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 35.77639843277291
-
-    Budget: 180.31784967316727
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 37.165222571859985
-
-    Budget: 183.1353160743105
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 35.790413919903024
-
-    Budget: 185.95278247545374
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 36.01131920635307
-
-    Budget: 188.77024887659698
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 37.8806578720987
-
-    Budget: 191.58771527774024
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 35.639586069103586
-
-    Budget: 194.40518167888348
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 36.849551383130986
-
-    Budget: 197.22264808002672
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 38.7749519973971
-
-    Budget: 200.04011448116995
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 37.86664238496858
-
-    Budget: 202.8575808823132
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 37.20726903325035
-
-    Budget: 205.67504728345642
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 38.473296295798235
-
-    Budget: 208.49251368459966
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 37.01439472106054
-
-    Budget: 211.3099800857429
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 38.95381082245678
-
-    Budget: 214.12744648688613
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 35.8324603812934
-
-    Budget: 216.94491288802936
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 36.298959420821824
-
-    Budget: 219.7623792891726
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 36.01131920635308
-
-    Budget: 222.57984569031584
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 36.49183373301163
-
-    Budget: 225.39731209145907
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 36.3410058822122
-
-    Budget: 228.2147784926023
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 36.561911168662235
-
-    Budget: 231.03224489374554
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 36.03935018061331
-
-    Budget: 233.84971129488878
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 37.20726903325035
-
-    Budget: 236.66717769603207
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 38.7749519973971
-
-    Budget: 239.4846440971753
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 37.20726903325034
-
-    Budget: 242.30211049831854
-    Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 34.566433118745515
-
-    Budget: 245.11957689946178
+    Budget: 187.67191451682925
     Metric w/ MST seed:  34.37021629892378
     Metric w/ Rand seed: 38.76093651026699
 
-    Budget: 247.937043300605
+    Budget: 190.5371345857885
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 35.48875821830415
+    Metric w/ Rand seed: 37.193253546120225
 
-    Budget: 250.75450970174825
+    Budget: 193.4023546547477
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 38.03148572289814
+    Metric w/ Rand seed: 36.50584922014175
 
-    Budget: 253.57197610289148
+    Budget: 196.26757472370696
     Metric w/ MST seed:  34.37021629892378
-    Metric w/ Rand seed: 38.3892033730175
+    Metric w/ Rand seed: 35.62557058197348
+
+    Budget: 199.13279479266617
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 37.00037923393043
+
+    Budget: 201.9980148616254
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 37.922704333489065
+
+    Budget: 204.8632349305846
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 36.383052343602564
+
+    Budget: 207.72845499954383
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 36.87758235739123
+
+    Budget: 210.59367506850305
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 36.86356687026112
+
+    Budget: 213.4588951374623
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 37.34408139691966
+
+    Budget: 216.3241152064215
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 35.29588390611435
+
+    Budget: 219.18933527538073
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 37.90868884635895
+
+    Budget: 222.05455534433997
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 37.316050422659416
+
+    Budget: 224.9197754132992
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 37.0424256953208
+
+    Budget: 227.7849954822584
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 37.02841020819067
+
+    Budget: 230.65021555121766
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 36.849551383130986
+
+    Budget: 233.51543562017687
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 34.787338405195555
+
+    Budget: 236.3806556891361
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 38.596093172337426
+
+    Budget: 239.2458757580953
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 37.53695570910946
+
+    Budget: 242.11109582705456
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 38.08754767141863
+
+    Budget: 244.97631589601377
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 36.039350180613326
+
+    Budget: 247.841535964973
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 37.55097119623958
+
+    Budget: 250.7067560339322
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 37.17923805899011
+
+    Budget: 253.57197610289145
+    Metric w/ MST seed:  34.37021629892378
+    Metric w/ Rand seed: 37.193253546120225
 
 
 Graph 9:
     Best Metric: 18.75067126917941
 
-    Budget: 19.22114804608951
+    Budget: 17.473770950990463
+    Metric w/ MST seed:  1.8304024086714168
+    Metric w/ Rand seed: 1.1348494933762787
+
+    Budget: 18.066102169668106
+    Metric w/ MST seed:  1.8304024086714168
+    Metric w/ Rand seed: 1.061633397029422
+
+    Budget: 18.65843338834575
+    Metric w/ MST seed:  1.8304024086714168
+    Metric w/ Rand seed: 1.061633397029422
+
+    Budget: 19.25076460702339
     Metric w/ MST seed:  5.214456180773015
-    Metric w/ Rand seed: 2.629368174005806
+    Metric w/ Rand seed: 2.7336572976212663
 
-    Budget: 19.80360707778919
+    Budget: 19.843095825701035
     Metric w/ MST seed:  5.214456180773015
-    Metric w/ Rand seed: 3.026521683008692
+    Metric w/ Rand seed: 2.88008949031498
 
-    Budget: 20.386066109488873
+    Budget: 20.435427044378677
     Metric w/ MST seed:  5.214456180773015
-    Metric w/ Rand seed: 2.7081192912574874
+    Metric w/ Rand seed: 3.125275785719329
 
-    Budget: 20.968525141188557
+    Budget: 21.02775826305632
     Metric w/ MST seed:  5.214456180773015
-    Metric w/ Rand seed: 4.47549937181549
+    Metric w/ Rand seed: 4.032804870989867
 
-    Budget: 21.55098417288824
+    Budget: 21.620089481733963
     Metric w/ MST seed:  5.214456180773015
-    Metric w/ Rand seed: 4.261386103679746
+    Metric w/ Rand seed: 3.9795917601019664
 
-    Budget: 22.13344320458792
+    Budget: 22.212420700411606
     Metric w/ MST seed:  5.214456180773015
-    Metric w/ Rand seed: 4.402283275468634
+    Metric w/ Rand seed: 4.0528078564488235
 
-    Budget: 22.715902236287604
+    Budget: 22.80475191908925
     Metric w/ MST seed:  7.044858589444432
-    Metric w/ Rand seed: 6.546813879570568
+    Metric w/ Rand seed: 6.462527741414063
 
-    Budget: 23.298361267987286
+    Budget: 23.39708313776689
     Metric w/ MST seed:  7.044858589444432
-    Metric w/ Rand seed: 6.147523272407335
+    Metric w/ Rand seed: 6.722182001372541
 
-    Budget: 23.880820299686967
+    Budget: 23.989414356444534
     Metric w/ MST seed:  7.044858589444432
-    Metric w/ Rand seed: 6.773258014100098
+    Metric w/ Rand seed: 7.207019571276415
 
-    Budget: 24.463279331386648
+    Budget: 24.581745575122177
     Metric w/ MST seed:  7.044858589444432
-    Metric w/ Rand seed: 8.105615712897652
+    Metric w/ Rand seed: 8.928858660011686
 
-    Budget: 25.04573836308633
+    Budget: 25.17407679379982
     Metric w/ MST seed:  7.044858589444432
-    Metric w/ Rand seed: 7.812751327510224
+    Metric w/ Rand seed: 8.345266987397178
 
-    Budget: 25.628197394786014
+    Budget: 25.766408012477463
     Metric w/ MST seed:  7.044858589444432
-    Metric w/ Rand seed: 8.277585911955144
+    Metric w/ Rand seed: 7.657386191167205
 
-    Budget: 26.210656426485695
+    Budget: 26.358739231155106
     Metric w/ MST seed:  10.42891236154603
-    Metric w/ Rand seed: 9.7776396134895
+    Metric w/ Rand seed: 10.017290887989024
 
-    Budget: 26.793115458185376
+    Budget: 26.95107044983275
     Metric w/ MST seed:  10.42891236154603
-    Metric w/ Rand seed: 9.397091167201086
+    Metric w/ Rand seed: 9.709958538047466
 
-    Budget: 27.37557448988506
+    Budget: 27.54340166851039
     Metric w/ MST seed:  10.42891236154603
-    Metric w/ Rand seed: 10.011755867084199
+    Metric w/ Rand seed: 9.772104592584673
 
-    Budget: 27.958033521584742
+    Budget: 28.135732887188034
     Metric w/ MST seed:  10.42891236154603
-    Metric w/ Rand seed: 9.969612798005945
+    Metric w/ Rand seed: 9.761034550775024
 
-    Budget: 28.540492553284423
+    Budget: 28.728064105865677
     Metric w/ MST seed:  10.42891236154603
-    Metric w/ Rand seed: 9.995150804369723
+    Metric w/ Rand seed: 10.251407141583723
 
-    Budget: 29.122951584984104
-    Metric w/ MST seed:  10.42891236154603
-    Metric w/ Rand seed: 9.87085869529531
-
-    Budget: 29.705410616683785
+    Budget: 29.32039532454332
     Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 11.46413147863547
+    Metric w/ Rand seed: 11.636101677692961
 
-    Budget: 30.28786964838347
+    Budget: 29.912726543220963
     Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 11.218945183231124
+    Metric w/ Rand seed: 10.984828929636423
 
-    Budget: 30.87032868008315
+    Budget: 30.505057761898605
     Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 10.7451776551369
+    Metric w/ Rand seed: 11.390915382288613
 
-    Budget: 31.452787711782833
+    Budget: 31.09738898057625
     Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 11.687177690420517
+    Metric w/ Rand seed: 11.69824773223017
 
-    Budget: 32.03524674348252
+    Budget: 31.68972019925389
     Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 11.343237292305536
+    Metric w/ Rand seed: 11.568420602250933
 
-    Budget: 32.6177057751822
+    Budget: 32.282051417931534
     Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 11.52074251226785
+    Metric w/ Rand seed: 11.453061436825822
 
-    Budget: 33.20016480688188
-    Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 11.599493629519534
-
-    Budget: 33.78262383858156
-    Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 11.870217931287662
-
-    Budget: 34.36508287028124
-    Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 11.182337135057697
-
-    Budget: 34.94754190198093
-    Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 12.219693350307471
-
-    Budget: 35.53000093368061
-    Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 11.828074862209405
-
-    Budget: 36.11245996538029
-    Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 11.94343402763452
-
-    Budget: 36.694918997079974
-    Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 12.270769363035026
-
-    Budget: 37.27737802877965
+    Budget: 32.87438263660918
     Metric w/ MST seed:  13.81296613364763
     Metric w/ Rand seed: 11.77146382857703
 
-    Budget: 37.859837060479336
+    Budget: 33.46671385528682
     Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 11.60502865042436
+    Metric w/ Rand seed: 11.760393786767377
 
-    Budget: 38.44229609217902
+    Budget: 34.05904507396446
     Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 11.864682910382834
+    Metric w/ Rand seed: 11.641636698597788
 
-    Budget: 39.0247551238787
+    Budget: 34.651376292642105
     Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 11.599493629519536
+    Metric w/ Rand seed: 11.359842355020012
 
-    Budget: 39.60721415557838
+    Budget: 35.24370751131975
     Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 11.469666499540299
+    Metric w/ Rand seed: 12.11540422669201
 
-    Budget: 40.18967318727806
+    Budget: 35.83603872999739
     Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 11.765928807672202
+    Metric w/ Rand seed: 12.04772315124998
 
-    Budget: 40.772132218977745
+    Budget: 36.428369948675034
     Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 11.636101677692963
+    Metric w/ Rand seed: 12.011115103076552
 
-    Budget: 41.35459125067743
+    Budget: 37.02070116735268
     Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 12.005580082171726
+    Metric w/ Rand seed: 11.734855780403597
 
-    Budget: 41.937050282377115
-    Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 12.115404226692013
-
-    Budget: 42.51950931407679
-    Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 11.5007395268089
-
-    Budget: 43.10196834577647
-    Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 11.272158294119027
-
-    Budget: 43.684427377476155
-    Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 12.318447453018107
-
-    Budget: 44.26688640917584
-    Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 12.03665310944033
-
-    Budget: 44.849345440875524
-    Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 11.839144904019058
-
-    Budget: 45.4318044725752
-    Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 12.250766377576074
-
-    Budget: 46.014263504274886
-    Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 11.82807486220941
-
-    Budget: 46.596722535974564
-    Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 12.01111510307655
-
-    Budget: 47.17918156767425
-    Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 11.864682910382838
-
-    Budget: 47.76164059937393
-    Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 12.000045061266901
-
-    Budget: 48.34409963107361
-    Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 11.46413147863547
-
-    Budget: 48.926558662773296
-    Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 11.875752952192489
-
-    Budget: 49.50901769447297
-    Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 11.740390801308422
-
-    Budget: 50.09147672617266
-    Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 12.281839404844677
-
-    Budget: 50.67393575787234
-    Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 12.583636733881407
-
-    Budget: 51.25639478957202
-    Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 12.214158329402643
-
-    Budget: 51.838853821271705
+    Budget: 37.61303238603032
     Metric w/ MST seed:  13.81296613364763
     Metric w/ Rand seed: 12.053258172154804
 
+    Budget: 38.20536360470796
+    Metric w/ MST seed:  13.81296613364763
+    Metric w/ Rand seed: 11.98557709671277
+
+    Budget: 38.797694823385605
+    Metric w/ MST seed:  13.81296613364763
+    Metric w/ Rand seed: 12.036653109440328
+
+    Budget: 39.39002604206325
+    Metric w/ MST seed:  13.81296613364763
+    Metric w/ Rand seed: 11.500739526808898
+
+    Budget: 39.98235726074089
+    Metric w/ MST seed:  13.81296613364763
+    Metric w/ Rand seed: 11.636101677692961
+
+    Budget: 40.57468847941853
+    Metric w/ MST seed:  13.81296613364763
+    Metric w/ Rand seed: 11.808071876750455
+
+    Budget: 41.167019698096176
+    Metric w/ MST seed:  13.81296613364763
+    Metric w/ Rand seed: 12.380593507555313
+
+    Budget: 41.75935091677382
+    Metric w/ MST seed:  13.81296613364763
+    Metric w/ Rand seed: 11.968972033998298
+
+    Budget: 42.35168213545146
+    Metric w/ MST seed:  13.81296613364763
+    Metric w/ Rand seed: 11.703782753134996
+
+    Budget: 42.944013354129105
+    Metric w/ MST seed:  13.81296613364763
+    Metric w/ Rand seed: 11.703782753134996
+
+    Budget: 43.53634457280675
+    Metric w/ MST seed:  13.81296613364763
+    Metric w/ Rand seed: 11.932363985824871
+
+    Budget: 44.12867579148439
+    Metric w/ MST seed:  13.81296613364763
+    Metric w/ Rand seed: 12.417201555728742
+
+    Budget: 44.72100701016203
+    Metric w/ MST seed:  13.81296613364763
+    Metric w/ Rand seed: 12.453809603902165
+
+    Budget: 45.313338228839676
+    Metric w/ MST seed:  13.81296613364763
+    Metric w/ Rand seed: 11.83914490401906
+
+    Budget: 45.90566944751732
+    Metric w/ MST seed:  13.81296613364763
+    Metric w/ Rand seed: 12.005580082171726
+
+    Budget: 46.49800066619496
+    Metric w/ MST seed:  13.81296613364763
+    Metric w/ Rand seed: 12.245231356671248
+
+    Budget: 47.090331884872604
+    Metric w/ MST seed:  13.81296613364763
+    Metric w/ Rand seed: 11.464131478635473
+
+    Budget: 47.68266310355025
+    Metric w/ MST seed:  13.81296613364763
+    Metric w/ Rand seed: 11.661639684056741
+
+    Budget: 48.27499432222789
+    Metric w/ MST seed:  13.81296613364763
+    Metric w/ Rand seed: 11.771463828577025
+
+    Budget: 48.86732554090553
+    Metric w/ MST seed:  13.81296613364763
+    Metric w/ Rand seed: 11.740390801308422
+
+    Budget: 49.459656759583176
+    Metric w/ MST seed:  13.81296613364763
+    Metric w/ Rand seed: 12.073261157613759
+
+    Budget: 50.05198797826082
+    Metric w/ MST seed:  13.81296613364763
+    Metric w/ Rand seed: 11.771463828577028
+
+    Budget: 50.64431919693846
+    Metric w/ MST seed:  13.81296613364763
+    Metric w/ Rand seed: 12.109869205787186
+
+    Budget: 51.236650415616104
+    Metric w/ MST seed:  13.81296613364763
+    Metric w/ Rand seed: 11.464131478635473
+
+    Budget: 51.82898163429375
+    Metric w/ MST seed:  13.81296613364763
+    Metric w/ Rand seed: 11.980042075807951
+
     Budget: 52.42131285297139
     Metric w/ MST seed:  13.81296613364763
-    Metric w/ Rand seed: 12.219693350307471
+    Metric w/ Rand seed: 11.458596457730648
 
 
 Graph 10:
     Best Metric: 35.07918542872479
 
-    Budget: 47.248458527515396
+    Budget: 42.95314411592308
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 14.594638901716054
+    Metric w/ Rand seed: 15.124598289999886
 
-    Budget: 48.680229998046165
+    Budget: 44.409182899513695
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 15.30565270798835
+    Metric w/ Rand seed: 13.492284685508293
 
-    Budget: 50.112001468576935
+    Budget: 45.86522168310431
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 14.75447559988447
+    Metric w/ Rand seed: 12.938750052979962
 
-    Budget: 51.543772939107704
+    Budget: 47.32126046669492
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 15.921424256417515
+    Metric w/ Rand seed: 12.40643314027168
 
-    Budget: 52.975544409638474
+    Budget: 48.77729925028554
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 16.06947333246368
+    Metric w/ Rand seed: 14.51118426599517
 
-    Budget: 54.40731588016924
+    Budget: 50.233338033876144
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 14.89545210265729
+    Metric w/ Rand seed: 14.74504550218667
 
-    Budget: 55.83908735070001
+    Budget: 51.68937681746676
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 16.000163843289496
+    Metric w/ Rand seed: 17.028493521474175
 
-    Budget: 57.27085882123078
+    Budget: 53.14541560105737
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 16.873371872154657
+    Metric w/ Rand seed: 17.472640749612676
 
-    Budget: 58.70263029176155
+    Budget: 54.60145438464799
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 17.815889390194005
+    Metric w/ Rand seed: 17.65369516760114
 
-    Budget: 60.13440176229232
+    Budget: 56.0574931682386
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 17.49857351828162
+    Metric w/ Rand seed: 17.32930672241541
 
-    Budget: 61.56617323282309
+    Budget: 57.513531951829215
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 17.880483830519285
+    Metric w/ Rand seed: 16.546625902544477
 
-    Budget: 62.99794470335386
+    Budget: 58.96957073541982
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.512758049919597
+    Metric w/ Rand seed: 16.775772089887077
 
-    Budget: 64.42971617388463
+    Budget: 60.425609519010436
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 17.329306722415406
+    Metric w/ Rand seed: 17.262354757665673
 
-    Budget: 65.8614876444154
+    Budget: 61.88164830260105
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.589140112367133
+    Metric w/ Rand seed: 18.42930341419872
 
-    Budget: 67.29325911494617
+    Budget: 63.337687086191664
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 17.479713322886024
+    Metric w/ Rand seed: 17.32459167356651
 
-    Budget: 68.72503058547694
+    Budget: 64.79372586978228
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 17.95215084411792
+    Metric w/ Rand seed: 18.672594748088017
 
-    Budget: 70.1568020560077
+    Budget: 66.24976465337289
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.42694588977427
+    Metric w/ Rand seed: 18.352921351751185
 
-    Budget: 71.58857352653848
+    Budget: 67.7058034369635
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.5221881476174
+    Metric w/ Rand seed: 17.72064713235087
 
-    Budget: 73.02034499706924
+    Budget: 69.16184222055412
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.114345066710783
+    Metric w/ Rand seed: 18.04739310196105
 
-    Budget: 74.45211646760002
+    Budget: 70.61788100414473
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.823001348558634
+    Metric w/ Rand seed: 17.63247744778109
 
-    Budget: 75.88388793813078
+    Budget: 72.07391978773535
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.656092077116867
+    Metric w/ Rand seed: 17.160039926549185
 
-    Budget: 77.31565940866156
+    Budget: 73.52995857132596
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.589140112367133
+    Metric w/ Rand seed: 18.195442178007216
 
-    Budget: 78.74743087919232
+    Budget: 74.98599735491658
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.116702591135237
+    Metric w/ Rand seed: 18.586782587942686
 
-    Budget: 80.1792023497231
+    Budget: 76.44203613850718
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.897025886581716
+    Metric w/ Rand seed: 18.350563827326734
 
-    Budget: 81.61097382025386
-    Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.109630017861885
-
-    Budget: 83.04274529078464
-    Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 19.130887122773213
-
-    Budget: 84.47451676131541
-    Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.660807125965768
-
-    Budget: 85.90628823184618
-    Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.496255378948447
-
-    Budget: 87.33805970237694
-    Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.887595788883917
-
-    Budget: 88.76983117290771
-    Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 19.459990616807843
-
-    Budget: 90.20160264343849
-    Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.408085694378666
-
-    Budget: 91.63337411396925
-    Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.58206753909378
-
-    Budget: 93.06514558450002
-    Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.50097042779735
-
-    Budget: 94.49691705503079
-    Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 19.211984234069647
-
-    Budget: 95.92868852556157
-    Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.577352490244884
-
-    Budget: 97.36045999609233
-    Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.486825281250653
-
-    Budget: 98.7922314666231
-    Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 19.288366296517182
-
-    Budget: 100.22400293715387
-    Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.665522174814665
-
-    Budget: 101.65577440768465
-    Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.985195571151497
-
-    Budget: 103.08754587821541
-    Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.589140112367133
-
-    Budget: 104.51931734874617
-    Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.345848778477833
-
-    Budget: 105.95108881927695
-    Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.577352490244884
-
-    Budget: 107.38286028980772
-    Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 19.133244647197667
-
-    Budget: 108.81463176033849
-    Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.417515792076465
-
-    Budget: 110.24640323086925
-    Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.489182805675103
-
-    Budget: 111.67817470140002
-    Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.663164650390218
-
-    Budget: 113.1099461719308
+    Budget: 77.8980749220978
     Metric w/ MST seed:  19.567020496773218
     Metric w/ Rand seed: 19.135602171622114
 
-    Budget: 114.54171764246156
+    Budget: 79.3541137056884
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 19.207269185220746
+    Metric w/ Rand seed: 18.665522174814665
 
-    Budget: 115.97348911299234
+    Budget: 80.81015248927903
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 19.200196611947398
+    Metric w/ Rand seed: 19.06629268244793
 
-    Budget: 117.4052605835231
+    Budget: 82.26619127286963
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 19.047432487052333
+    Metric w/ Rand seed: 18.904098459855067
 
-    Budget: 118.83703205405388
+    Budget: 83.72223005646025
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.9946256688493
+    Metric w/ Rand seed: 18.341133729628933
 
-    Budget: 120.26880352458464
+    Budget: 85.17826884005086
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.794711055465232
+    Metric w/ Rand seed: 18.732474139564403
 
-    Budget: 121.70057499511542
+    Budget: 86.63430762364148
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.741904237262194
+    Metric w/ Rand seed: 18.25296404505915
 
-    Budget: 123.13234646564618
+    Budget: 88.09034640723209
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.961620326907
+    Metric w/ Rand seed: 17.95450836854237
 
-    Budget: 124.56411793617696
+    Budget: 89.5463851908227
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 19.07336525572128
+    Metric w/ Rand seed: 18.73483166398885
 
-    Budget: 125.99588940670772
+    Budget: 91.00242397441332
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.81592877528528
+    Metric w/ Rand seed: 19.04743248705233
 
-    Budget: 127.4276608772385
+    Budget: 92.45846275800393
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 19.04979001147678
+    Metric w/ Rand seed: 18.579710014669335
+
+    Budget: 93.91450154159455
+    Metric w/ MST seed:  19.567020496773218
+    Metric w/ Rand seed: 18.956905278058095
+
+    Budget: 95.37054032518516
+    Metric w/ MST seed:  19.567020496773218
+    Metric w/ Rand seed: 18.19544217800722
+
+    Budget: 96.82657910877577
+    Metric w/ MST seed:  19.567020496773218
+    Metric w/ Rand seed: 19.586821973033963
+
+    Budget: 98.28261789236637
+    Metric w/ MST seed:  19.567020496773218
+    Metric w/ Rand seed: 18.80885620201193
+
+    Budget: 99.738656675957
+    Metric w/ MST seed:  19.567020496773218
+    Metric w/ Rand seed: 18.82300134855863
+
+    Budget: 101.1946954595476
+    Metric w/ MST seed:  19.567020496773218
+    Metric w/ Rand seed: 18.59149763679158
+
+    Budget: 102.65073424313823
+    Metric w/ MST seed:  19.567020496773218
+    Metric w/ Rand seed: 18.58206753909378
+
+    Budget: 104.10677302672883
+    Metric w/ MST seed:  19.567020496773218
+    Metric w/ Rand seed: 18.51040052549515
+
+    Budget: 105.56281181031946
+    Metric w/ MST seed:  19.567020496773218
+    Metric w/ Rand seed: 17.938005697571224
+
+    Budget: 107.01885059391006
+    Metric w/ MST seed:  19.567020496773218
+    Metric w/ Rand seed: 18.653734552692416
+
+    Budget: 108.47488937750067
+    Metric w/ MST seed:  19.567020496773218
+    Metric w/ Rand seed: 18.574994965820434
+
+    Budget: 109.93092816109129
+    Metric w/ MST seed:  19.567020496773218
+    Metric w/ Rand seed: 18.80649867758748
+
+    Budget: 111.3869669446819
+    Metric w/ MST seed:  19.567020496773218
+    Metric w/ Rand seed: 18.665522174814665
+
+    Budget: 112.84300572827252
+    Metric w/ MST seed:  19.567020496773218
+    Metric w/ Rand seed: 18.72540156629105
+
+    Budget: 114.29904451186313
+    Metric w/ MST seed:  19.567020496773218
+    Metric w/ Rand seed: 19.209626709645196
+
+    Budget: 115.75508329545374
+    Metric w/ MST seed:  19.567020496773218
+    Metric w/ Rand seed: 18.193084653582773
+
+    Budget: 117.21112207904436
+    Metric w/ MST seed:  19.567020496773218
+    Metric w/ Rand seed: 19.05922010917458
+
+    Budget: 118.66716086263497
+    Metric w/ MST seed:  19.567020496773218
+    Metric w/ Rand seed: 18.56556486812263
+
+    Budget: 120.12319964622559
+    Metric w/ MST seed:  19.567020496773218
+    Metric w/ Rand seed: 18.107272493437435
+
+    Budget: 121.5792384298162
+    Metric w/ MST seed:  19.567020496773218
+    Metric w/ Rand seed: 18.73483166398885
+
+    Budget: 123.03527721340681
+    Metric w/ MST seed:  19.567020496773218
+    Metric w/ Rand seed: 18.88523826445946
+
+    Budget: 124.49131599699741
+    Metric w/ MST seed:  19.567020496773218
+    Metric w/ Rand seed: 18.584425063518236
+
+    Budget: 125.94735478058803
+    Metric w/ MST seed:  19.567020496773218
+    Metric w/ Rand seed: 18.582067539093785
+
+    Budget: 127.40339356417864
+    Metric w/ MST seed:  19.567020496773218
+    Metric w/ Rand seed: 18.9757654734537
 
     Budget: 128.85943234776926
     Metric w/ MST seed:  19.567020496773218
-    Metric w/ Rand seed: 18.283611862577
+    Metric w/ Rand seed: 18.897025886581716
 
 

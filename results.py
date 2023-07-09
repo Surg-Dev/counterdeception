@@ -131,6 +131,7 @@ def determine_budget(
             multiplier = 0
 
             fig, ax = plt.subplots()
+            fig.set_figwidth(25)
 
             for attribute, measurement in data.items():
                 offset = width * multiplier
@@ -152,51 +153,51 @@ def determine_budget(
 
 
 def main():
-    ##################################
-    # GENERATE GRAPHS AND BRUTEFORCE #
-    ##################################
+    # ##################################
+    # # GENERATE GRAPHS AND BRUTEFORCE #
+    # ##################################
 
-    loc = "results/brute"
-    n = 10
+    # loc = "results/brute"
+    # n = 10
 
-    for i in range(n):
-        if os.path.exists(f"{loc}/{i + 1}/"):
-            print("Remove files and rerun bruteforce")
-            return
+    # for i in range(n):
+    #     if os.path.exists(f"{loc}/{i + 1}/"):
+    #         print("Remove files and rerun bruteforce")
+    #         return
 
-    # Initial Parameters
-    target_count = 2
-    graphx = graphy = 3
-    print(f"Total Number of Trees: {bcolors.FAIL}{num_span[graphx]}{bcolors.ENDC}")
+    # # Initial Parameters
+    # target_count = 2
+    # graphx = graphy = 3
+    # print(f"Total Number of Trees: {bcolors.FAIL}{num_span[graphx]}{bcolors.ENDC}")
 
-    def factory():
-        s, targets = random_points(target_count)
+    # def factory():
+    #     s, targets = random_points(target_count)
 
-        # G = form_grid_graph(s, targets, graphx, graphy)
-        G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
-        # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
-        # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
+    #     # G = form_grid_graph(s, targets, graphx, graphy)
+    #     G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
+    #     # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
+    #     # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
 
-        round_targets_to_graph(G, s, targets)
-        targets = [f"target {i}" for i in range(target_count)]
-        s = "start"
-        nx.set_node_attributes(G, 0, "paths")
+    #     round_targets_to_graph(G, s, targets)
+    #     targets = [f"target {i}" for i in range(target_count)]
+    #     s = "start"
+    #     nx.set_node_attributes(G, 0, "paths")
 
-        budget = float("inf")
-        # budget = nx.minimum_spanning_tree(G).size(weight="weight") * 0.5
+    #     budget = float("inf")
+    #     # budget = nx.minimum_spanning_tree(G).size(weight="weight") * 0.5
 
-        # # rescale weights
-        # for u, v in G.edges:
-        #     G[u][v]["weight"] = G[u][v]["weight"]
+    #     # # rescale weights
+    #     # for u, v in G.edges:
+    #     #     G[u][v]["weight"] = G[u][v]["weight"]
 
-        return G, s, targets, budget
+    #     return G, s, targets, budget
 
-    generate_bruteforce_graphs(factory, n, prefix=loc)
+    # generate_bruteforce_graphs(factory, n, prefix=loc)
 
     ###############################
     # DETERMINE BUDGET MULTIPLIER #
     ###############################
-    determine_budget("results/brute", 10, 1.1, 3, 58, 50, loc="results/budget")
+    determine_budget("results/brute", 10, 1, 3, 60, 50, loc="results/budget")
 
     # # Initial Parameters
     # target_count = 6
