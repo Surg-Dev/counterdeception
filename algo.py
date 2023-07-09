@@ -490,10 +490,7 @@ def compute_tree(G, s, targets, budget, loc=None, minimum=None):
     # Build the seed MST and trim it.
     count = 0
     forced = True
-    while forced:
-        mst, pred = build_stiener_seed(G, s, targets, minimum=minimum)
-        forced, _, _ = compute_metric(mst, s, targets, pred)
-        count += 1
+    mst, pred = build_stiener_seed(G, s, targets, minimum=minimum)
 
     # Get original characteristics of the tree
     forced, metric, target_list = compute_metric(mst, s, targets, pred)

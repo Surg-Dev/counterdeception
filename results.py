@@ -4,8 +4,10 @@ import os
 
 import networkx as nx
 from math import ceil
-
-from algo import compute_tree, build_stiener_seed
+import pickle
+import matplotlib.pyplot as plt
+import numpy as np
+from algo import compute_tree, build_stiener_seed, compute_metric
 from util import (
     random_points,
     form_grid_graph,
@@ -24,7 +26,134 @@ from benchmark import (
 from bruteforce import generate_bruteforce_graphs, num_span
 
 
+def determine_budget(
+    brute_location,
+    num_graphs,
+    budget_mult_low,
+    budget_mult_high,
+    gran,
+    random_samples,
+    loc=None,
+):
+    # run algorithm with MST seed + random spanning trees on various budgets
+    # compare to best trees on some graphs
+
+    graphs = []
+    trees = []
+    starts = []
+    targets = []
+    metrics = []
+    # get graphs and their info
+    for i in range(num_graphs):
+        print(f"Getting data from graph {i + 1}")
+        graphs.append(pickle.load(open(f"{brute_location}/{i + 1}/G.pickle", "rb")))
+        trees.append(
+            pickle.load(open(f"{brute_location}/{i + 1}/best_tree.pickle", "rb"))
+        )
+        info = pickle.load(open(f"{brute_location}/{i + 1}/info.pickle", "rb"))
+        starts.append(info["s"])
+        targets.append(info["targets"])
+        metrics.append(info["metric"])
+
+    if loc != None:
+        txt = open(f"{loc}/data.txt", "w")
+
+    results = []
+    for i, (G, t, s, tars, met) in enumerate(
+        zip(graphs, trees, starts, targets, metrics)
+    ):
+        print(f"Testing graph {i + 1}")
+        mst, _ = build_stiener_seed(G, s, tars, minimum=True)
+        size = mst.size(weight="weight")
+        budget_low = size * budget_mult_low
+        budget_high = size * budget_mult_high
+        interval = (budget_high - budget_low) / (gran - 1)
+
+        if loc != None:
+            txt.write(f"Graph {i + 1}:\n")
+            txt.write(f"    Best Metric: {met}\n\n")
+
+        mst_results = []
+        avg_results = []
+        for j in range(gran):
+            print(f"    Testing gran {j + 1}/{gran}")
+            budget = budget_low + j * interval
+
+            # test minimum spanning tree seed
+            output, pred, rounds = compute_tree(G, s, tars, budget, minimum=True)
+            forced, metric, _ = compute_metric(output, s, tars)
+            mst_res = metric if not forced else 0.0
+            mst_results.append(round(mst_res, 2))
+
+            # get average metric using random trees
+            avg_res = 0.0
+            for k in range(random_samples):
+                print(f"        Testing random sample {k + 1}/{random_samples}")
+                output, pred, rounds = compute_tree(
+                    G, s, tars, budget, loc=None, minimum=None
+                )
+                # TODO: figure out something better for when output == None
+                if output != None:
+                    forced, metric, _ = compute_metric(output, s, tars)
+                    res = metric if not forced else 0.0
+                    avg_res += res
+                else:
+                    avg_res += 0
+            avg_res /= random_samples
+            avg_results.append(round(avg_res, 2))
+
+            if loc != None:
+                txt.write(f"    Budget: {budget}\n")
+                txt.write(f"    Metric w/ MST seed:  {mst_res}\n")
+                txt.write(f"    Metric w/ Rand seed: {avg_res}\n")
+                txt.write("\n")
+
+        results.append((mst_results, avg_results))
+        if loc != None:
+            txt.write("\n")
+
+    if loc != None:
+        txt.close()
+
+    # generate graphs and stats and such
+    if loc != None:
+        for i in range(num_graphs):
+            # TODO: come up with better x-axis labels
+            x_axis_labels = [f"{j + 1}" for j in range(gran)]
+            mst_results, avg_results = results[i]
+            data = {
+                "MST Seed": mst_results,
+                "Rand Seed": avg_results,
+            }
+
+            x = np.arange(len(x_axis_labels))
+            width = 0.15
+            multiplier = 0
+
+            fig, ax = plt.subplots()
+
+            for attribute, measurement in data.items():
+                offset = width * multiplier
+                rects = ax.bar(x + offset, measurement, width, label=attribute)
+                # ax.bar_label(rects, padding=3)
+                multiplier += 1
+
+            ax.set_ylabel("Metric")
+            ax.set_xlabel("Budget Increment")
+            ax.set_title(f"Graph {i + 1}")
+            ax.set_xticks(x + width, x_axis_labels)
+            ax.legend(loc="upper left", ncols=3)
+            ax.set_ylim(0, 100)
+
+            filename = f"{loc}/metrics_{i + 1}.png"
+            plt.savefig(filename)
+            # plt.show()
+            plt.close()
+
+
 def main():
+    determine_budget("results/brute", 5, 1.1, 3, 49, 50, loc="results/budget")
+
     # # Initial Parameters
     # target_count = 6
     # graphx = 20
@@ -224,46 +353,46 @@ def main():
     # rand_res, algo_res = read_mixed_benchmark(loc)
     # create_mixed_graphs(rand_res, algo_res, loc=loc)
 
-    ##################################
-    # GENERATE GRAPHS AND BRUTEFORCE #
-    ##################################
+    # ##################################
+    # # GENERATE GRAPHS AND BRUTEFORCE #
+    # ##################################
 
-    loc = "results/brute"
-    n = 1
+    # loc = "results/brute"
+    # n = 1
 
-    for i in range(n):
-        if os.path.exists(f"{loc}/{i + 1}/"):
-            print("Remove files and rerun bruteforce")
-            return
+    # for i in range(n):
+    #     if os.path.exists(f"{loc}/{i + 1}/"):
+    #         print("Remove files and rerun bruteforce")
+    #         return
 
-    # Initial Parameters
-    target_count = 2
-    graphx = graphy = 3
-    print(f"Total Number of Trees: {bcolors.FAIL}{num_span[graphx]}{bcolors.ENDC}")
+    # # Initial Parameters
+    # target_count = 2
+    # graphx = graphy = 3
+    # print(f"Total Number of Trees: {bcolors.FAIL}{num_span[graphx]}{bcolors.ENDC}")
 
-    def factory():
-        s, targets = random_points(target_count)
+    # def factory():
+    #     s, targets = random_points(target_count)
 
-        # G = form_grid_graph(s, targets, graphx, graphy)
-        G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
-        # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
-        # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
+    #     # G = form_grid_graph(s, targets, graphx, graphy)
+    #     G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
+    #     # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
+    #     # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
 
-        round_targets_to_graph(G, s, targets)
-        targets = [f"target {i}" for i in range(target_count)]
-        s = "start"
-        nx.set_node_attributes(G, 0, "paths")
+    #     round_targets_to_graph(G, s, targets)
+    #     targets = [f"target {i}" for i in range(target_count)]
+    #     s = "start"
+    #     nx.set_node_attributes(G, 0, "paths")
 
-        budget = float("inf")
-        # budget = nx.minimum_spanning_tree(G).size(weight="weight") * 0.5
+    #     budget = float("inf")
+    #     # budget = nx.minimum_spanning_tree(G).size(weight="weight") * 0.5
 
-        # # rescale weights
-        # for u, v in G.edges:
-        #     G[u][v]["weight"] = G[u][v]["weight"]
+    #     # # rescale weights
+    #     # for u, v in G.edges:
+    #     #     G[u][v]["weight"] = G[u][v]["weight"]
 
-        return G, s, targets, budget
+    #     return G, s, targets, budget
 
-    generate_bruteforce_graphs(factory, n, prefix=loc)
+    # generate_bruteforce_graphs(factory, n, prefix=loc)
 
 
 if __name__ == "__main__":
