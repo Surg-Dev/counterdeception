@@ -1,6 +1,3 @@
 __pycache__/
 .mypy_cache/
-*.png
 images/
-results/
-*.pickle
