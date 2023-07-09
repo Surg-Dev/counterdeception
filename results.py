@@ -152,7 +152,51 @@ def determine_budget(
 
 
 def main():
-    determine_budget("results/brute", 5, 1.1, 3, 49, 50, loc="results/budget")
+    ##################################
+    # GENERATE GRAPHS AND BRUTEFORCE #
+    ##################################
+
+    loc = "results/brute"
+    n = 10
+
+    for i in range(n):
+        if os.path.exists(f"{loc}/{i + 1}/"):
+            print("Remove files and rerun bruteforce")
+            return
+
+    # Initial Parameters
+    target_count = 2
+    graphx = graphy = 3
+    print(f"Total Number of Trees: {bcolors.FAIL}{num_span[graphx]}{bcolors.ENDC}")
+
+    def factory():
+        s, targets = random_points(target_count)
+
+        # G = form_grid_graph(s, targets, graphx, graphy)
+        G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
+        # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
+        # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
+
+        round_targets_to_graph(G, s, targets)
+        targets = [f"target {i}" for i in range(target_count)]
+        s = "start"
+        nx.set_node_attributes(G, 0, "paths")
+
+        budget = float("inf")
+        # budget = nx.minimum_spanning_tree(G).size(weight="weight") * 0.5
+
+        # # rescale weights
+        # for u, v in G.edges:
+        #     G[u][v]["weight"] = G[u][v]["weight"]
+
+        return G, s, targets, budget
+
+    generate_bruteforce_graphs(factory, n, prefix=loc)
+
+    ###############################
+    # DETERMINE BUDGET MULTIPLIER #
+    ###############################
+    determine_budget("results/brute", 10, 1.1, 3, 58, 50, loc="results/budget")
 
     # # Initial Parameters
     # target_count = 6
@@ -352,47 +396,6 @@ def main():
     # mixed_benchmark(total, algo_weight, n, 0, end, factory, loc=loc, jump=1)
     # rand_res, algo_res = read_mixed_benchmark(loc)
     # create_mixed_graphs(rand_res, algo_res, loc=loc)
-
-    # ##################################
-    # # GENERATE GRAPHS AND BRUTEFORCE #
-    # ##################################
-
-    # loc = "results/brute"
-    # n = 1
-
-    # for i in range(n):
-    #     if os.path.exists(f"{loc}/{i + 1}/"):
-    #         print("Remove files and rerun bruteforce")
-    #         return
-
-    # # Initial Parameters
-    # target_count = 2
-    # graphx = graphy = 3
-    # print(f"Total Number of Trees: {bcolors.FAIL}{num_span[graphx]}{bcolors.ENDC}")
-
-    # def factory():
-    #     s, targets = random_points(target_count)
-
-    #     # G = form_grid_graph(s, targets, graphx, graphy)
-    #     G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
-    #     # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
-    #     # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
-
-    #     round_targets_to_graph(G, s, targets)
-    #     targets = [f"target {i}" for i in range(target_count)]
-    #     s = "start"
-    #     nx.set_node_attributes(G, 0, "paths")
-
-    #     budget = float("inf")
-    #     # budget = nx.minimum_spanning_tree(G).size(weight="weight") * 0.5
-
-    #     # # rescale weights
-    #     # for u, v in G.edges:
-    #     #     G[u][v]["weight"] = G[u][v]["weight"]
-
-    #     return G, s, targets, budget
-
-    # generate_bruteforce_graphs(factory, n, prefix=loc)
 
 
 if __name__ == "__main__":
