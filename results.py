@@ -129,16 +129,76 @@ def determine_budget(
                 multiplier += 1
 
             ax.set_ylabel("Metric")
-            ax.set_xlabel("Budget Increment")
+            ax.set_xlabel(
+                "Budget Increment \n Budget = (Budget Increment) * MST_Weight"
+            )
             ax.set_title(f"Graph {i + 1}")
             ax.set_xticks(x + width, x_axis_labels)
             ax.legend(loc="upper left", ncols=3)
-            ax.set_ylim(0, 100)
-
+            fig.subplots_adjust(bottom=0.25, top=0.75)
             filename = f"{loc}/metrics_{i + 1}.png"
             plt.savefig(filename)
             # plt.show()
             plt.close()
+
+
+def brute_comparison(loc, brute_loc, num_graphs, random_samples):
+    budget = float("inf")
+
+    mst_avg = 0
+    rand_avg = 0
+
+    for i in range(num_graphs):
+        # get relevant info
+        G_f = open(f"{brute_loc}/{i + 1}/G.pickle", "rb")
+        G = pickle.load(G_f)
+        best_tree_f = open(f"{brute_loc}/{i + 1}/best_tree.pickle", "rb")
+        best_tree = pickle.load(best_tree_f)
+        info_f = open(f"{brute_loc}/{i + 1}/info.pickle", "rb")
+        info = pickle.load(info_f)
+        best_metric = info["metric"]
+        s = info["s"]
+        targets = info["targets"]
+        G_f.close()
+        best_tree_f.close()
+        info_f.close()
+
+        # run reattachment with mst seed
+        output, pred, rounds = compute_tree(G, s, targets, budget, minimum=True)
+        forced, metric, _ = compute_metric(output, s, targets)
+        mst_res = metric if not forced else 0.0
+
+        # get average metric using random trees
+        avg_res = 0.0
+        for k in range(random_samples):
+            output, pred, rounds = compute_tree(G, s, targets, budget, minimum=None)
+            # TODO: figure out something better for when output == None
+            if output != None:
+                forced, metric, _ = compute_metric(output, s, targets)
+                res = metric if not forced else 0.0
+                avg_res += res
+            else:
+                avg_res += 0
+        avg_res /= random_samples
+
+        mst_avg += mst_res / best_metric * 100
+        rand_avg += avg_res / best_metric * 100
+
+    # make graphs
+    fig, ax = plt.subplots()
+    mst_avg /= num_graphs
+    rand_avg /= num_graphs
+    vals = [100, round(mst_avg, 2), round(rand_avg, 2)]
+    trees = ["Best Tree", "MST Seed", "Rand Seed"]
+    ax.bar(trees, vals)
+    ax.bar_label(ax.containers[0], label_type="edge")
+    ax.set_ylabel("% Diff to Best Metric")
+    ax.legend()
+
+    filename = f"{loc}/results.png"
+    plt.savefig(filename)
+    plt.show()
+    plt.close()
 
 
 def main():
@@ -183,37 +243,47 @@ def main():
 
     # generate_bruteforce_graphs(factory, n, prefix=loc)
 
-    ###############################
-    # DETERMINE BUDGET MULTIPLIER #
-    ###############################
+    #############################################
+    # BENCHMARK REATTACHMENT AGAINST BRUTEFORCE #
+    #############################################
 
-    # Initial Parameters
-    target_count = 3
-    graphx = graphy = 6
+    loc = "results/brute_comparison"
+    brute_loc = "results/brute"
+    num_graphs = 10
+    random_samples = 100
+    brute_comparison(loc, brute_loc, num_graphs, random_samples)
 
-    def factory():
-        s, targets = random_points(target_count)
+    # ###############################
+    # # DETERMINE BUDGET MULTIPLIER #
+    # ###############################
 
-        # G = form_grid_graph(s, targets, graphx, graphy)
-        G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
-        # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
-        # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
+    # # Initial Parameters
+    # target_count = 2
+    # graphx = graphy = 4
 
-        round_targets_to_graph(G, s, targets)
-        targets = [f"target {i}" for i in range(target_count)]
-        s = "start"
-        nx.set_node_attributes(G, 0, "paths")
+    # def factory():
+    #     s, targets = random_points(target_count)
 
-        budget = float("inf")
-        # budget = nx.minimum_spanning_tree(G).size(weight="weight") * 0.5
+    #     # G = form_grid_graph(s, targets, graphx, graphy)
+    #     G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
+    #     # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
+    #     # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
 
-        # # rescale weights
-        # for u, v in G.edges:
-        #     G[u][v]["weight"] = G[u][v]["weight"]
+    #     round_targets_to_graph(G, s, targets)
+    #     targets = [f"target {i}" for i in range(target_count)]
+    #     s = "start"
+    #     nx.set_node_attributes(G, 0, "paths")
 
-        return G, s, targets, budget
+    #     budget = float("inf")
+    #     # budget = nx.minimum_spanning_tree(G).size(weight="weight") * 0.5
 
-    determine_budget(factory, 10, 1, 3, 60, 50, loc="results/budget")
+    #     # # rescale weights
+    #     # for u, v in G.edges:
+    #     #     G[u][v]["weight"] = G[u][v]["weight"]
+
+    #     return G, s, targets, budget
+
+    # determine_budget(factory, 10, 1, 3, 60, 25, loc="results/budget")
 
     # # Initial Parameters
     # target_count = 6
