@@ -15,14 +15,9 @@ from util import (
     form_hex_graph,
     form_triangle_graph,
     bcolors,
+    display_graph,
 )
-from benchmark import (
-    random_bench,
-    mixed_benchmark,
-    read_mixed_benchmark,
-    create_mixed_graphs,
-    test_budget,
-)
+
 from bruteforce import generate_bruteforce_graphs, num_span
 
 
@@ -201,6 +196,101 @@ def brute_comparison(loc, brute_loc, num_graphs, random_samples):
     plt.close()
 
 
+def compare_seed_trees(factory, random_samples):
+    G, s, targets, budget = factory()
+
+    # run MST see tree once
+    output, pred, rounds = compute_tree(G, s, targets, budget, minimum=True)
+    forced, metric, _ = compute_metric(output, s, targets)
+    mst_res = metric if not forced else 0.0
+
+    # get average metric using random trees
+    avg_res = 0.0
+    for k in range(random_samples):
+        output, pred, rounds = compute_tree(G, s, targets, budget, minimum=None)
+        # TODO: figure out something better for when output == None
+        if output != None:
+            forced, metric, _ = compute_metric(output, s, targets)
+            res = metric if not forced else 0.0
+            avg_res += res
+        else:
+            avg_res += 0
+    avg_res /= random_samples
+
+    return mst_res, avg_res
+
+
+def compare_seed_trees_diff_targets(
+    random_samples, graph_size, target_counts, loc=None
+):
+    # TODO: DESC
+
+    mst_results, avg_results = [], []
+    # Get data for each target count
+    for target_count in target_counts:
+
+        def factory():
+            s, targets = random_points(target_count)
+
+            G = form_grid_graph(s, targets, graph_size, graph_size)
+            # G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
+            # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
+            # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
+            # display_graph(G)
+
+            round_targets_to_graph(G, s, targets)
+            targets = [f"target {i}" for i in range(target_count)]
+            s = "start"
+            nx.set_node_attributes(G, 0, "paths")
+
+            mst, _ = build_stiener_seed(G, s, targets, minimum=True)
+            size = mst.size(weight="weight")
+            budget = size * 2.0
+
+            # # rescale weights
+            # for u, v in G.edges:
+            #     G[u][v]["weight"] = G[u][v]["weight"]
+
+            return G, s, targets, budget
+
+        mst_res, avg_res = compare_seed_trees(factory, random_samples)
+        mst_results.append(round(mst_res, 2))
+        avg_results.append(round(avg_res, 2))
+
+    # generate graphs and stats and such
+    if loc != None:
+        data = {
+            "MST Seed": mst_results,
+            "Rand Seed": avg_results,
+        }
+        x_axis_labels = [str(target_count) for target_count in target_counts]
+
+        x = np.arange(len(x_axis_labels))
+        width = 0.25
+        multiplier = 0
+
+        fig, ax = plt.subplots()
+        fig.set_figwidth(25)
+        fig.set_figheight(40)
+
+        for attribute, measurement in data.items():
+            offset = width * multiplier
+            rects = ax.bar(x + offset, measurement, width, label=attribute)
+            ax.bar_label(rects, padding=3)
+            multiplier += 1
+
+        ax.set_ylabel("Metric")
+        ax.set_xlabel("Number of Targets")
+        ax.set_title(f"Comparing Metrics on {graph_size + 1} x {graph_size + 1}")
+        ax.set_xticks(x + width, x_axis_labels)
+        ax.legend(loc="upper left", ncols=3)
+
+        filename = f"{loc}/{graph_size + 1}x{graph_size + 1}-results.png"
+        plt.savefig(filename)
+        # plt.show()
+        plt.close()
+
+
 def main():
     # ##################################
     # # GENERATE GRAPHS AND BRUTEFORCE #
@@ -243,15 +333,15 @@ def main():
 
     # generate_bruteforce_graphs(factory, n, prefix=loc)
 
-    #############################################
-    # BENCHMARK REATTACHMENT AGAINST BRUTEFORCE #
-    #############################################
+    # #############################################
+    # # BENCHMARK REATTACHMENT AGAINST BRUTEFORCE #
+    # #############################################
 
-    loc = "results/brute_comparison"
-    brute_loc = "results/brute"
-    num_graphs = 10
-    random_samples = 100
-    brute_comparison(loc, brute_loc, num_graphs, random_samples)
+    # Loc = "results/brute_comparison"
+    # Brute_loc = "results/brute"
+    # Num_graphs = 10
+    # Random_samples = 100
+    # Brute_comparison(loc, brute_loc, num_graphs, random_samples)
 
     # ###############################
     # # DETERMINE BUDGET MULTIPLIER #
@@ -284,6 +374,20 @@ def main():
     #     return G, s, targets, budget
 
     # determine_budget(factory, 10, 1, 3, 60, 25, loc="results/budget")
+
+    #############################################
+    # COMPARE RANDOM SEED TREE VS MST SEED TREE #
+    #############################################
+
+    results_dir = "results/seed_comparison"
+    random_samples = 500
+    target_counts = [2, 4, 7, 10]
+    graph_sizes = [7, 10, 12]
+    for graph_size in graph_sizes:
+        loc = f"{results_dir}"
+        compare_seed_trees_diff_targets(
+            random_samples, graph_size, target_counts, loc=loc
+        )
 
     # # Initial Parameters
     # target_count = 6
