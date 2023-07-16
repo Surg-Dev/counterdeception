@@ -380,7 +380,7 @@ def main():
     #############################################
 
     results_dir = "results/seed_comparison"
-    random_samples = 500
+    random_samples = 200
     target_counts = [2, 4, 7, 10]
     graph_sizes = [7, 10, 12]
     for graph_size in graph_sizes:
