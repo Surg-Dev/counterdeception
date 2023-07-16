@@ -221,75 +221,69 @@ def compare_seed_trees(factory, random_samples):
 
 
 def compare_seed_trees_diff_targets(
-    random_samples, graph_size, target_counts, loc=None
+        rounds, random_samples, graph_size, target_counts, loc=None
 ):
     # TODO: DESC
 
-    mst_results, avg_results = [], []
+    avg_percent_better = []
+    mst_zero_counts = []
+    avg_zero_counts = []
+    both_zero_counts = []
     # Get data for each target count
     for target_count in target_counts:
+        percent_better_round = []
+        mst_zero_count = 0
+        avg_zero_count = 0
+        both_zero_count = 0
+        for _ in range(rounds):
+            def factory():
+                s, targets = random_points(target_count)
 
-        def factory():
-            s, targets = random_points(target_count)
+                G = form_grid_graph(s, targets, graph_size, graph_size)
+                # G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
+                # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
+                # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
+                # display_graph(G)
 
-            G = form_grid_graph(s, targets, graph_size, graph_size)
-            # G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
-            # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
-            # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
-            # display_graph(G)
+                round_targets_to_graph(G, s, targets)
+                targets = [f"target {i}" for i in range(target_count)]
+                s = "start"
+                nx.set_node_attributes(G, 0, "paths")
 
-            round_targets_to_graph(G, s, targets)
-            targets = [f"target {i}" for i in range(target_count)]
-            s = "start"
-            nx.set_node_attributes(G, 0, "paths")
+                mst, _ = build_stiener_seed(G, s, targets, minimum=True)
+                size = mst.size(weight="weight")
+                budget = size * 2.0
 
-            mst, _ = build_stiener_seed(G, s, targets, minimum=True)
-            size = mst.size(weight="weight")
-            budget = size * 2.0
+                # # rescale weights
+                # for u, v in G.edges:
+                #     G[u][v]["weight"] = G[u][v]["weight"]
 
-            # # rescale weights
-            # for u, v in G.edges:
-            #     G[u][v]["weight"] = G[u][v]["weight"]
+                return G, s, targets, budget
 
-            return G, s, targets, budget
+            mst_res, avg_res = compare_seed_trees(factory, random_samples)
+            if mst_res == avg_res == 0.0:
+                both_zero_count += 1
+            elif mst_res == 0.0:
+                mst_zero_count += 1
+            elif avg_res == 0.0:
+                avg_zero_count += 1
+            else:
+                percent_better_round.append((avg_res - mst_res) / mst_res * 100)
 
-        mst_res, avg_res = compare_seed_trees(factory, random_samples)
-        mst_results.append(round(mst_res, 2))
-        avg_results.append(round(avg_res, 2))
+        avg_percent_better.append(round(sum(percent_better_round) / len(percent_better_round), 2))
+        mst_zero_counts.append(mst_zero_count)
+        avg_zero_counts.append(avg_zero_count)
+        both_zero_counts.append(both_zero_count)
 
-    # generate graphs and stats and such
     if loc != None:
-        data = {
-            "MST Seed": mst_results,
-            "Rand Seed": avg_results,
-        }
-        x_axis_labels = [str(target_count) for target_count in target_counts]
-
-        x = np.arange(len(x_axis_labels))
-        width = 0.25
-        multiplier = 0
-
-        fig, ax = plt.subplots()
-        fig.set_figwidth(25)
-        fig.set_figheight(40)
-
-        for attribute, measurement in data.items():
-            offset = width * multiplier
-            rects = ax.bar(x + offset, measurement, width, label=attribute)
-            ax.bar_label(rects, padding=3)
-            multiplier += 1
-
-        ax.set_ylabel("Metric")
-        ax.set_xlabel("Number of Targets")
-        ax.set_title(f"Comparing Metrics on {graph_size + 1} x {graph_size + 1}")
-        ax.set_xticks(x + width, x_axis_labels)
-        ax.legend(loc="upper left", ncols=3)
-
-        filename = f"{loc}/{graph_size + 1}x{graph_size + 1}-results.png"
-        plt.savefig(filename)
-        # plt.show()
-        plt.close()
-
+        with open(f"{loc}/{graph_size + 1}x{graph_size + 1}_data.txt", "w") as f:
+            f.write(f"Graph Size = {graph_size + 1}x{graph_size + 1}\n")
+            for i, target_count in enumerate(target_counts):
+                f.write(f"Target Count: {target_count}\n")
+                f.write(f"    Number of Graphs Both Zero = {both_zero_counts[i]}\n")
+                f.write(f"    Number of Graphs MST Seed Zero = {mst_zero_counts[i]}\n")
+                f.write(f"    Number of Graphs Rand Seed Zero = {avg_zero_counts[i]}\n")
+                f.write(f"    Average % Difference = {avg_percent_better[i]}\n\n")
 
 def main():
     # ##################################
@@ -380,13 +374,18 @@ def main():
     #############################################
 
     results_dir = "results/seed_comparison"
-    random_samples = 200
-    target_counts = [2, 4, 7, 10]
-    graph_sizes = [7, 10, 12]
+    rounds = 5
+    random_samples = 5
+    target_counts = [2, 4]
+    graph_sizes = [7, 10]
+    # rounds = 20
+    # random_samples = 25
+    # target_counts = [2, 4, 7, 10]
+    # graph_sizes = [7, 10, 12]
     for graph_size in graph_sizes:
         loc = f"{results_dir}"
         compare_seed_trees_diff_targets(
-            random_samples, graph_size, target_counts, loc=loc
+            rounds, random_samples, graph_size, target_counts, loc=loc
         )
 
     # # Initial Parameters

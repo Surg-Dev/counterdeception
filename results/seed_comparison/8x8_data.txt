@@ -1,0 +1,13 @@
+Graph Size = 8x8
+Target Count: 2
+    Number of Graphs Both Zero = 0
+    Number of Graphs MST Seed Zero = 0
+    Number of Graphs Rand Seed Zero = 0
+    Average % Difference = 42.25
+
+Target Count: 4
+    Number of Graphs Both Zero = 0
+    Number of Graphs MST Seed Zero = 0
+    Number of Graphs Rand Seed Zero = 0
+    Average % Difference = 22.81
+
