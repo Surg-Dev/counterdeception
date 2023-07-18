@@ -3,11 +3,23 @@ Target Count: 2
     Number of Graphs Both Zero = 0
     Number of Graphs MST Seed Zero = 0
     Number of Graphs Rand Seed Zero = 0
-    Average % Difference = 12.77
+    Average % Difference = 33.82
 
 Target Count: 4
     Number of Graphs Both Zero = 0
-    Number of Graphs MST Seed Zero = 0
+    Number of Graphs MST Seed Zero = 1
     Number of Graphs Rand Seed Zero = 0
-    Average % Difference = 210.8
+    Average % Difference = 79.76
+
+Target Count: 7
+    Number of Graphs Both Zero = 0
+    Number of Graphs MST Seed Zero = 7
+    Number of Graphs Rand Seed Zero = 0
+    Average % Difference = 19.37
+
+Target Count: 10
+    Number of Graphs Both Zero = 0
+    Number of Graphs MST Seed Zero = 4
+    Number of Graphs Rand Seed Zero = 0
+    Average % Difference = -51.58
 

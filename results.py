@@ -374,14 +374,10 @@ def main():
     #############################################
 
     results_dir = "results/seed_comparison"
-    rounds = 5
-    random_samples = 5
-    target_counts = [2, 4]
-    graph_sizes = [7, 10]
-    # rounds = 20
-    # random_samples = 25
-    # target_counts = [2, 4, 7, 10]
-    # graph_sizes = [7, 10, 12]
+    rounds = 20
+    random_samples = 25
+    target_counts = [2, 4, 7, 10]
+    graph_sizes = [7, 10, 12]
     for graph_size in graph_sizes:
         loc = f"{results_dir}"
         compare_seed_trees_diff_targets(
