@@ -214,7 +214,7 @@ def compare_seed_trees(factory, random_samples):
             res = metric if not forced else 0.0
             avg_res += res
         else:
-            avg_res += 0
+            avg_res += 0.0
     avg_res /= random_samples
 
     return mst_res, avg_res
@@ -284,6 +284,110 @@ def compare_seed_trees_diff_targets(
                 f.write(f"    Number of Graphs MST Seed Zero = {mst_zero_counts[i]}\n")
                 f.write(f"    Number of Graphs Rand Seed Zero = {avg_zero_counts[i]}\n")
                 f.write(f"    Average % Difference = {avg_percent_better[i]}\n\n")
+
+
+def random_bench(n, G, s, targets, budget, loc=None):
+    # Build n random spanning trees over G, compute metric, take max
+
+    best = float("-inf")
+    best_tree = None
+    attempts = []
+    for i in range(n):
+        print(
+            f"Generating Random Spanning Tree {bcolors.OKGREEN}{i + 1}/{n}{bcolors.ENDC}"
+        )
+        size = float("inf")
+
+        attempt_count = 0
+        while size > budget or size == float("inf"):  # TODO: Add failsafe here
+            rst, pred = build_stiener_seed(G, s, targets, minimum=None)
+            size = rst.size(weight="weight")
+            attempt_count += 1
+        forced, metric, _ = compute_metric(rst, s, targets)
+        res = metric if not forced else 0.0
+        if res > best:
+            best = res
+            best_tree = rst
+        print(bcolors.CLEAR_LAST_LINE)
+        attempts.append(attempt_count)
+
+    if loc != None:
+        display_tree(G, rst, loc=loc)
+    avg_attempts = 0 if n == 0 else sum(attempts) / len(attempts)
+    return best, avg_attempts
+
+def timespan(factory, samples, algo_runs, num_graphs, loc=None):
+    # Sample Times
+    rand_time = 0.0
+    algo_time = 0.0
+    for _ in range(samples):
+        G, s, targets, budget = factory()
+        start_time = time.perf_counter_ns()
+        rand_metric, attempts = random_bench(1, G, s, targets, budget)
+        end_time = time.perf_counter_ns()
+        rand_time += end_time - start_time
+
+        start_time = time.perf_counter_ns()
+        _, _, _ = compute_tree(G, s, targets, budget)
+        end_time = time.perf_counter_ns()
+        algo_time += end_time - start_time
+    rand_time /= samples
+    algo_time /= samples
+    # number of times random tree sampling can be run per algo run
+    rand_per_algo = ceil(algo_time / rand_time)
+
+    # Generate Data
+    avg_percent_diffs = []
+    for num_algo in range(algo_runs + 1):
+        num_rand = rand_per_algo * (algo_runs - num_algo)
+
+        # avg of (mst_res - curr_res) / curr_res
+        avg_percent_diff = 0.0
+        for _ in range(num_graphs):
+            G, s, targets, budget = factory()
+            # mst baseline
+            mst, pred, _ = compute_tree(G, s, targets, budget, minimum=True)
+            if mst is None:
+                mst_res = 0.0
+            else:
+                forced, metric, _ = compute_metric(mst, s, targets, pred)
+                mst_res = metric if not forced else 0.0
+
+            # rand runs
+            rand_res, _ = random_bench(num_rand, G, s, targets, budget)
+
+            # algo runs
+            algo_res = float("-inf")
+            for _ in range(num_algo):
+                mst, pred, _ = compute_tree(G, s, targets, budget, minimum=None)
+                if mst is None:
+                    curr_algo_res = 0.0
+                else:
+                    forced, metric, _ = compute_metric(mst, s, targets, pred)
+                    curr_algo_res = metric if not forced else 0.0
+                algo_res = max(algo_res, curr_algo_res)
+
+            curr_res = max(rand_res, algo_res)
+
+            avg_percent_diff += (mst_res - curr_res) / curr_res
+
+        avg_percent_diff /= num_graphs
+        avg_percent_diffs.append(avg_percent_diff)
+
+    # Create Graphs
+    fig, ax = plt.subplots()
+    vals = avg_percent_diffs
+    x_labels = [f"{i}" for i in range(algo_runs + 1)]
+    ax.bar(x_labels, vals)
+    ax.bar_label(ax.containers[0], label_type="edge")
+    ax.set_ylabel("Average % Diff From MST Seed Tree")
+    ax.set_xlabel("Number of Algo Runs")
+
+    filename = f"{loc}/results.png"
+    plt.savefig(filename)
+    plt.show()
+    plt.close()
+
 
 def main():
     # ##################################
@@ -369,20 +473,57 @@ def main():
 
     # determine_budget(factory, 10, 1, 3, 60, 25, loc="results/budget")
 
-    #############################################
-    # COMPARE RANDOM SEED TREE VS MST SEED TREE #
-    #############################################
+    # #############################################
+    # # COMPARE RANDOM SEED TREE VS MST SEED TREE #
+    # #############################################
 
-    results_dir = "results/seed_comparison"
-    rounds = 20
-    random_samples = 25
-    target_counts = [2, 4, 7, 10]
-    graph_sizes = [7, 10, 12]
-    for graph_size in graph_sizes:
-        loc = f"{results_dir}"
-        compare_seed_trees_diff_targets(
-            rounds, random_samples, graph_size, target_counts, loc=loc
-        )
+    # results_dir = "results/seed_comparison"
+    # rounds = 20
+    # random_samples = 25
+    # target_counts = [2, 4, 7, 10]
+    # graph_sizes = [7, 10, 12]
+    # for graph_size in graph_sizes:
+    #     loc = f"{results_dir}"
+    #     compare_seed_trees_diff_targets(
+    #         rounds, random_samples, graph_size, target_counts, loc=loc
+    #     )
+
+
+    ######################
+    # TIMESPAN BENCHMARK #
+    ######################
+
+    target_count = 7
+    graph_size = 14
+    def factory():
+        s, targets = random_points(target_count)
+
+        G = form_grid_graph(s, targets, graph_size, graph_size)
+        # G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
+        # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
+        # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
+        # display_graph(G)
+
+        round_targets_to_graph(G, s, targets)
+        targets = [f"target {i}" for i in range(target_count)]
+        s = "start"
+        nx.set_node_attributes(G, 0, "paths")
+
+        mst, _ = build_stiener_seed(G, s, targets, minimum=True)
+        size = mst.size(weight="weight")
+        budget = size * 2.0
+
+        # # rescale weights
+        # for u, v in G.edges:
+        #     G[u][v]["weight"] = G[u][v]["weight"]
+
+        return G, s, targets, budget
+
+    results_dir = "results/timespan"
+    samples = 100
+    algo_runs = 10
+    num_graphs = 100
+    timespan(factory, samples, algo_runs, num_graphs, loc=results_dir)
 
     # # Initial Parameters
     # target_count = 6
