@@ -291,41 +291,39 @@ def random_bench(n, G, s, targets, budget, loc=None):
 
     best = float("-inf")
     best_tree = None
-    attempts = []
     for i in range(n):
         print(
             f"Generating Random Spanning Tree {bcolors.OKGREEN}{i + 1}/{n}{bcolors.ENDC}"
         )
         size = float("inf")
 
-        attempt_count = 0
-        while size > budget or size == float("inf"):  # TODO: Add failsafe here
-            rst, pred = build_stiener_seed(G, s, targets, minimum=None)
-            size = rst.size(weight="weight")
-            attempt_count += 1
-        forced, metric, _ = compute_metric(rst, s, targets)
-        res = metric if not forced else 0.0
+        rst, pred = build_stiener_seed(G, s, targets, minimum=None)
+        size = rst.size(weight="weight")
+        if size > budget:
+            res = 0.0
+        else:
+            forced, metric, _ = compute_metric(rst, s, targets)
+            res = metric if not forced else 0.0
         if res > best:
             best = res
             best_tree = rst
         print(bcolors.CLEAR_LAST_LINE)
-        attempts.append(attempt_count)
 
     if loc != None:
         display_tree(G, rst, loc=loc)
-    avg_attempts = 0 if n == 0 else sum(attempts) / len(attempts)
-    return best, avg_attempts
+    return best
 
-def timespan(factory, samples, algo_runs, num_graphs, loc=None):
+def timespan(factory, samples, num_algo, num_graphs, loc=None):
     # Sample Times
     rand_time = 0.0
     algo_time = 0.0
     for _ in range(samples):
+        # Take average time of generating 100 trees to get more accurate scaling
         G, s, targets, budget = factory()
         start_time = time.perf_counter_ns()
-        rand_metric, attempts = random_bench(1, G, s, targets, budget)
+        rand_metric = random_bench(100, G, s, targets, budget)
         end_time = time.perf_counter_ns()
-        rand_time += end_time - start_time
+        rand_time += (end_time - start_time) / 100
 
         start_time = time.perf_counter_ns()
         _, _, _ = compute_tree(G, s, targets, budget)
@@ -334,59 +332,52 @@ def timespan(factory, samples, algo_runs, num_graphs, loc=None):
     rand_time /= samples
     algo_time /= samples
     # number of times random tree sampling can be run per algo run
-    rand_per_algo = ceil(algo_time / rand_time)
+    rand_per_algo = int(algo_time / rand_time)
 
     # Generate Data
-    avg_percent_diffs = []
-    for num_algo in range(algo_runs + 1):
-        num_rand = rand_per_algo * (algo_runs - num_algo)
+    both_forced = 0
+    algo_better = 0
+    rand_better = 0
+    for _ in range(num_graphs):
+        G, s, targets, budget = factory()
+        # rand runs
+        rand_res = random_bench(rand_per_algo * num_algo, G, s, targets, budget)
 
-        # avg of (mst_res - curr_res) / curr_res
-        avg_percent_diff = 0.0
-        for _ in range(num_graphs):
-            G, s, targets, budget = factory()
-            # mst baseline
-            mst, pred, _ = compute_tree(G, s, targets, budget, minimum=True)
+        # algo runs
+        algo_res = float("-inf")
+        for _ in range(num_algo):
+            mst, pred, _ = compute_tree(G, s, targets, budget, minimum=None)
             if mst is None:
-                mst_res = 0.0
+                curr_algo_res = 0.0
             else:
                 forced, metric, _ = compute_metric(mst, s, targets, pred)
-                mst_res = metric if not forced else 0.0
+                curr_algo_res = metric if not forced else 0.0
+            algo_res = max(algo_res, curr_algo_res)
 
-            # rand runs
-            rand_res, _ = random_bench(num_rand, G, s, targets, budget)
+        if algo_res == rand_res == 0.0:
+            both_forced += 1
+        elif algo_res > rand_res:
+            algo_better += 1
+        else:
+            rand_better += 1
 
-            # algo runs
-            algo_res = float("-inf")
-            for _ in range(num_algo):
-                mst, pred, _ = compute_tree(G, s, targets, budget, minimum=None)
-                if mst is None:
-                    curr_algo_res = 0.0
-                else:
-                    forced, metric, _ = compute_metric(mst, s, targets, pred)
-                    curr_algo_res = metric if not forced else 0.0
-                algo_res = max(algo_res, curr_algo_res)
+    print(f"{both_forced = }")
+    print(f"{algo_better = }")
+    print(f"{rand_better = }")
 
-            curr_res = max(rand_res, algo_res)
+    # # Create Graphs
+    # fig, ax = plt.subplots()
+    # vals = avg_percent_diffs
+    # x_labels = [f"{i}" for i in range(algo_runs + 1)]
+    # ax.bar(x_labels, vals)
+    # ax.bar_label(ax.containers[0], label_type="edge")
+    # ax.set_ylabel("Average % Diff From MST Seed Tree")
+    # ax.set_xlabel("Number of Algo Runs")
 
-            avg_percent_diff += (mst_res - curr_res) / curr_res
-
-        avg_percent_diff /= num_graphs
-        avg_percent_diffs.append(avg_percent_diff)
-
-    # Create Graphs
-    fig, ax = plt.subplots()
-    vals = avg_percent_diffs
-    x_labels = [f"{i}" for i in range(algo_runs + 1)]
-    ax.bar(x_labels, vals)
-    ax.bar_label(ax.containers[0], label_type="edge")
-    ax.set_ylabel("Average % Diff From MST Seed Tree")
-    ax.set_xlabel("Number of Algo Runs")
-
-    filename = f"{loc}/results.png"
-    plt.savefig(filename)
-    plt.show()
-    plt.close()
+    # filename = f"{loc}/results.png"
+    # plt.savefig(filename)
+    # plt.show()
+    # plt.close()
 
 
 def main():
@@ -435,11 +426,11 @@ def main():
     # # BENCHMARK REATTACHMENT AGAINST BRUTEFORCE #
     # #############################################
 
-    # Loc = "results/brute_comparison"
-    # Brute_loc = "results/brute"
-    # Num_graphs = 10
-    # Random_samples = 100
-    # Brute_comparison(loc, brute_loc, num_graphs, random_samples)
+    # loc = "results/brute_comparison"
+    # brute_loc = "results/brute"
+    # num_graphs = 10
+    # random_samples = 100
+    # brute_comparison(loc, brute_loc, num_graphs, random_samples)
 
     # ###############################
     # # DETERMINE BUDGET MULTIPLIER #
@@ -493,8 +484,8 @@ def main():
     # TIMESPAN BENCHMARK #
     ######################
 
-    target_count = 7
-    graph_size = 14
+    target_count = 2
+    graph_size = 5
     def factory():
         s, targets = random_points(target_count)
 
@@ -520,10 +511,10 @@ def main():
         return G, s, targets, budget
 
     results_dir = "results/timespan"
-    samples = 100
-    algo_runs = 10
-    num_graphs = 100
-    timespan(factory, samples, algo_runs, num_graphs, loc=results_dir)
+    samples = 10
+    num_graphs = 5
+    num_algo = 5
+    timespan(factory, samples, num_algo, num_graphs, loc=results_dir)
 
     # # Initial Parameters
     # target_count = 6

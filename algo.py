@@ -255,7 +255,7 @@ def reattachment(
     # Pick a target starting with the minimum contribution to the metric distance
     for c, t in enumerate(target_list):
         orig_metric_v, v = t
-        print(f"trying to reattach {v} with metric {orig_metric_v}")
+        # print(f"trying to reattach {v} with metric {orig_metric_v}")
         # Make a copy of the MST to remove the target and corresponding path from.
         mstprime = mst.copy()
 
@@ -415,24 +415,25 @@ def reattachment(
         # Note that if we change "reattaching the minimum target", this condition may need to change
 
         if updated:
-            print(f"    reattached {count} times")
-            if start_tuple[0] == 1 and best_tuple[0] == 0:
-                print("    Unforced tree")
-            if start_tuple[1] < best_tuple[1]:
-                print("    Increased minimum metric")
-            if start_tuple[2] < best_tuple[2]:
-                print("    Increased sum of metrics")
-            if (
-                not isclose(start_tuple[3], best_tuple[3])
-                and start_tuple[3] > best_tuple[3]
-            ):
-                print("    Found cheaper tree")
-                print(f"    starting cost = {start_tuple[3]}")
-                print(f"    ending cost   = {best_tuple[3]}")
+            # Debug information for how the current update changed the tree
+            # print(f"    reattached {count} times")
+            # if start_tuple[0] == 1 and best_tuple[0] == 0:
+            #     print("    Unforced tree")
+            # if start_tuple[1] < best_tuple[1]:
+            #     print("    Increased minimum metric")
+            # if start_tuple[2] < best_tuple[2]:
+            #     print("    Increased sum of metrics")
+            # if (
+            #     not isclose(start_tuple[3], best_tuple[3])
+            #     and start_tuple[3] > best_tuple[3]
+            # ):
+            #     print("    Found cheaper tree")
+            #     print(f"    starting cost = {start_tuple[3]}")
+            #     print(f"    ending cost   = {best_tuple[3]}")
 
-            if best_tree["metric"] != best_seen_metric:
-                print("        !!  saw better metric, didn't take it  !!")
-                # assert False
+            # if best_tree["metric"] != best_seen_metric:
+            #     print("        !!  saw better metric, didn't take it  !!")
+            #     # assert False
 
             return (
                 best_tree["tree"],
@@ -443,8 +444,8 @@ def reattachment(
                 updated,
             )
 
-    print("Made no updates")
-    print()
+    # print("Made no updates")
+    # print()
 
     assert not updated
     return mst, forced, metric, target_list, pred, updated
@@ -466,9 +467,9 @@ def reattachment_approximation(
         if count % mult == 0 and loc != None:
             curr_loc = f"{loc}/{count}"
             display_tree(G, mst, loc=curr_loc)
-        print()
         count += 1
-        print(f"Iteration {count}")
+        # print()
+        # print(f"Iteration {count}")
 
         old_metric = metric
         mst, forced, metric, target_list, pred, updated = reattachment(
