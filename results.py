@@ -2,6 +2,7 @@ import time
 import imageio
 import os
 
+import signal
 import networkx as nx
 from math import ceil
 import pickle
@@ -313,72 +314,83 @@ def random_bench(n, G, s, targets, budget, loc=None):
         display_tree(G, rst, loc=loc)
     return best
 
-def timespan(factory, samples, num_algo, num_graphs, loc=None):
-    # Sample Times
-    rand_time = 0.0
-    algo_time = 0.0
-    for _ in range(samples):
-        # Take average time of generating 100 trees to get more accurate scaling
-        G, s, targets, budget = factory()
-        start_time = time.perf_counter_ns()
-        rand_metric = random_bench(100, G, s, targets, budget)
-        end_time = time.perf_counter_ns()
-        rand_time += (end_time - start_time) / 100
+def single_sprint_benchmark(factory, t):
+    # Set a time parameter t, run on the gamet of possible times, and run algo + rand gen
+    # Interrupt each when time runs out and take the last complete best tree.
+    G, s, targets, budget = factory()
 
-        start_time = time.perf_counter_ns()
-        _, _, _ = compute_tree(G, s, targets, budget)
-        end_time = time.perf_counter_ns()
-        algo_time += end_time - start_time
-    rand_time /= samples
-    algo_time /= samples
-    # number of times random tree sampling can be run per algo run
-    rand_per_algo = int(algo_time / rand_time)
+    rand_best = None
+    algo_best = None
+    rand_halt = False
+    algo_halt = False
 
-    # Generate Data
-    both_forced = 0
-    algo_better = 0
-    rand_better = 0
-    for _ in range(num_graphs):
-        G, s, targets, budget = factory()
-        # rand runs
-        rand_res = random_bench(rand_per_algo * num_algo, G, s, targets, budget)
+    def random_bench_internal(G, s, targets, budget):
+        nonlocal rand_best
+        rand_best = float("-inf")
+        i = 0
+        while not rand_halt:
+            i+=1
+            print(
+                f"Generating Random Spanning Tree {bcolors.OKGREEN}{i + 1}{bcolors.ENDC}"
+            )
+            size = float("inf")
 
-        # algo runs
-        algo_res = float("-inf")
-        for _ in range(num_algo):
+            rst, _ = build_stiener_seed(G, s, targets, minimum=None)
+            # We don't cancel the algorithms current run, but if we halted during the run, dont update
+            if rand_halt:
+                break
+            size = rst.size(weight="weight")
+            if size > budget:
+                metric = 0.0
+            else:
+                forced, metric, _ = compute_metric(rst, s, targets)
+                metric = metric if not forced else 0.0
+            rand_best = max(rand_best, metric)
+            print(bcolors.CLEAR_LAST_LINE)
+
+    def algo_bench_internal(G, s, targets, budget):
+        nonlocal algo_best
+        algo_best = float("-inf")
+        i = 0
+        while not algo_halt:
+            i += 1
+            print(
+                f"Computing Algo Tree {bcolors.OKGREEN}{i + 1}{bcolors.ENDC}"
+            )
             mst, pred, _ = compute_tree(G, s, targets, budget, minimum=None)
+            # We don't cancel the algorithms current run, but if we halted during the run, dont update
+            if algo_halt:
+                break
             if mst is None:
-                curr_algo_res = 0.0
+                metric = 0.0
             else:
                 forced, metric, _ = compute_metric(mst, s, targets, pred)
-                curr_algo_res = metric if not forced else 0.0
-            algo_res = max(algo_res, curr_algo_res)
+                metric = metric if not forced else 0.0
+            algo_best = max(algo_best, metric)
+            print(bcolors.CLEAR_LAST_LINE)
 
-        if algo_res == rand_res == 0.0:
-            both_forced += 1
-        elif algo_res > rand_res:
-            algo_better += 1
-        else:
-            rand_better += 1
+    def rand_timeout(signum, frame):
+        nonlocal rand_halt
+        rand_halt = True
 
-    print(f"{both_forced = }")
-    print(f"{algo_better = }")
-    print(f"{rand_better = }")
+    def algo_timeout(signum, frame):
+        nonlocal algo_halt
+        algo_halt = True
 
-    # # Create Graphs
-    # fig, ax = plt.subplots()
-    # vals = avg_percent_diffs
-    # x_labels = [f"{i}" for i in range(algo_runs + 1)]
-    # ax.bar(x_labels, vals)
-    # ax.bar_label(ax.containers[0], label_type="edge")
-    # ax.set_ylabel("Average % Diff From MST Seed Tree")
-    # ax.set_xlabel("Number of Algo Runs")
+    print(f"Starting Sprint Benchmark, current time limit is {t} seconds.")
 
-    # filename = f"{loc}/results.png"
-    # plt.savefig(filename)
-    # plt.show()
-    # plt.close()
+    signal.signal(signal.SIGALRM, rand_timeout)
+    signal.alarm(t)
+    random_bench_internal(G, s, targets, budget)
+    signal.alarm(0)
 
+    signal.signal(signal.SIGALRM, algo_timeout)
+    signal.alarm(t)
+    algo_bench_internal(G, s, targets, budget)
+    signal.alarm(0)
+    print()
+
+    return rand_best, algo_best
 
 def main():
     # ##################################
@@ -480,9 +492,9 @@ def main():
     #     )
 
 
-    ######################
-    # TIMESPAN BENCHMARK #
-    ######################
+    ####################
+    # SPRINT BENCHMARK #
+    ####################
 
     target_count = 2
     graph_size = 5
@@ -510,38 +522,26 @@ def main():
 
         return G, s, targets, budget
 
-    results_dir = "results/timespan"
-    samples = 10
+    results_dir = "results/sprint"
+    f = open(f"{results_dir}/res.txt", "w")
     num_graphs = 5
-    num_algo = 5
-    timespan(factory, samples, num_algo, num_graphs, loc=results_dir)
-
-    # # Initial Parameters
-    # target_count = 6
-    # graphx = 20
-    # graphy = 20
-
-    # def factory():
-    #     s, targets = random_points(target_count)
-
-    #     G = form_grid_graph(s, targets, graphx, graphy)
-    #     # G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
-    #     # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
-    #     # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
-
-    #     round_targets_to_graph(G, s, targets)
-    #     targets = [f"target {i}" for i in range(target_count)]
-    #     s = "start"
-    #     nx.set_node_attributes(G, 0, "paths")
-
-    #     # budget = float("inf")
-    #     budget = nx.minimum_spanning_tree(G).size(weight="weight") * 0.5
-
-    #     # rescale weights
-    #     for u, v in G.edges:
-    #         G[u][v]["weight"] = G[u][v]["weight"]
-
-    #     return G, s, targets, budget
+    for t in range(2, 11, 2):
+        both_forced = 0
+        algo_better = 0
+        rand_better = 0
+        for _ in range(num_graphs):
+            rand_res, algo_res = single_sprint_benchmark(factory, t)
+            if algo_res == rand_res == 0.0:
+                both_forced += 1
+            elif algo_res > rand_res:
+                algo_better += 1
+            else:
+                rand_better += 1
+        f.write(f"Timespan = {t}s\n")
+        f.write(f"    {both_forced = }\n")
+        f.write(f"    {algo_better = }\n")
+        f.write(f"    {rand_better = }\n\n")
+    f.close()
 
     ####################
     # BUDGET BENCHMARK #
