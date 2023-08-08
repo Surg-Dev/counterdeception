@@ -331,7 +331,7 @@ def single_sprint_benchmark(factory, t):
         while not rand_halt:
             i+=1
             print(
-                f"Generating Random Spanning Tree {bcolors.OKGREEN}{i + 1}{bcolors.ENDC}"
+                f"Generating Random Spanning Tree {bcolors.OKGREEN}{i}{bcolors.ENDC}"
             )
             size = float("inf")
 
@@ -355,7 +355,7 @@ def single_sprint_benchmark(factory, t):
         while not algo_halt:
             i += 1
             print(
-                f"Computing Algo Tree {bcolors.OKGREEN}{i + 1}{bcolors.ENDC}"
+                f"Computing Algo Tree {bcolors.OKGREEN}{i}{bcolors.ENDC}"
             )
             mst, pred, _ = compute_tree(G, s, targets, budget, minimum=None)
             # We don't cancel the algorithms current run, but if we halted during the run, dont update
@@ -496,8 +496,8 @@ def main():
     # SPRINT BENCHMARK #
     ####################
 
-    target_count = 3
-    graph_size = 9
+    target_count = 8
+    graph_size = 14
     def factory():
         s, targets = random_points(target_count)
 
@@ -514,7 +514,8 @@ def main():
 
         mst, _ = build_stiener_seed(G, s, targets, minimum=True)
         size = mst.size(weight="weight")
-        budget = size * 2.0
+        # budget = size * 2.0
+        budget = float("inf")
 
         # # rescale weights
         # for u, v in G.edges:
@@ -524,12 +525,13 @@ def main():
 
     results_dir = "results/sprint"
     f = open(f"{results_dir}/res.txt", "w")
-    num_graphs = 10
-    for t in range(10, 61, 10):
+    num_graphs = 20
+    for t in range(120, 121, 10):
         both_forced = 0
         algo_better = 0
         rand_better = 0
-        for _ in range(num_graphs):
+        for i in range(num_graphs):
+            print(f"Graph {i + 1} / {num_graphs}")
             rand_res, algo_res = single_sprint_benchmark(factory, t)
             if algo_res == rand_res == 0.0:
                 both_forced += 1
@@ -537,6 +539,9 @@ def main():
                 algo_better += 1
             else:
                 rand_better += 1
+            print(f"    {both_forced = }")
+            print(f"    {algo_better = }")
+            print(f"    {rand_better = }\n")
         f.write(f"Timespan = {t}s\n")
         f.write(f"    {both_forced = }\n")
         f.write(f"    {algo_better = }\n")

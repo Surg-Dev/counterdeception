@@ -1,30 +1,5 @@
-Timespan = 10s
+Timespan = 120s
     both_forced = 0
-    algo_better = 5
-    rand_better = 5
-
-Timespan = 20s
-    both_forced = 0
-    algo_better = 3
-    rand_better = 7
-
-Timespan = 30s
-    both_forced = 0
-    algo_better = 8
-    rand_better = 2
-
-Timespan = 40s
-    both_forced = 0
-    algo_better = 8
-    rand_better = 2
-
-Timespan = 50s
-    both_forced = 0
-    algo_better = 6
-    rand_better = 4
-
-Timespan = 60s
-    both_forced = 0
-    algo_better = 6
-    rand_better = 4
+    algo_better = 2
+    rand_better = 18
 
