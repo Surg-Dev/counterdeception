@@ -1,60 +1,30 @@
 Timespan = 10s
     both_forced = 0
-    algo_better = 42
-    rand_better = 58
+    algo_better = 5
+    rand_better = 5
 
 Timespan = 20s
     both_forced = 0
-    algo_better = 80
-    rand_better = 20
+    algo_better = 3
+    rand_better = 7
 
 Timespan = 30s
     both_forced = 0
-    algo_better = 38
-    rand_better = 62
+    algo_better = 8
+    rand_better = 2
 
 Timespan = 40s
     both_forced = 0
-    algo_better = 9
-    rand_better = 91
+    algo_better = 8
+    rand_better = 2
 
 Timespan = 50s
     both_forced = 0
-    algo_better = 14
-    rand_better = 86
+    algo_better = 6
+    rand_better = 4
 
 Timespan = 60s
     both_forced = 0
-    algo_better = 20
-    rand_better = 80
-
-Timespan = 70s
-    both_forced = 0
-    algo_better = 24
-    rand_better = 76
-
-Timespan = 80s
-    both_forced = 0
-    algo_better = 35
-    rand_better = 65
-
-Timespan = 90s
-    both_forced = 0
-    algo_better = 38
-    rand_better = 62
-
-Timespan = 100s
-    both_forced = 0
-    algo_better = 38
-    rand_better = 62
-
-Timespan = 110s
-    both_forced = 0
-    algo_better = 47
-    rand_better = 53
-
-Timespan = 120s
-    both_forced = 0
-    algo_better = 54
-    rand_better = 46
+    algo_better = 6
+    rand_better = 4
 
