@@ -496,8 +496,8 @@ def main():
     # SPRINT BENCHMARK #
     ####################
 
-    target_count = 2
-    graph_size = 5
+    target_count = 5
+    graph_size = 14
     def factory():
         s, targets = random_points(target_count)
 
@@ -524,8 +524,8 @@ def main():
 
     results_dir = "results/sprint"
     f = open(f"{results_dir}/res.txt", "w")
-    num_graphs = 5
-    for t in range(2, 11, 2):
+    num_graphs = 100
+    for t in range(10, 121, 10):
         both_forced = 0
         algo_better = 0
         rand_better = 0
