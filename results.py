@@ -333,6 +333,7 @@ def single_sprint_benchmark(factory, t):
         rand_best = float("-inf")
         i = 0
         while not rand_halt:
+            num_rand = i
             i += 1
             print(f"Generating Random Spanning Tree {bcolors.OKGREEN}{i}{bcolors.ENDC}")
             size = float("inf")
@@ -355,6 +356,7 @@ def single_sprint_benchmark(factory, t):
         algo_best = float("-inf")
         i = 0
         while not algo_halt:
+            num_algo = i
             i += 1
             print(f"Computing Algo Tree {bcolors.OKGREEN}{i}{bcolors.ENDC}")
             mst, pred, _ = compute_tree(G, s, targets, budget, minimum=None)
@@ -390,7 +392,7 @@ def single_sprint_benchmark(factory, t):
     signal.alarm(0)
     print()
 
-    return rand_best, algo_best
+    return rand_best, algo_best, num_rand, num_algo
 
 
 def main():
@@ -496,8 +498,8 @@ def main():
     # SPRINT BENCHMARK #
     ####################
 
-    target_count = 8
-    graph_size = 14
+    target_count = 15
+    graph_size = 24
 
     def factory():
         s, targets = random_points(target_count)
@@ -531,22 +533,30 @@ def main():
         both_forced = 0
         algo_better = 0
         rand_better = 0
+        avg_rand = 0
+        avg_algo = 0
         for i in range(num_graphs):
             print(f"Graph {i + 1} / {num_graphs}")
-            rand_res, algo_res = single_sprint_benchmark(factory, t)
+            rand_res, algo_res, num_rand, num_algo = single_sprint_benchmark(factory, t)
             if algo_res == rand_res == 0.0:
                 both_forced += 1
             elif algo_res > rand_res:
                 algo_better += 1
             else:
                 rand_better += 1
+            avg_rand += num_rand
+            avg_algo += num_algo
             print(f"    {both_forced = }")
             print(f"    {algo_better = }")
             print(f"    {rand_better = }\n")
+        avg_rand /= num_graphs
+        avg_algo /= num_graphs
         f.write(f"Timespan = {t}s\n")
         f.write(f"    {both_forced = }\n")
         f.write(f"    {algo_better = }\n")
-        f.write(f"    {rand_better = }\n\n")
+        f.write(f"    {rand_better = }\n")
+        f.write(f"    {avg_rand    = }\n")
+        f.write(f"    {avg_algo    = }\n\n")
     f.close()
 
     ####################
