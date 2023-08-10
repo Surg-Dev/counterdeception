@@ -222,7 +222,7 @@ def compare_seed_trees(factory, random_samples):
 
 
 def compare_seed_trees_diff_targets(
-        rounds, random_samples, graph_size, target_counts, loc=None
+    rounds, random_samples, graph_size, target_counts, loc=None
 ):
     # TODO: DESC
 
@@ -237,6 +237,7 @@ def compare_seed_trees_diff_targets(
         avg_zero_count = 0
         both_zero_count = 0
         for _ in range(rounds):
+
             def factory():
                 s, targets = random_points(target_count)
 
@@ -271,7 +272,9 @@ def compare_seed_trees_diff_targets(
             else:
                 percent_better_round.append((avg_res - mst_res) / mst_res * 100)
 
-        avg_percent_better.append(round(sum(percent_better_round) / len(percent_better_round), 2))
+        avg_percent_better.append(
+            round(sum(percent_better_round) / len(percent_better_round), 2)
+        )
         mst_zero_counts.append(mst_zero_count)
         avg_zero_counts.append(avg_zero_count)
         both_zero_counts.append(both_zero_count)
@@ -314,6 +317,7 @@ def random_bench(n, G, s, targets, budget, loc=None):
         display_tree(G, rst, loc=loc)
     return best
 
+
 def single_sprint_benchmark(factory, t):
     # Set a time parameter t, run on the gamet of possible times, and run algo + rand gen
     # Interrupt each when time runs out and take the last complete best tree.
@@ -329,10 +333,8 @@ def single_sprint_benchmark(factory, t):
         rand_best = float("-inf")
         i = 0
         while not rand_halt:
-            i+=1
-            print(
-                f"Generating Random Spanning Tree {bcolors.OKGREEN}{i}{bcolors.ENDC}"
-            )
+            i += 1
+            print(f"Generating Random Spanning Tree {bcolors.OKGREEN}{i}{bcolors.ENDC}")
             size = float("inf")
 
             rst, _ = build_stiener_seed(G, s, targets, minimum=None)
@@ -354,9 +356,7 @@ def single_sprint_benchmark(factory, t):
         i = 0
         while not algo_halt:
             i += 1
-            print(
-                f"Computing Algo Tree {bcolors.OKGREEN}{i}{bcolors.ENDC}"
-            )
+            print(f"Computing Algo Tree {bcolors.OKGREEN}{i}{bcolors.ENDC}")
             mst, pred, _ = compute_tree(G, s, targets, budget, minimum=None)
             # We don't cancel the algorithms current run, but if we halted during the run, dont update
             if algo_halt:
@@ -391,6 +391,7 @@ def single_sprint_benchmark(factory, t):
     print()
 
     return rand_best, algo_best
+
 
 def main():
     # ##################################
@@ -491,13 +492,13 @@ def main():
     #         rounds, random_samples, graph_size, target_counts, loc=loc
     #     )
 
-
     ####################
     # SPRINT BENCHMARK #
     ####################
 
     target_count = 8
     graph_size = 14
+
     def factory():
         s, targets = random_points(target_count)
 
