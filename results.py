@@ -525,8 +525,8 @@ def main():
 
     results_dir = "results/sprint"
     f = open(f"{results_dir}/res.txt", "w")
-    num_graphs = 20
-    for t in range(120, 121, 10):
+    num_graphs = 50
+    for t in range(30, 271, 30):
         both_forced = 0
         algo_better = 0
         rand_better = 0
