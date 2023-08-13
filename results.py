@@ -184,8 +184,8 @@ def brute_comparison(loc, brute_loc, num_graphs, random_samples):
     fig, ax = plt.subplots()
     mst_avg /= num_graphs
     rand_avg /= num_graphs
-    vals = [100, round(mst_avg, 2), round(rand_avg, 2)]
-    trees = ["Best Tree", "MST Seed", "Rand Seed"]
+    vals = [round(mst_avg, 2), round(rand_avg, 2)]
+    trees = ["MST Seed", "Rand Seed"]
     ax.bar(trees, vals)
     ax.bar_label(ax.containers[0], label_type="edge")
     ax.set_ylabel("% Diff to Best Metric")
@@ -224,18 +224,16 @@ def compare_seed_trees(factory, random_samples):
 def compare_seed_trees_diff_targets(
     rounds, random_samples, graph_size, target_counts, loc=None
 ):
-    # TODO: DESC
 
-    avg_percent_better = []
-    mst_zero_counts = []
-    avg_zero_counts = []
-    both_zero_counts = []
+    mst_res = []
+    rand_res = []
+    equal_res = []
+
     # Get data for each target count
     for target_count in target_counts:
-        percent_better_round = []
-        mst_zero_count = 0
-        avg_zero_count = 0
-        both_zero_count = 0
+        mst_better = 0
+        rand_better = 0
+        both_equal = 0
         for _ in range(rounds):
 
             def factory():
@@ -263,31 +261,24 @@ def compare_seed_trees_diff_targets(
                 return G, s, targets, budget
 
             mst_res, avg_res = compare_seed_trees(factory, random_samples)
-            if mst_res == avg_res == 0.0:
-                both_zero_count += 1
-            elif mst_res == 0.0:
-                mst_zero_count += 1
-            elif avg_res == 0.0:
-                avg_zero_count += 1
+            if mst_res > avg_res:
+                mst_better += 1
+            elif avg_res > mst_res:
+                rand_better += 1
             else:
-                percent_better_round.append((avg_res - mst_res) / mst_res * 100)
-
-        avg_percent_better.append(
-            round(sum(percent_better_round) / len(percent_better_round), 2)
-        )
-        mst_zero_counts.append(mst_zero_count)
-        avg_zero_counts.append(avg_zero_count)
-        both_zero_counts.append(both_zero_count)
+                both_equal += 1
+        mst_res.append(mst_better)
+        rand_res.append(rand_better)
+        equal_res.append(both_equal)
 
     if loc != None:
         with open(f"{loc}/{graph_size + 1}x{graph_size + 1}_data.txt", "w") as f:
             f.write(f"Graph Size = {graph_size + 1}x{graph_size + 1}\n")
             for i, target_count in enumerate(target_counts):
                 f.write(f"Target Count: {target_count}\n")
-                f.write(f"    Number of Graphs Both Zero = {both_zero_counts[i]}\n")
-                f.write(f"    Number of Graphs MST Seed Zero = {mst_zero_counts[i]}\n")
-                f.write(f"    Number of Graphs Rand Seed Zero = {avg_zero_counts[i]}\n")
-                f.write(f"    Average % Difference = {avg_percent_better[i]}\n\n")
+                f.write(f"    MST Seed Better  = {mst_res[i]}")
+                f.write(f"    Rand Seed Better = {rand_res[i]}")
+                f.write(f"    Both Equal       = {equal_res[i]}")
 
 
 def random_bench(n, G, s, targets, budget, loc=None):
@@ -445,10 +436,10 @@ def main():
     # # BENCHMARK REATTACHMENT AGAINST BRUTEFORCE #
     # #############################################
 
-    # loc = "results/brute_comparison"
-    # brute_loc = "results/brute"
+    # loc = "final_results/results/brute_comparison"
+    # brute_loc = "final_results/results/brute"
     # num_graphs = 10
-    # random_samples = 100
+    # random_samples = 1000
     # brute_comparison(loc, brute_loc, num_graphs, random_samples)
 
     # ###############################
@@ -483,85 +474,85 @@ def main():
 
     # determine_budget(factory, 10, 1, 3, 60, 25, loc="results/budget")
 
-    # #############################################
-    # # COMPARE RANDOM SEED TREE VS MST SEED TREE #
-    # #############################################
+    #############################################
+    # COMPARE RANDOM SEED TREE VS MST SEED TREE #
+    #############################################
 
-    # results_dir = "results/seed_comparison"
-    # rounds = 20
-    # random_samples = 25
-    # target_counts = [2, 4, 7, 10]
-    # graph_sizes = [7, 10, 12]
-    # for graph_size in graph_sizes:
-    #     loc = f"{results_dir}"
-    #     compare_seed_trees_diff_targets(
-    #         rounds, random_samples, graph_size, target_counts, loc=loc
-    #     )
+    results_dir = "results/seed_comparison"
+    rounds = 20
+    random_samples = 25
+    target_counts = [2, 4, 7, 10]
+    graph_sizes = [7, 10, 12]
+    for graph_size in graph_sizes:
+        loc = f"{results_dir}"
+        compare_seed_trees_diff_targets(
+            rounds, random_samples, graph_size, target_counts, loc=loc
+        )
 
     ####################
     # SPRINT BENCHMARK #
     ####################
 
-    target_count = 15
-    graph_size = 24
+    # target_count = 15
+    # graph_size = 24
 
-    def factory():
-        s, targets = random_points(target_count)
+    # def factory():
+    #     s, targets = random_points(target_count)
 
-        G = form_grid_graph(s, targets, graph_size, graph_size)
-        # G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
-        # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
-        # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
-        # display_graph(G)
+    #     G = form_grid_graph(s, targets, graph_size, graph_size)
+    #     # G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
+    #     # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
+    #     # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
+    #     # display_graph(G)
 
-        round_targets_to_graph(G, s, targets)
-        targets = [f"target {i}" for i in range(target_count)]
-        s = "start"
-        nx.set_node_attributes(G, 0, "paths")
+    #     round_targets_to_graph(G, s, targets)
+    #     targets = [f"target {i}" for i in range(target_count)]
+    #     s = "start"
+    #     nx.set_node_attributes(G, 0, "paths")
 
-        mst, _ = build_stiener_seed(G, s, targets, minimum=True)
-        size = mst.size(weight="weight")
-        # budget = size * 2.0
-        budget = float("inf")
+    #     mst, _ = build_stiener_seed(G, s, targets, minimum=True)
+    #     size = mst.size(weight="weight")
+    #     # budget = size * 2.0
+    #     budget = float("inf")
 
-        # # rescale weights
-        # for u, v in G.edges:
-        #     G[u][v]["weight"] = G[u][v]["weight"]
+    #     # # rescale weights
+    #     # for u, v in G.edges:
+    #     #     G[u][v]["weight"] = G[u][v]["weight"]
 
-        return G, s, targets, budget
+    #     return G, s, targets, budget
 
-    results_dir = "results/sprint"
-    f = open(f"{results_dir}/res.txt", "w")
-    num_graphs = 50
-    for t in [300, 600]:
-        both_forced = 0
-        algo_better = 0
-        rand_better = 0
-        avg_rand = 0
-        avg_algo = 0
-        for i in range(num_graphs):
-            print(f"Graph {i + 1} / {num_graphs}")
-            rand_res, algo_res, num_rand, num_algo = single_sprint_benchmark(factory, t)
-            if algo_res == rand_res == 0.0:
-                both_forced += 1
-            elif algo_res > rand_res:
-                algo_better += 1
-            else:
-                rand_better += 1
-            avg_rand += num_rand
-            avg_algo += num_algo
-            print(f"    {both_forced = }")
-            print(f"    {algo_better = }")
-            print(f"    {rand_better = }\n")
-        avg_rand /= num_graphs
-        avg_algo /= num_graphs
-        f.write(f"Timespan = {t}s\n")
-        f.write(f"    {both_forced = }\n")
-        f.write(f"    {algo_better = }\n")
-        f.write(f"    {rand_better = }\n")
-        f.write(f"    {avg_rand    = }\n")
-        f.write(f"    {avg_algo    = }\n\n")
-    f.close()
+    # results_dir = "results/sprint"
+    # f = open(f"{results_dir}/res.txt", "w")
+    # num_graphs = 50
+    # for t in [300, 600]:
+    #     both_forced = 0
+    #     algo_better = 0
+    #     rand_better = 0
+    #     avg_rand = 0
+    #     avg_algo = 0
+    #     for i in range(num_graphs):
+    #         print(f"Graph {i + 1} / {num_graphs}")
+    #         rand_res, algo_res, num_rand, num_algo = single_sprint_benchmark(factory, t)
+    #         if algo_res == rand_res == 0.0:
+    #             both_forced += 1
+    #         elif algo_res > rand_res:
+    #             algo_better += 1
+    #         else:
+    #             rand_better += 1
+    #         avg_rand += num_rand
+    #         avg_algo += num_algo
+    #         print(f"    {both_forced = }")
+    #         print(f"    {algo_better = }")
+    #         print(f"    {rand_better = }\n")
+    #     avg_rand /= num_graphs
+    #     avg_algo /= num_graphs
+    #     f.write(f"Timespan = {t}s\n")
+    #     f.write(f"    {both_forced = }\n")
+    #     f.write(f"    {algo_better = }\n")
+    #     f.write(f"    {rand_better = }\n")
+    #     f.write(f"    {avg_rand    = }\n")
+    #     f.write(f"    {avg_algo    = }\n\n")
+    # f.close()
 
     ####################
     # BUDGET BENCHMARK #
