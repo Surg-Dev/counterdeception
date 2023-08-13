@@ -327,9 +327,12 @@ def single_sprint_benchmark(factory, t):
     algo_best = None
     rand_halt = False
     algo_halt = False
+    num_rand = 0
+    num_algo = 0
 
     def random_bench_internal(G, s, targets, budget):
         nonlocal rand_best
+        nonlocal num_rand
         rand_best = float("-inf")
         i = 0
         while not rand_halt:
@@ -353,6 +356,7 @@ def single_sprint_benchmark(factory, t):
 
     def algo_bench_internal(G, s, targets, budget):
         nonlocal algo_best
+        nonlocal num_algo
         algo_best = float("-inf")
         i = 0
         while not algo_halt:
@@ -529,7 +533,7 @@ def main():
     results_dir = "results/sprint"
     f = open(f"{results_dir}/res.txt", "w")
     num_graphs = 50
-    for t in range(30, 271, 30):
+    for t in [300, 600]:
         both_forced = 0
         algo_better = 0
         rand_better = 0
