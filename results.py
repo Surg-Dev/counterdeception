@@ -436,11 +436,53 @@ def main():
     # # BENCHMARK REATTACHMENT AGAINST BRUTEFORCE #
     # #############################################
 
-    loc = "final_results/results/brute_comparison"
-    brute_loc = "final_results/results/brute"
-    num_graphs = 10
-    random_samples = 250
-    brute_comparison(loc, brute_loc, num_graphs, random_samples)
+    # loc = "results/brute_comparison"
+    # brute_loc = "final_results/results/brute"
+    # num_graphs = 10
+    # random_samples = 250
+    # brute_comparison(loc, brute_loc, num_graphs, random_samples)
+
+    ####################
+    # COUNT ITERATIONS #
+    ####################
+
+    wl, wh = 5, 7
+    tl, th = 2, 10
+    num_graphs = 2
+    loc = "results/count"
+    with open(f"{loc}/res.txt", "w") as f:
+        for w in range(wl, wh + 1):
+            for t in range(tl, th + 1):
+                avg = 0
+                def factory():
+                    s, targets = random_points(t)
+
+                    # G = form_grid_graph(s, targets, graphx, graphy)
+                    G = form_grid_graph(s, targets, w + 1, w + 1, triangulate=False)
+                    # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
+                    # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
+
+                    round_targets_to_graph(G, s, targets)
+                    targets = [f"target {i}" for i in range(t)]
+                    s = "start"
+                    nx.set_node_attributes(G, 0, "paths")
+
+                    budget = float("inf")
+                    # budget = nx.minimum_spanning_tree(G).size(weight="weight") * 0.5
+
+                    # # rescale weights
+                    # for u, v in G.edges:
+                    #     G[u][v]["weight"] = G[u][v]["weight"]
+
+                    return G, s, targets, budget
+
+                for _ in range(num_graphs):
+                    G, s, targets, budget = factory()
+                    _, _, rounds = compute_tree(G, s, targets, budget, minimum=True)
+                    avg += rounds
+
+                avg /= num_graphs
+                f.write(f"{w} x {w} / {t} = {avg}\n")
 
     # ###############################
     # # DETERMINE BUDGET MULTIPLIER #
