@@ -260,10 +260,10 @@ def compare_seed_trees_diff_targets(
 
                 return G, s, targets, budget
 
-            mst_res, avg_res = compare_seed_trees(factory, random_samples)
-            if mst_res > avg_res:
+            mst, avg = compare_seed_trees(factory, random_samples)
+            if mst > avg:
                 mst_better += 1
-            elif avg_res > mst_res:
+            elif avg > mst:
                 rand_better += 1
             else:
                 both_equal += 1
@@ -479,7 +479,7 @@ def main():
     #############################################
 
     results_dir = "results/seed_comparison"
-    rounds = 20
+    rounds = 250
     random_samples = 25
     target_counts = [2, 4, 7, 10]
     graph_sizes = [7, 10, 12]
