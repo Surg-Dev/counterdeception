@@ -446,9 +446,9 @@ def main():
     # COUNT ITERATIONS #
     ####################
 
-    wl, wh = 5, 7
+    wl, wh = 5, 13
     tl, th = 2, 10
-    num_graphs = 2
+    num_graphs = 200
     loc = "results/count"
     with open(f"{loc}/res.txt", "w") as f:
         for w in range(wl, wh + 1):
@@ -458,7 +458,7 @@ def main():
                     s, targets = random_points(t)
 
                     # G = form_grid_graph(s, targets, graphx, graphy)
-                    G = form_grid_graph(s, targets, w + 1, w + 1, triangulate=False)
+                    G = form_grid_graph(s, targets, w - 1, w - 1, triangulate=False)
                     # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
                     # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
 
@@ -483,6 +483,7 @@ def main():
 
                 avg /= num_graphs
                 f.write(f"{w} x {w} / {t} = {avg}\n")
+                print(f"{w} x {w} / {t} = {avg}")
 
     # ###############################
     # # DETERMINE BUDGET MULTIPLIER #
