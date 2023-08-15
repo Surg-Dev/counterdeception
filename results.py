@@ -188,7 +188,7 @@ def brute_comparison(loc, brute_loc, num_graphs, random_samples):
     trees = ["MST Seed", "Rand Seed"]
     ax.bar(trees, vals)
     ax.bar_label(ax.containers[0], label_type="edge")
-    ax.set_ylabel("% Diff to Best Metric")
+    ax.set_ylabel("Avg. Metric / Optimal Metric")
     ax.legend()
 
     filename = f"{loc}/results.png"
@@ -436,11 +436,11 @@ def main():
     # # BENCHMARK REATTACHMENT AGAINST BRUTEFORCE #
     # #############################################
 
-    # loc = "final_results/results/brute_comparison"
-    # brute_loc = "final_results/results/brute"
-    # num_graphs = 10
-    # random_samples = 1000
-    # brute_comparison(loc, brute_loc, num_graphs, random_samples)
+    loc = "final_results/results/brute_comparison"
+    brute_loc = "final_results/results/brute"
+    num_graphs = 10
+    random_samples = 250
+    brute_comparison(loc, brute_loc, num_graphs, random_samples)
 
     # ###############################
     # # DETERMINE BUDGET MULTIPLIER #
@@ -478,16 +478,16 @@ def main():
     # COMPARE RANDOM SEED TREE VS MST SEED TREE #
     #############################################
 
-    results_dir = "results/seed_comparison"
-    rounds = 250
-    random_samples = 25
-    target_counts = [2, 4, 7, 10]
-    graph_sizes = [7, 10, 12]
-    for graph_size in graph_sizes:
-        loc = f"{results_dir}"
-        compare_seed_trees_diff_targets(
-            rounds, random_samples, graph_size, target_counts, loc=loc
-        )
+    # results_dir = "results/seed_comparison"
+    # rounds = 250
+    # random_samples = 25
+    # target_counts = [2, 4, 7, 10]
+    # graph_sizes = [7, 10, 12]
+    # for graph_size in graph_sizes:
+    #     loc = f"{results_dir}"
+    #     compare_seed_trees_diff_targets(
+    #         rounds, random_samples, graph_size, target_counts, loc=loc
+    #     )
 
     ####################
     # SPRINT BENCHMARK #
