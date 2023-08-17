@@ -2,8 +2,8 @@
 # importing the module
 import cv2
 
-fd = open('coordinates.txt', 'w')
 start = True
+fd = open('coordinates.txt', 'w')
 # function to display the coordinates of
 # of the points clicked on the image 
 def click_event(event, x, y, flags, params):
@@ -17,10 +17,10 @@ def click_event(event, x, y, flags, params):
         # on the Shell
         print(x, ' ', y)
         if start:
-            fd.writelines([f"S: {x}, {y}\n"])
+            fd.write(f"s = ({x}, {img.shape[0] - y})\ntargets = [\n")
             start = False
         else:
-            fd.writelines([f"E: {x}, {y}\n"])
+            fd.write(f"    ({x}, {img.shape[0] - y}),\n")
         # displaying the coordinates
         # on the image window
         font = cv2.FONT_HERSHEY_SIMPLEX
@@ -50,10 +50,10 @@ def click_event(event, x, y, flags, params):
         cv2.imshow('image', img)
   
 # driver function
-if __name__=="__main__":
+if __name__ == "__main__":
     # reading the image
     img = cv2.imread('tonopah.png', 1)
-    fd.writelines([f"D: {img.shape[0]}, {img.shape[1]}\n"])
+    fd.writelines([f"Dimensions = {img.shape[1]}, {img.shape[0]}\n"])
   
     # displaying the image
     cv2.imshow('image', img)
@@ -63,7 +63,10 @@ if __name__=="__main__":
     cv2.setMouseCallback('image', click_event)
   
     # wait for a key to be pressed to exit
-    while True:
+    not_done = True
+    while not_done:
         if cv2.waitKey(1) & 0xFF == ord("q"):
                 cv2.destroyAllWindows()
+                fd.write("]")
                 fd.close()
+                not_done = False

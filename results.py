@@ -6,6 +6,7 @@ import signal
 import networkx as nx
 from math import ceil
 import pickle
+import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 from algo import compute_tree, build_stiener_seed, compute_metric
@@ -17,8 +18,9 @@ from util import (
     form_triangle_graph,
     bcolors,
     display_graph,
+    display_tree,
 )
-
+import cv2
 from bruteforce import generate_bruteforce_graphs, num_span
 
 
@@ -442,48 +444,48 @@ def main():
     # random_samples = 250
     # brute_comparison(loc, brute_loc, num_graphs, random_samples)
 
-    ####################
-    # COUNT ITERATIONS #
-    ####################
+    # ####################
+    # # COUNT ITERATIONS #
+    # ####################
 
-    wl, wh = 5, 13
-    tl, th = 2, 10
-    num_graphs = 200
-    loc = "results/count"
-    with open(f"{loc}/res.txt", "w") as f:
-        for w in range(wl, wh + 1):
-            for t in range(tl, th + 1):
-                avg = 0
-                def factory():
-                    s, targets = random_points(t)
+    # wl, wh = 5, 13
+    # tl, th = 2, 10
+    # num_graphs = 200
+    # loc = "results/count"
+    # with open(f"{loc}/res.txt", "w") as f:
+    #     for w in range(wl, wh + 1):
+    #         for t in range(tl, th + 1):
+    #             avg = 0
+    #             def factory():
+    #                 s, targets = random_points(t)
 
-                    # G = form_grid_graph(s, targets, graphx, graphy)
-                    G = form_grid_graph(s, targets, w - 1, w - 1, triangulate=False)
-                    # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
-                    # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
+    #                 # G = form_grid_graph(s, targets, graphx, graphy)
+    #                 G = form_grid_graph(s, targets, w - 1, w - 1, triangulate=False)
+    #                 # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
+    #                 # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
 
-                    round_targets_to_graph(G, s, targets)
-                    targets = [f"target {i}" for i in range(t)]
-                    s = "start"
-                    nx.set_node_attributes(G, 0, "paths")
+    #                 round_targets_to_graph(G, s, targets)
+    #                 targets = [f"target {i}" for i in range(t)]
+    #                 s = "start"
+    #                 nx.set_node_attributes(G, 0, "paths")
 
-                    budget = float("inf")
-                    # budget = nx.minimum_spanning_tree(G).size(weight="weight") * 0.5
+    #                 budget = float("inf")
+    #                 # budget = nx.minimum_spanning_tree(G).size(weight="weight") * 0.5
 
-                    # # rescale weights
-                    # for u, v in G.edges:
-                    #     G[u][v]["weight"] = G[u][v]["weight"]
+    #                 # # rescale weights
+    #                 # for u, v in G.edges:
+    #                 #     G[u][v]["weight"] = G[u][v]["weight"]
 
-                    return G, s, targets, budget
+    #                 return G, s, targets, budget
 
-                for _ in range(num_graphs):
-                    G, s, targets, budget = factory()
-                    _, _, rounds = compute_tree(G, s, targets, budget, minimum=True)
-                    avg += rounds
+    #             for _ in range(num_graphs):
+    #                 G, s, targets, budget = factory()
+    #                 _, _, rounds = compute_tree(G, s, targets, budget, minimum=True)
+    #                 avg += rounds
 
-                avg /= num_graphs
-                f.write(f"{w} x {w} / {t} = {avg}\n")
-                print(f"{w} x {w} / {t} = {avg}")
+    #             avg /= num_graphs
+    #             f.write(f"{w} x {w} / {t} = {avg}\n")
+    #             print(f"{w} x {w} / {t} = {avg}")
 
     # ###############################
     # # DETERMINE BUDGET MULTIPLIER #
@@ -596,6 +598,128 @@ def main():
     #     f.write(f"    {avg_rand    = }\n")
     #     f.write(f"    {avg_algo    = }\n\n")
     # f.close()
+
+    ####################
+    # REAL ENVIRONMENT #
+    ####################
+
+    img = matplotlib.image.imread("maps/tonopah.png")
+    # Set x and y edge weights for grid graph
+    x_dist, y_dist = 1, 1
+    s = (588, 500)
+    targets = [
+        (496, 363),
+        (338, 511),
+        (365, 440),
+        (403, 325),
+        (455, 310),
+        (437, 291),
+        (437, 212),
+        (419, 262),
+        (465, 218),
+    ]
+    target_count = len(targets)
+
+    # Form graph
+    G = nx.grid_2d_graph(img.shape[1] + 1, img.shape[0] + 1)
+    # Add distances and set positions of non-start / target nodes
+    positions = dict()
+    for x, y in G.nodes():
+        if x < img.shape[1]:
+            G[x, y][x + 1, y]["weight"] = x_dist
+        if y < img.shape[0]:
+            G[x, y][x, y + 1]["weight"] = y_dist
+
+        # set x, y position
+        positions[(x, y)] = (x * x_dist, y * y_dist)
+    nx.set_node_attributes(G, positions, "pos")
+
+    # Add diagonal edges
+    original_nodes = [(x, y) for (x, y) in G.nodes()]
+    for x, y in original_nodes:
+        if (x + 1, y) in G and (x, y + 1) in G:
+            x_pos = (G.nodes[x, y]["pos"][0] + G.nodes[x + 1, y]["pos"][0]) / 2
+            y_pos = (G.nodes[x, y]["pos"][1] + G.nodes[x, y + 1]["pos"][1]) / 2
+
+            G.add_node((x + 0.5, y + 0.5), pos=(x_pos, y_pos))
+
+            x_dist = G[x, y][x + 1, y]["weight"] / 2
+            y_dist = G[x, y][x, y + 1]["weight"] / 2
+            weight = pow(x_dist**2 + y_dist**2, 0.5)
+            G.add_edge((x, y), (x + 0.5, y + 0.5), weight=weight)
+            G.add_edge((x + 1, y), (x + 0.5, y + 0.5), weight=weight)
+            G.add_edge((x, y + 1), (x + 0.5, y + 0.5), weight=weight)
+            G.add_edge((x + 1, y + 1), (x + 0.5, y + 0.5), weight=weight)
+
+    # Remove nodes we don't care about
+    mask = cv2.imread("maps/tonopah_mask.png")
+    mask = cv2.rotate(mask, cv2.ROTATE_90_CLOCKWISE)
+    to_remove = []
+    for node in G.nodes():
+        x, y = node
+        x = int(round(x))
+        y = int(round(y))
+        if x < mask.shape[0] and y < mask.shape[1]:
+            b, g, r = mask[x, y]
+            if b == g == r == 0:
+                to_remove.append(node)
+        else:
+            to_remove.append(node)
+    for node in to_remove:
+        G.remove_node(node)
+
+    round_targets_to_graph(G, s, targets)
+    targets = [f"target {i}" for i in range(target_count)]
+    s = "start"
+    nx.set_node_attributes(G, 0, "paths")
+
+    mst, _ = build_stiener_seed(G, s, targets, minimum=True)
+    size = mst.size(weight="weight")
+    budget = size * 2.0
+    # budget = float("inf")
+
+    loc = "results/real"
+    res, pred, rounds = compute_tree(G, s, targets, budget, loc=f"{loc}/gen")
+
+    # Compute iterative results
+    metric_res = []
+    mask = cv2.rotate(mask, cv2.ROTATE_90_COUNTERCLOCKWISE)
+    for i in range(rounds):
+        curr_f = open(f"{loc}/gen/{i}.pickle", "rb")
+        curr = pickle.load(curr_f)
+        curr_f.close()
+
+        # stats
+        forced, metric, _ = compute_metric(curr, s, targets)
+        metric_res.append(metric)
+
+        fig = plt.figure(frameon=False, figsize=(10,19))
+        extent = 0, img.shape[1], 0, img.shape[0]
+        plt.imshow(mask, extent=extent, interpolation='nearest')
+        nodes = curr.nodes(data=True)
+        colors = []
+        sizes = []
+        for node in curr.nodes():
+            if node == "start":
+                colors.append("blue")
+                sizes.append(10)
+            elif "target" in node:
+                colors.append("red")
+                sizes.append(10)
+            else:
+                colors.append("green")
+                sizes.append(4)
+        positions = nx.get_node_attributes(G, "pos")
+        nx.draw(curr,
+                pos=positions,
+                node_size=10,
+                node_color=colors,
+                   )
+        plt.show()
+        plt.savefig(f"{loc}/pics/{i}.png")
+        plg.close()
+    for metric in metric_res:
+        print(metric)
 
     ####################
     # BUDGET BENCHMARK #

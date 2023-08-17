@@ -1,5 +1,6 @@
 from itertools import count
 from math import isclose
+import pickle
 
 import networkx as nx
 
@@ -447,7 +448,6 @@ def reattachment(
     # print("Made no updates")
     # print()
 
-    assert not updated
     return mst, forced, metric, target_list, pred, updated
 
 
@@ -465,21 +465,13 @@ def reattachment_approximation(
     # Continue until we find no local improvement
     while updated:
         if count % mult == 0 and loc != None:
-            curr_loc = f"{loc}/{count}"
-            display_tree(G, mst, loc=curr_loc)
+            curr_loc = f"{loc}/{count}.pickle"
+            pickle.dump(best_tree, open(curr_loc, "wb"))
         count += 1
-        # print()
-        # print(f"Iteration {count}")
-
         old_metric = metric
         mst, forced, metric, target_list, pred, updated = reattachment(
             G, s, targets, budget, mst, forced, metric, target_list, pred, target_paths
         )
-
-    # # print after
-    # if loc != None:
-    #     curr_loc = f"{loc}/{count}"
-    #     display_tree(G, mst, loc=curr_loc)
 
     return mst, pred, count
 
@@ -489,7 +481,6 @@ def compute_tree(G, s, targets, budget, loc=None, minimum=None):
     nx.set_edge_attributes(G, 0.0, "a_star")
 
     # Build the seed MST and trim it.
-    count = 0
     forced = True
     mst, pred = build_stiener_seed(G, s, targets, minimum=minimum)
 
@@ -519,4 +510,4 @@ def compute_tree(G, s, targets, budget, loc=None, minimum=None):
         print(f"{bcolors.WARNING}OVERBUDGET!!{bcolors.ENDC}")
         mst, pred = None, None
 
-    return mst, pred, rounds + count
+    return mst, pred, rounds
