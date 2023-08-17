@@ -464,6 +464,7 @@ def reattachment_approximation(
     mult = 1  # control how often we save an image
     # Continue until we find no local improvement
     while updated:
+        print(f"Tree {bcolors.OKGREEN}{count}{bcolors.ENDC}")
         if count % mult == 0 and loc != None:
             curr_loc = f"{loc}/{count}.pickle"
             pickle.dump(best_tree, open(curr_loc, "wb"))
@@ -472,6 +473,7 @@ def reattachment_approximation(
         mst, forced, metric, target_list, pred, updated = reattachment(
             G, s, targets, budget, mst, forced, metric, target_list, pred, target_paths
         )
+        print(bcolors.CLEAR_LAST_LINE)
 
     return mst, pred, count
 

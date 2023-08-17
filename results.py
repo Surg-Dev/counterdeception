@@ -620,7 +620,7 @@ def main():
     ]
     target_count = len(targets)
 
-    # Form graph
+    print("Creating graph...")
     G = nx.grid_2d_graph(img.shape[1] + 1, img.shape[0] + 1)
     # Add distances and set positions of non-start / target nodes
     positions = dict()
@@ -651,7 +651,7 @@ def main():
             G.add_edge((x, y + 1), (x + 0.5, y + 0.5), weight=weight)
             G.add_edge((x + 1, y + 1), (x + 0.5, y + 0.5), weight=weight)
 
-    # Remove nodes we don't care about
+    print("Removing nodes...")
     mask = cv2.imread("maps/tonopah_mask.png")
     mask = cv2.rotate(mask, cv2.ROTATE_90_CLOCKWISE)
     to_remove = []
@@ -677,14 +677,15 @@ def main():
     size = mst.size(weight="weight")
     budget = size * 2.0
     # budget = float("inf")
-
     loc = "results/real"
+    print("Starting Reattachment...")
     res, pred, rounds = compute_tree(G, s, targets, budget, loc=f"{loc}/gen")
 
     # Compute iterative results
     metric_res = []
     mask = cv2.rotate(mask, cv2.ROTATE_90_COUNTERCLOCKWISE)
     for i in range(rounds):
+        print(f"Creating Tree {i + 1}")
         curr_f = open(f"{loc}/gen/{i}.pickle", "rb")
         curr = pickle.load(curr_f)
         curr_f.close()
