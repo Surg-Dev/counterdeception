@@ -683,24 +683,24 @@ def main():
     # mask = cv2.rotate(mask, cv2.ROTATE_90_COUNTERCLOCKWISE)
     # fig = plt.figure(frameon=False, figsize=(10,19))
     # extent = 0, img.shape[1], 0, img.shape[0]
-    # plt.imshow(mask, extent=extent, interpolation='nearest')
+    # plt.imshow(img, extent=extent, interpolation='nearest')
     # nodes = mst.nodes(data=True)
     # colors = []
     # sizes = []
     # for node in mst.nodes():
     #     if node == "start":
     #         colors.append("blue")
-    #         sizes.append(10)
+    #         sizes.append(15)
     #     elif "target" in node:
     #         colors.append("red")
-    #         sizes.append(10)
+    #         sizes.append(15)
     #     else:
     #         colors.append("green")
     #         sizes.append(4)
     # positions = nx.get_node_attributes(G, "pos")
     # nx.draw(mst,
     #         pos=positions,
-    #         node_size=10,
+    #         node_size=sizes,
     #         node_color=colors,
     #            )
     # plt.show()
@@ -731,17 +731,17 @@ def main():
         for node in curr.nodes():
             if node == "start":
                 colors.append("blue")
-                sizes.append(10)
+                sizes.append(15)
             elif "target" in node:
                 colors.append("red")
-                sizes.append(10)
+                sizes.append(15)
             else:
                 colors.append("green")
                 sizes.append(4)
         positions = nx.get_node_attributes(G, "pos")
         nx.draw(curr,
                 pos=positions,
-                node_size=10,
+                node_size=sizes,
                 node_color=colors,
                    )
         plt.show()
