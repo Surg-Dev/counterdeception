@@ -467,7 +467,7 @@ def reattachment_approximation(
         print(f"Tree {bcolors.OKGREEN}{count}{bcolors.ENDC}")
         if count % mult == 0 and loc != None:
             curr_loc = f"{loc}/{count}.pickle"
-            pickle.dump(best_tree, open(curr_loc, "wb"))
+            pickle.dump(mst, open(curr_loc, "wb"))
         count += 1
         old_metric = metric
         mst, forced, metric, target_list, pred, updated = reattachment(

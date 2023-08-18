@@ -606,6 +606,7 @@ def main():
     img = matplotlib.image.imread("maps/tonopah.png")
     # Set x and y edge weights for grid graph
     x_dist, y_dist = 1, 1
+    scale = 10.0
     s = (588, 500)
     targets = [
         (496, 363),
@@ -621,17 +622,17 @@ def main():
     target_count = len(targets)
 
     print("Creating graph...")
-    G = nx.grid_2d_graph(img.shape[1] + 1, img.shape[0] + 1)
+    G = nx.grid_2d_graph(int((img.shape[1] + 1) / scale), int((img.shape[0] + 1) / scale))
     # Add distances and set positions of non-start / target nodes
     positions = dict()
     for x, y in G.nodes():
-        if x < img.shape[1]:
+        if (x + 1, y) in G:
             G[x, y][x + 1, y]["weight"] = x_dist
-        if y < img.shape[0]:
+        if (x, y + 1) in G:
             G[x, y][x, y + 1]["weight"] = y_dist
 
         # set x, y position
-        positions[(x, y)] = (x * x_dist, y * y_dist)
+        positions[(x, y)] = (x * scale, y * scale)
     nx.set_node_attributes(G, positions, "pos")
 
     # Add diagonal edges
@@ -657,8 +658,8 @@ def main():
     to_remove = []
     for node in G.nodes():
         x, y = node
-        x = int(round(x))
-        y = int(round(y))
+        x = int(round(x * scale))
+        y = int(round(y * scale))
         if x < mask.shape[0] and y < mask.shape[1]:
             b, g, r = mask[x, y]
             if b == g == r == 0:
@@ -677,6 +678,33 @@ def main():
     size = mst.size(weight="weight")
     budget = size * 2.0
     # budget = float("inf")
+
+    # # debug code to see minimum spanning tree
+    # mask = cv2.rotate(mask, cv2.ROTATE_90_COUNTERCLOCKWISE)
+    # fig = plt.figure(frameon=False, figsize=(10,19))
+    # extent = 0, img.shape[1], 0, img.shape[0]
+    # plt.imshow(mask, extent=extent, interpolation='nearest')
+    # nodes = mst.nodes(data=True)
+    # colors = []
+    # sizes = []
+    # for node in mst.nodes():
+    #     if node == "start":
+    #         colors.append("blue")
+    #         sizes.append(10)
+    #     elif "target" in node:
+    #         colors.append("red")
+    #         sizes.append(10)
+    #     else:
+    #         colors.append("green")
+    #         sizes.append(4)
+    # positions = nx.get_node_attributes(G, "pos")
+    # nx.draw(mst,
+    #         pos=positions,
+    #         node_size=10,
+    #         node_color=colors,
+    #            )
+    # plt.show()
+
     loc = "results/real"
     print("Starting Reattachment...")
     res, pred, rounds = compute_tree(G, s, targets, budget, loc=f"{loc}/gen")
@@ -718,7 +746,7 @@ def main():
                    )
         plt.show()
         plt.savefig(f"{loc}/pics/{i}.png")
-        plg.close()
+        plt.close()
     for metric in metric_res:
         print(metric)
 
