@@ -603,21 +603,21 @@ def main():
     # REAL ENVIRONMENT #
     ####################
 
-    img = matplotlib.image.imread("maps/tonopah.png")
+    img = matplotlib.image.imread("maps/tonopah_rotated.png")
     # Set x and y edge weights for grid graph
     x_dist, y_dist = 1, 1
-    scale = 10.0
-    s = (588, 500)
+    scale = 3.0
+    s = (329, 344)
     targets = [
-        (496, 363),
-        (338, 511),
-        (365, 440),
-        (403, 325),
-        (455, 310),
-        (437, 291),
-        (437, 212),
-        (419, 262),
-        (465, 218),
+        (201, 257),
+        (150, 226),
+        (102, 156),
+        (127, 149),
+        (103, 197),
+        (130, 218),
+        (113, 256),
+        (120, 367),
+        (122, 425),
     ]
     target_count = len(targets)
 
@@ -653,7 +653,7 @@ def main():
             G.add_edge((x + 1, y + 1), (x + 0.5, y + 0.5), weight=weight)
 
     print("Removing nodes...")
-    mask = cv2.imread("maps/tonopah_mask.png")
+    mask = cv2.imread("maps/tonopah_rotated_mask.png")
     mask = cv2.rotate(mask, cv2.ROTATE_90_CLOCKWISE)
     to_remove = []
     for node in G.nodes():

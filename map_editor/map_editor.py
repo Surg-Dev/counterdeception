@@ -52,7 +52,7 @@ def click_event(event, x, y, flags, params):
 # driver function
 if __name__ == "__main__":
     # reading the image
-    img = cv2.imread('tonopah.png', 1)
+    img = cv2.imread('tonopah_rotated.png', 1)
     fd.writelines([f"Dimensions = {img.shape[1]}, {img.shape[0]}\n"])
   
     # displaying the image
