@@ -226,7 +226,6 @@ def compare_seed_trees(factory, random_samples):
 def compare_seed_trees_diff_targets(
     rounds, random_samples, graph_size, target_counts, loc=None
 ):
-
     mst_res = []
     rand_res = []
     equal_res = []
@@ -603,81 +602,96 @@ def main():
     # REAL ENVIRONMENT #
     ####################
 
-    img = matplotlib.image.imread("maps/tonopah_rotated.png")
-    # Set x and y edge weights for grid graph
-    x_dist, y_dist = 1, 1
-    scale = 3.0
-    s = (329, 344)
-    targets = [
-        (201, 257),
-        (150, 226),
-        (102, 156),
-        (127, 149),
-        (103, 197),
-        (130, 218),
-        (113, 256),
-        (120, 367),
-        (122, 425),
-    ]
-    target_count = len(targets)
+    # ### Create and save graph + related info ###
 
-    print("Creating graph...")
-    G = nx.grid_2d_graph(int((img.shape[1] + 1) / scale), int((img.shape[0] + 1) / scale))
-    # Add distances and set positions of non-start / target nodes
-    positions = dict()
-    for x, y in G.nodes():
-        if (x + 1, y) in G:
-            G[x, y][x + 1, y]["weight"] = x_dist
-        if (x, y + 1) in G:
-            G[x, y][x, y + 1]["weight"] = y_dist
+    # img = matplotlib.image.imread("maps/tonopah_rotated.png")
+    # # Set x and y edge weights for grid graph
+    # x_dist, y_dist = 1, 1
+    # scale = 3.0
+    # s = (329, 344)
+    # targets = [
+    #     (201, 257),
+    #     (150, 226),
+    #     (102, 156),
+    #     (127, 149),
+    #     (103, 197),
+    #     (130, 218),
+    #     (113, 256),
+    #     (120, 367),
+    #     (122, 425),
+    # ]
+    # target_count = len(targets)
 
-        # set x, y position
-        positions[(x, y)] = (x * scale, y * scale)
-    nx.set_node_attributes(G, positions, "pos")
+    # print("Creating graph...")
+    # G = nx.grid_2d_graph(int((img.shape[1] + 1) / scale), int((img.shape[0] + 1) / scale))
+    # # Add distances and set positions of non-start / target nodes
+    # positions = dict()
+    # for x, y in G.nodes():
+    #     if (x + 1, y) in G:
+    #         G[x, y][x + 1, y]["weight"] = x_dist
+    #     if (x, y + 1) in G:
+    #         G[x, y][x, y + 1]["weight"] = y_dist
 
-    # Add diagonal edges
-    original_nodes = [(x, y) for (x, y) in G.nodes()]
-    for x, y in original_nodes:
-        if (x + 1, y) in G and (x, y + 1) in G:
-            x_pos = (G.nodes[x, y]["pos"][0] + G.nodes[x + 1, y]["pos"][0]) / 2
-            y_pos = (G.nodes[x, y]["pos"][1] + G.nodes[x, y + 1]["pos"][1]) / 2
+    #     # set x, y position
+    #     positions[(x, y)] = (x * scale, y * scale)
+    # nx.set_node_attributes(G, positions, "pos")
 
-            G.add_node((x + 0.5, y + 0.5), pos=(x_pos, y_pos))
+    # # Add diagonal edges
+    # original_nodes = [(x, y) for (x, y) in G.nodes()]
+    # for x, y in original_nodes:
+    #     if (x + 1, y) in G and (x, y + 1) in G:
+    #         x_pos = (G.nodes[x, y]["pos"][0] + G.nodes[x + 1, y]["pos"][0]) / 2
+    #         y_pos = (G.nodes[x, y]["pos"][1] + G.nodes[x, y + 1]["pos"][1]) / 2
 
-            x_dist = G[x, y][x + 1, y]["weight"] / 2
-            y_dist = G[x, y][x, y + 1]["weight"] / 2
-            weight = pow(x_dist**2 + y_dist**2, 0.5)
-            G.add_edge((x, y), (x + 0.5, y + 0.5), weight=weight)
-            G.add_edge((x + 1, y), (x + 0.5, y + 0.5), weight=weight)
-            G.add_edge((x, y + 1), (x + 0.5, y + 0.5), weight=weight)
-            G.add_edge((x + 1, y + 1), (x + 0.5, y + 0.5), weight=weight)
+    #         G.add_node((x + 0.5, y + 0.5), pos=(x_pos, y_pos))
 
-    print("Removing nodes...")
-    mask = cv2.imread("maps/tonopah_rotated_mask.png")
-    mask = cv2.rotate(mask, cv2.ROTATE_90_CLOCKWISE)
-    to_remove = []
-    for node in G.nodes():
-        x, y = node
-        x = int(round(x * scale))
-        y = int(round(y * scale))
-        if x < mask.shape[0] and y < mask.shape[1]:
-            b, g, r = mask[x, y]
-            if b == g == r == 0:
-                to_remove.append(node)
-        else:
-            to_remove.append(node)
-    for node in to_remove:
-        G.remove_node(node)
+    #         x_dist = G[x, y][x + 1, y]["weight"] / 2
+    #         y_dist = G[x, y][x, y + 1]["weight"] / 2
+    #         weight = pow(x_dist**2 + y_dist**2, 0.5)
+    #         G.add_edge((x, y), (x + 0.5, y + 0.5), weight=weight)
+    #         G.add_edge((x + 1, y), (x + 0.5, y + 0.5), weight=weight)
+    #         G.add_edge((x, y + 1), (x + 0.5, y + 0.5), weight=weight)
+    #         G.add_edge((x + 1, y + 1), (x + 0.5, y + 0.5), weight=weight)
 
-    round_targets_to_graph(G, s, targets)
-    targets = [f"target {i}" for i in range(target_count)]
-    s = "start"
-    nx.set_node_attributes(G, 0, "paths")
+    # print("Removing nodes...")
+    # mask = cv2.imread("maps/tonopah_rotated_mask.png")
+    # mask = cv2.rotate(mask, cv2.ROTATE_90_CLOCKWISE)
+    # to_remove = []
+    # for node in G.nodes():
+    #     x, y = node
+    #     x = int(round(x * scale))
+    #     y = int(round(y * scale))
+    #     if x < mask.shape[0] and y < mask.shape[1]:
+    #         b, g, r = mask[x, y]
+    #         if b == g == r == 0:
+    #             to_remove.append(node)
+    #     else:
+    #         to_remove.append(node)
+    # for node in to_remove:
+    #     G.remove_node(node)
 
-    mst, _ = build_stiener_seed(G, s, targets, minimum=True)
-    size = mst.size(weight="weight")
-    budget = size * 2.0
-    # budget = float("inf")
+    # round_targets_to_graph(G, s, targets)
+    # targets = [f"target {i}" for i in range(target_count)]
+    # s = "start"
+    # nx.set_node_attributes(G, 0, "paths")
+
+    # mst, _ = build_stiener_seed(G, s, targets, minimum=True)
+    # size = mst.size(weight="weight")
+    # budget = size * 2.0
+    # # budget = float("inf")
+
+    # # save info
+    # loc = "results/real"
+    # pickle.dump(G, open(f"{loc}/G.pickle", "wb"))
+    # info = {
+    #     "s": s,
+    #     "targets": targets,
+    #     "budget": budget,
+    # }
+    # for k, v in info.items():
+    #     print(k, v)
+    # print()
+    # pickle.dump(info, open(f"{loc}/info.pickle", "wb"))
 
     # # debug code to see minimum spanning tree
     # mask = cv2.rotate(mask, cv2.ROTATE_90_COUNTERCLOCKWISE)
@@ -705,9 +719,22 @@ def main():
     #            )
     # plt.show()
 
-    loc = "results/real"
-    print("Starting Reattachment...")
-    res, pred, rounds = compute_tree(G, s, targets, budget, loc=f"{loc}/gen")
+    # ### Compute and time reattachment ###
+
+    # loc = "results/real"
+    # G_f = open(f"{loc}/G.pickle", "rb")
+    # G = pickle.load(G_f)
+    # info_f = open(f"{loc}/info.pickle", "rb")
+    # info = pickle.load(info_f)
+    # s = info["s"]
+    # targets = info["targets"]
+    # G_f.close()
+    # info_f.close()
+
+    # print("Starting Reattachment...")
+    # start = time.perf_counter()
+    # res, pred, rounds = compute_tree(G, s, targets, budget, loc=f"{loc}/gen")
+    # end = time.perf_counter()
 
     # Compute iterative results
     metric_res = []
@@ -722,9 +749,9 @@ def main():
         forced, metric, _ = compute_metric(curr, s, targets)
         metric_res.append(metric)
 
-        fig = plt.figure(frameon=False, figsize=(10,19))
+        fig = plt.figure(frameon=False, figsize=(10, 19))
         extent = 0, img.shape[1], 0, img.shape[0]
-        plt.imshow(mask, extent=extent, interpolation='nearest')
+        plt.imshow(mask, extent=extent, interpolation="nearest")
         nodes = curr.nodes(data=True)
         colors = []
         sizes = []
@@ -739,11 +766,12 @@ def main():
                 colors.append("green")
                 sizes.append(4)
         positions = nx.get_node_attributes(G, "pos")
-        nx.draw(curr,
-                pos=positions,
-                node_size=sizes,
-                node_color=colors,
-                   )
+        nx.draw(
+            curr,
+            pos=positions,
+            node_size=sizes,
+            node_color=colors,
+        )
         plt.show()
         plt.savefig(f"{loc}/pics/{i}.png")
         plt.close()

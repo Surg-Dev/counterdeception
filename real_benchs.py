@@ -14,6 +14,7 @@ from util import (
     display_graph,
 )
 
+
 def targets_from_file(file):
     with open(file, "r") as f:
         lines = f.readlines()
@@ -25,8 +26,9 @@ def targets_from_file(file):
         lines = [(int(line[0][:-1]), int(line[1])) for line in lines]
         return start, lines
 
+
 def factory(file):
-    s, targets =targets_from_file(file)
+    s, targets = targets_from_file(file)
 
     # G = form_grid_graph(s, targets, graphx, graphy)
     G = form_grid_graph(s, targets, w - 1, w - 1, triangulate=False)
