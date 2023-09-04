@@ -9,7 +9,7 @@ import pickle
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-# import cv2
+import cv2
 from algo import compute_tree, build_stiener_seed, compute_metric
 from util import (
     random_points,
@@ -728,26 +728,8 @@ def main():
     #            )
     # plt.show()
 
-    ### Compute and time reattachment ###
+    # ### Compute and time reattachment ###
 
-    loc = "results/real"
-    G_f = open(f"{loc}/G.pickle", "rb")
-    G = pickle.load(G_f)
-    info_f = open(f"{loc}/info.pickle", "rb")
-    info = pickle.load(info_f)
-    s = info["s"]
-    targets = info["targets"]
-    budget = info["budget"]
-    G_f.close()
-    info_f.close()
-
-    print("Starting Reattachment...")
-    start = time.perf_counter()
-    res, pred, rounds = compute_tree(G, s, targets, budget, loc=f"{loc}/gen")
-    end = time.perf_counter()
-    print("Elapsed Time =", end - start)
-    
-    # ### Compute iterative results ###
     # loc = "results/real"
     # G_f = open(f"{loc}/G.pickle", "rb")
     # G = pickle.load(G_f)
@@ -758,49 +740,105 @@ def main():
     # budget = info["budget"]
     # G_f.close()
     # info_f.close()
-    # rounds = 10
 
-    # metric_res = []
-    # img = matplotlib.image.imread("maps/tonopah_rotated.png")
-    # mask = cv2.imread("maps/tonopah_rotated_mask.png")
+    # print("Starting Reattachment...")
+    # start = time.perf_counter()
+    # res, pred, rounds = compute_tree(G, s, targets, budget, loc=f"{loc}/gen")
+    # end = time.perf_counter()
+    # print("Elapsed Time =", end - start)
+    
+    ### Compute iterative results ###
+    loc = "results/real"
+    G_f = open(f"{loc}/G.pickle", "rb")
+    G = pickle.load(G_f)
+    info_f = open(f"{loc}/info.pickle", "rb")
+    info = pickle.load(info_f)
+    s = info["s"]
+    targets = info["targets"]
+    budget = info["budget"]
+    G_f.close()
+    info_f.close()
+    rounds = 5
+
+    metric_res = []
+    img = matplotlib.image.imread("maps/tonopah_rotated.png")
+    mask = cv2.imread("maps/tonopah_rotated_mask.png")
     # mask = cv2.rotate(mask, cv2.ROTATE_90_COUNTERCLOCKWISE)
-    # for i in range(rounds):
-    #     print(f"Creating Tree {i + 1}")
-    #     curr_f = open(f"{loc}/gen/{i}.pickle", "rb")
-    #     curr = pickle.load(curr_f)
-    #     curr_f.close()
+    for i in range(rounds):
+        print(f"Creating Tree {i + 1}")
+        curr_f = open(f"{loc}/gen/{i}.pickle", "rb")
+        curr = pickle.load(curr_f)
+        curr_f.close()
 
-    #     # stats
-    #     forced, metric, _ = compute_metric(curr, s, targets)
-    #     metric_res.append(metric)
+        # stats
+        forced, metric, _ = compute_metric(curr, s, targets)
+        metric_res.append(metric)
 
-    #     fig = plt.figure(frameon=False, figsize=(10, 19))
-    #     extent = 0, img.shape[1], 0, img.shape[0]
-    #     plt.imshow(mask, extent=extent, interpolation="nearest")
-    #     nodes = curr.nodes(data=True)
-    #     colors = []
-    #     sizes = []
-    #     for node in curr.nodes():
-    #         if node == "start":
-    #             colors.append("blue")
-    #             sizes.append(15)
-    #         elif "target" in node:
-    #             colors.append("red")
-    #             sizes.append(15)
-    #         else:
-    #             colors.append("green")
-    #             sizes.append(4)
-    #     positions = nx.get_node_attributes(G, "pos")
-    #     nx.draw(
-    #         curr,
-    #         pos=positions,
-    #         node_size=sizes,
-    #         node_color=colors,
-    #     )
-    #     plt.savefig(f"{loc}/pics/{i}.png")
-    #     plt.close()
-    # for i, metric in enumerate(metric_res):
-    #     print(f"Tree {i + 1}: {metric}")
+        fig = plt.figure(frameon=False, figsize=(10, 19))
+        extent = 0, img.shape[1], 0, img.shape[0]
+        plt.imshow(mask, extent=extent, interpolation="nearest")
+        nodes = curr.nodes(data=True)
+        colors = []
+        sizes = []
+        for node in curr.nodes():
+            if node == "start":
+                colors.append("blue")
+                sizes.append(15)
+            elif "target" in node:
+                colors.append("red")
+                sizes.append(15)
+            else:
+                colors.append("green")
+                sizes.append(4)
+        positions = nx.get_node_attributes(G, "pos")
+        nx.draw(
+            curr,
+            pos=positions,
+            node_size=sizes,
+            node_color=colors,
+        )
+        plt.savefig(f"{loc}/pics/{i}.png")
+        plt.close()
+    for i, metric in enumerate(metric_res):
+        print(f"Tree {i + 1}: {metric}")
+
+    ### Generate Random Spanning Trees ###
+    loc = "results/real"
+    G_f = open(f"{loc}/G.pickle", "rb")
+    G = pickle.load(G_f)
+    info_f = open(f"{loc}/info.pickle", "rb")
+    info = pickle.load(info_f)
+    s = info["s"]
+    targets = info["targets"]
+    budget = info["budget"]
+    G_f.close()
+    info_f.close()
+    total_time = 60 * 80 + 43 # 80 minutes, 43 seconds
+
+    start = time.perf_counter()
+    done = False
+    best = float("-inf")
+    best_tree = None
+    count = 0
+    while not done:
+        rst, pred = build_stiener_seed(G, s, targets, minimum=None)
+        size = rst.size(weight="weight")
+        curr = time.perf_counter()
+        if curr - start < total_time:
+            count += 1
+            if size > budget:
+                res = 0.0
+            else:
+                forced, metric, _ = compute_metric(rst, s, targets)
+                res = metric if not forced else 0.0
+            if res > best:
+                best = res
+                best_tree = rst
+        else:
+            done = True
+    print(f"Number of Trees Generated = {count}")
+    print(f"Metric of Best Tree = {best}")
+    pickle.dump(rst, open(f"{loc}/rst.pickle", "wb"))
 
     ####################
     # BUDGET BENCHMARK #
