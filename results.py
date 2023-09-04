@@ -9,7 +9,7 @@ import pickle
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-import cv2
+# import cv2
 from algo import compute_tree, build_stiener_seed, compute_metric
 from util import (
     random_points,
@@ -747,60 +747,60 @@ def main():
     # end = time.perf_counter()
     # print("Elapsed Time =", end - start)
     
-    ### Compute iterative results ###
-    loc = "results/real"
-    G_f = open(f"{loc}/G.pickle", "rb")
-    G = pickle.load(G_f)
-    info_f = open(f"{loc}/info.pickle", "rb")
-    info = pickle.load(info_f)
-    s = info["s"]
-    targets = info["targets"]
-    budget = info["budget"]
-    G_f.close()
-    info_f.close()
-    rounds = 5
+    # ### Compute iterative results ###
+    # loc = "results/real"
+    # G_f = open(f"{loc}/G.pickle", "rb")
+    # G = pickle.load(G_f)
+    # info_f = open(f"{loc}/info.pickle", "rb")
+    # info = pickle.load(info_f)
+    # s = info["s"]
+    # targets = info["targets"]
+    # budget = info["budget"]
+    # G_f.close()
+    # info_f.close()
+    # rounds = 5
 
-    metric_res = []
-    img = matplotlib.image.imread("maps/tonopah_rotated.png")
-    mask = cv2.imread("maps/tonopah_rotated_mask.png")
-    # mask = cv2.rotate(mask, cv2.ROTATE_90_COUNTERCLOCKWISE)
-    for i in range(rounds):
-        print(f"Creating Tree {i + 1}")
-        curr_f = open(f"{loc}/gen/{i}.pickle", "rb")
-        curr = pickle.load(curr_f)
-        curr_f.close()
+    # metric_res = []
+    # img = matplotlib.image.imread("maps/tonopah_rotated.png")
+    # mask = cv2.imread("maps/tonopah_rotated_mask.png")
+    # # mask = cv2.rotate(mask, cv2.ROTATE_90_COUNTERCLOCKWISE)
+    # for i in range(rounds):
+    #     print(f"Creating Tree {i + 1}")
+    #     curr_f = open(f"{loc}/gen/{i}.pickle", "rb")
+    #     curr = pickle.load(curr_f)
+    #     curr_f.close()
 
-        # stats
-        forced, metric, _ = compute_metric(curr, s, targets)
-        metric_res.append(metric)
+    #     # stats
+    #     forced, metric, _ = compute_metric(curr, s, targets)
+    #     metric_res.append(metric)
 
-        fig = plt.figure(frameon=False, figsize=(10, 19))
-        extent = 0, img.shape[1], 0, img.shape[0]
-        plt.imshow(mask, extent=extent, interpolation="nearest")
-        nodes = curr.nodes(data=True)
-        colors = []
-        sizes = []
-        for node in curr.nodes():
-            if node == "start":
-                colors.append("blue")
-                sizes.append(15)
-            elif "target" in node:
-                colors.append("red")
-                sizes.append(15)
-            else:
-                colors.append("green")
-                sizes.append(4)
-        positions = nx.get_node_attributes(G, "pos")
-        nx.draw(
-            curr,
-            pos=positions,
-            node_size=sizes,
-            node_color=colors,
-        )
-        plt.savefig(f"{loc}/pics/{i}.png")
-        plt.close()
-    for i, metric in enumerate(metric_res):
-        print(f"Tree {i + 1}: {metric}")
+    #     fig = plt.figure(frameon=False, figsize=(10, 19))
+    #     extent = 0, img.shape[1], 0, img.shape[0]
+    #     plt.imshow(mask, extent=extent, interpolation="nearest")
+    #     nodes = curr.nodes(data=True)
+    #     colors = []
+    #     sizes = []
+    #     for node in curr.nodes():
+    #         if node == "start":
+    #             colors.append("blue")
+    #             sizes.append(15)
+    #         elif "target" in node:
+    #             colors.append("red")
+    #             sizes.append(15)
+    #         else:
+    #             colors.append("green")
+    #             sizes.append(4)
+    #     positions = nx.get_node_attributes(G, "pos")
+    #     nx.draw(
+    #         curr,
+    #         pos=positions,
+    #         node_size=sizes,
+    #         node_color=colors,
+    #     )
+    #     plt.savefig(f"{loc}/pics/{i}.png")
+    #     plt.close()
+    # for i, metric in enumerate(metric_res):
+    #     print(f"Tree {i + 1}: {metric}")
 
     ### Generate Random Spanning Trees ###
     loc = "results/real"
