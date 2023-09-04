@@ -737,7 +737,7 @@ def main():
     info = pickle.load(info_f)
     s = info["s"]
     targets = info["targets"]
-    budget = info["budget"] * 0.75
+    budget = info["budget"]
     G_f.close()
     info_f.close()
 
