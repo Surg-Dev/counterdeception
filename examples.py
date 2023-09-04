@@ -5,8 +5,10 @@ from util import (
     display_tree,
     round_targets_to_graph,
 )
+import pickle
 import networkx as nx
 from matplotlib import pyplot as plt
+from algo import compute_tree
 
 # constants for consistency
 START_COLOR = "blue"
@@ -545,23 +547,67 @@ def dag(loc=None):
     else:
         plt.show()
 
+def reattachment(loc=None):
+
+    # form graph
+    s, targets = random_points(2)
+    G = form_grid_graph(s, targets, 4, 4, triangulate=False)
+    round_targets_to_graph(G, s, targets)
+    targets = [f"target {i}" for i in range(2)]
+    s = "start"
+    nx.set_node_attributes(G, 0, "paths")
+    budget = float("inf")
+
+    res, pred, rounds = compute_tree(G, s, targets, budget, loc=loc)
+
+    for i in range(rounds):
+        print(f"Creating Tree {i + 1}")
+        curr_f = open(f"{loc}/{i}.pickle", "rb")
+        curr = pickle.load(curr_f)
+        curr_f.close()
+        fig = plt.figure(frameon=False, figsize=(9, 9))
+        nodes = curr.nodes(data=True)
+        colors = []
+        sizes = []
+        for node in curr.nodes():
+            if node == "start":
+                colors.append(START_COLOR)
+                sizes.append(HIGHLIGHT_SIZE)
+            elif "target" in node:
+                colors.append(TARGET_COLOR)
+                sizes.append(HIGHLIGHT_SIZE)
+            else:
+                colors.append(NODE_COLOR)
+                sizes.append(NODE_SIZE)
+        positions = nx.get_node_attributes(G, "pos")
+
+        nx.draw(
+            curr,
+            pos=positions,
+            node_size=sizes,
+            node_color=colors,
+        )
+        plt.savefig(f"{loc}/{i}.png")
+        plt.close()
 
 def main():
-    filename = "examples/shortest.png"
-    shortest_path(loc=filename)
+    # filename = "final_results/examples/shortest.png"
+    # shortest_path(loc=filename)
 
-    filename = "examples/last_deceptive.png"
-    last_deceptive_point(loc=filename)
+    # filename = "final_results/examples/last_deceptive.png"
+    # last_deceptive_point(loc=filename)
 
-    filename = "examples/unique_distance.png"
-    unique_distance(loc=filename)
+    # filename = "final_results/examples/unique_distance.png"
+    # unique_distance(loc=filename)
 
-    filename = "examples/cycle.png"
-    cycle(loc=filename)
+    # filename = "final_results/examples/cycle.png"
+    # cycle(loc=filename)
 
-    filename = "examples/dag.png"
-    dag(loc=filename)
+    # filename = "final_results/examples/dag.png"
+    # dag(loc=filename)
 
+    filename = "final_results/examples/reattach"
+    reattachment(loc=filename)
 
 if __name__ == "__main__":
     main()
