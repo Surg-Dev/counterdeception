@@ -9,7 +9,7 @@ import pickle
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-import cv2
+# import cv2
 from algo import compute_tree, build_stiener_seed, compute_metric
 from util import (
     random_points,
@@ -393,46 +393,46 @@ def single_sprint_benchmark(factory, t):
 
 
 def main():
-    ##################################
-    # GENERATE GRAPHS AND BRUTEFORCE #
-    ##################################
+    # ##################################
+    # # GENERATE GRAPHS AND BRUTEFORCE #
+    # ##################################
 
-    loc = "results/brute"
-    n = 10
+    # loc = "results/brute"
+    # n = 10
 
-    for i in range(n):
-        if os.path.exists(f"{loc}/{i + 1}/"):
-            print("Remove files and rerun bruteforce")
-            return
+    # for i in range(n):
+    #     if os.path.exists(f"{loc}/{i + 1}/"):
+    #         print("Remove files and rerun bruteforce")
+    #         return
 
-    # Initial Parameters
-    target_count = 2
-    graphx = graphy = 3
-    print(f"Total Number of Trees: {bcolors.FAIL}{num_span[graphx]}{bcolors.ENDC}")
+    # # Initial Parameters
+    # target_count = 2
+    # graphx = graphy = 3
+    # print(f"Total Number of Trees: {bcolors.FAIL}{num_span[graphx]}{bcolors.ENDC}")
 
-    def factory():
-        s, targets = random_points(target_count)
+    # def factory():
+    #     s, targets = random_points(target_count)
 
-        # G = form_grid_graph(s, targets, graphx, graphy)
-        G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
-        # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
-        # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
+    #     # G = form_grid_graph(s, targets, graphx, graphy)
+    #     G = form_grid_graph(s, targets, graphx, graphy, triangulate=False)
+    #     # G = form_hex_graph(s, targets, graphx, graphy, 1.0)
+    #     # G = form_triangle_graph(s, targets, graphx, graphy, 1.0)
 
-        round_targets_to_graph(G, s, targets)
-        targets = [f"target {i}" for i in range(target_count)]
-        s = "start"
-        nx.set_node_attributes(G, 0, "paths")
+    #     round_targets_to_graph(G, s, targets)
+    #     targets = [f"target {i}" for i in range(target_count)]
+    #     s = "start"
+    #     nx.set_node_attributes(G, 0, "paths")
 
-        budget = float("inf")
-        # budget = nx.minimum_spanning_tree(G).size(weight="weight") * 0.5
+    #     budget = float("inf")
+    #     # budget = nx.minimum_spanning_tree(G).size(weight="weight") * 0.5
 
-        # # rescale weights
-        # for u, v in G.edges:
-        #     G[u][v]["weight"] = G[u][v]["weight"]
+    #     # # rescale weights
+    #     # for u, v in G.edges:
+    #     #     G[u][v]["weight"] = G[u][v]["weight"]
 
-        return G, s, targets, budget
+    #     return G, s, targets, budget
 
-    generate_bruteforce_graphs(factory, n, prefix=loc)
+    # generate_bruteforce_graphs(factory, n, prefix=loc)
 
     # #############################################
     # # BENCHMARK REATTACHMENT AGAINST BRUTEFORCE #
@@ -728,54 +728,54 @@ def main():
     #            )
     # plt.show()
 
-    # ### Compute and time reattachment ###
+    ### Compute and time reattachment ###
 
-    # loc = "results/real"
-    # G_f = open(f"{loc}/G.pickle", "rb")
-    # G = pickle.load(G_f)
-    # info_f = open(f"{loc}/info.pickle", "rb")
-    # info = pickle.load(info_f)
-    # s = info["s"]
-    # targets = info["targets"]
-    # budget = info["budget"]
-    # G_f.close()
-    # info_f.close()
+    loc = "results/real"
+    G_f = open(f"{loc}/G.pickle", "rb")
+    G = pickle.load(G_f)
+    info_f = open(f"{loc}/info.pickle", "rb")
+    info = pickle.load(info_f)
+    s = info["s"]
+    targets = info["targets"]
+    budget = info["budget"]
+    G_f.close()
+    info_f.close()
 
-    # print("Starting Reattachment...")
-    # start = time.perf_counter()
-    # res, pred, rounds = compute_tree(G, s, targets, budget, loc=f"{loc}/gen")
-    # end = time.perf_counter()
-    # total_time = end - start
-    # print("Elapsed Time =", total_time)
-    #
-    # # Generate Random Spanning Trees
-    # start = time.perf_counter()
-    # done = False
-    # best = float("-inf")
-    # best_tree = None
-    # count = 0
-    # while not done:
-    #     rst, pred = build_stiener_seed(G, s, targets, minimum=None)
-    #     size = rst.size(weight="weight")
-    #     curr = time.perf_counter()
-    #     if curr - start < total_time:
-    #         count += 1
-    #         if size > budget:
-    #             res = 0.0
-    #         else:
-    #             forced, metric, _ = compute_metric(rst, s, targets)
-    #             res = metric if not forced else 0.0
-    #         if res > best:
-    #             best = res
-    #             best_tree = rst
-    #             print("Found")
-    #             print("    Metric =", res)
-    #             print()
-    #     else:
-    #         done = True
-    # print(f"Number of Trees Generated = {count}")
-    # print(f"Metric of Best Tree = {best}")
-    # pickle.dump(rst, open(f"{loc}/rst.pickle", "wb"))
+    print("Starting Reattachment...")
+    start = time.perf_counter()
+    res, pred, rounds = compute_tree(G, s, targets, budget, loc=f"{loc}/gen")
+    end = time.perf_counter()
+    total_time = end - start
+    print("Elapsed Time =", total_time)
+
+    # Generate Random Spanning Trees
+    start = time.perf_counter()
+    done = False
+    best = float("-inf")
+    best_tree = None
+    count = 0
+    while not done:
+        rst, pred = build_stiener_seed(G, s, targets, minimum=None)
+        size = rst.size(weight="weight")
+        curr = time.perf_counter()
+        if curr - start < total_time:
+            count += 1
+            if size > budget:
+                res = 0.0
+            else:
+                forced, metric, _ = compute_metric(rst, s, targets)
+                res = metric if not forced else 0.0
+            if res > best:
+                best = res
+                best_tree = rst
+                print("Found")
+                print("    Metric =", res)
+                print()
+        else:
+            done = True
+    print(f"Number of Trees Generated = {count}")
+    print(f"Metric of Best Tree = {best}")
+    pickle.dump(rst, open(f"{loc}/rst.pickle", "wb"))
     
     
     # ### Compute results ###
