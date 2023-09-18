@@ -320,7 +320,7 @@ def main():
     rounds = 250
     random_samples = 25
     target_counts = [2, 4, 7, 10]
-    graph_sizes = [7, 10, 12]
+    graph_sizes = [8, 11, 13]
     for graph_size in graph_sizes:
         compare_seed_trees_diff_targets(
             rounds, random_samples, graph_size, target_counts, loc
