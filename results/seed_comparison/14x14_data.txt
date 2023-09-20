@@ -1,0 +1,6 @@
+Graph Size = 14x14
+Target Count: 2
+    MST Seed Better  = 56    Rand Seed Better = 194    Both Equal       = 0Target Count: 4
+    MST Seed Better  = 118    Rand Seed Better = 132    Both Equal       = 0Target Count: 7
+    MST Seed Better  = 82    Rand Seed Better = 168    Both Equal       = 0Target Count: 10
+    MST Seed Better  = 57    Rand Seed Better = 189    Both Equal       = 4
