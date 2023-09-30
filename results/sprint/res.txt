@@ -1,0 +1,42 @@
+Timespan = 30s
+    both_forced = 0
+    algo_better = 46
+    rand_better = 4
+    avg_rand    = 3317.56
+    avg_algo    = 4.68
+
+Timespan = 60s
+    both_forced = 0
+    algo_better = 50
+    rand_better = 0
+    avg_rand    = 6714.58
+    avg_algo    = 10.44
+
+Timespan = 90s
+    both_forced = 0
+    algo_better = 50
+    rand_better = 0
+    avg_rand    = 9618.44
+    avg_algo    = 15.2
+
+Timespan = 120s
+    both_forced = 0
+    algo_better = 50
+    rand_better = 0
+    avg_rand    = 14629.38
+    avg_algo    = 22.66
+
+Timespan = 150s
+    both_forced = 0
+    algo_better = 50
+    rand_better = 0
+    avg_rand    = 18621.16
+    avg_algo    = 28.54
+
+Timespan = 180s
+    both_forced = 0
+    algo_better = 50
+    rand_better = 0
+    avg_rand    = 18028.02
+    avg_algo    = 28.5
+
