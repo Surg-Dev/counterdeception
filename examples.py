@@ -19,6 +19,193 @@ HIGHLIGHT_SIZE = 500
 NODE_SIZE = 350
 EDGE_WEIGHT = 5
 
+def naive_strats_longest(loc=None):
+    # Example graph for the naive strategy of longest paths
+
+    # form graph
+    s = (2, 0)
+    targets = [(0, 4), (4, 4)]
+    G = nx.grid_2d_graph(5, 5)
+    positions = {(x, y): (x, y) for x, y in G.nodes()}
+    nx.set_node_attributes(G, positions, "pos")
+    nx.relabel_nodes(G, {s: "start"}, copy=False)
+    for i, tar in enumerate(targets):
+        nx.relabel_nodes(G, {tar: f"target {i}"}, copy=False)
+
+    # specify edges to keep
+    t = G.to_directed()
+    keep = {
+        ("start", (3, 0)),
+        ((3, 0), (4, 0)),
+        ((4, 0), (4, 1)),
+        ((4, 1), (4, 2)),
+        ((4, 2), (4, 3)),
+        ((4, 3), "target 1"),
+        ("start", (1, 0)),
+        ((1, 0), (0, 0)),
+        ((0, 0), (0, 1)),
+        ((0, 1), (0, 2)),
+        ((0, 2), (0, 3)),
+        ((0, 3), "target 0"),
+    }
+    for edge in list(t.edges()):
+        if edge not in keep:
+            t.remove_edge(*edge)
+
+    # label nodes
+    labels = dict()
+    for node in t.nodes():
+        if "start" not in node and "target" not in node:
+            labels[node] = ""
+        else:
+            labels[node] = node
+
+    # set node attributes
+    colors = []
+    sizes = []
+    for node in t.nodes():
+        if node == "start":
+            colors.append(START_COLOR)
+            sizes.append(HIGHLIGHT_SIZE)
+        elif "target" in node:
+            colors.append(TARGET_COLOR)
+            sizes.append(HIGHLIGHT_SIZE)
+        else:
+            colors.append(NODE_COLOR)
+            sizes.append(NODE_SIZE)
+
+    # set edge attributes
+    weights = []
+    edge_colors = []
+    styles = []
+    for e in t.edges():
+        weights.append(EDGE_WEIGHT)
+        edge_colors.append("blue")
+        styles.append("solid")
+
+    # start drawing
+    plt.figure(figsize=(11.5, 11.5))
+    positions = nx.get_node_attributes(G, "pos")
+    nx.draw(
+        t,
+        pos=positions,
+        node_color=colors,
+        node_size=sizes,
+        width=weights,
+        arrowsize=80,
+        arrowstyle="->",
+        edge_color=edge_colors,
+        style=styles,
+    )
+
+    # move labels
+    for node in positions:
+        x, y = positions[node]
+        if "target" in node:
+            positions[node] = (x, y + 0.30)
+        else:
+            positions[node] = (x + 0.35, y + 0.30)
+
+    # finish drawing
+    nx.draw_networkx_labels(G, positions, labels, font_size=35)
+    if loc != None:
+        print(f"saving {loc}")
+        plt.savefig(loc)
+        plt.close()
+    else:
+        plt.show()
+
+def naive_strats_shortest(loc=None):
+    # Example graph for the naive strategy of longest paths
+
+    # form graph
+    s = (2, 0)
+    targets = [(0, 4), (4, 4)]
+    G = nx.grid_2d_graph(5, 5)
+    positions = {(x, y): (x, y) for x, y in G.nodes()}
+    nx.set_node_attributes(G, positions, "pos")
+    nx.relabel_nodes(G, {s: "start"}, copy=False)
+    for i, tar in enumerate(targets):
+        nx.relabel_nodes(G, {tar: f"target {i}"}, copy=False)
+
+    # specify edges to keep
+    t = G.to_directed()
+    keep = {
+        ("start", (2, 1)),
+        ((2, 1), (2, 2)),
+        ((2, 2), (2, 3)),
+        ((2, 3), (2, 4)),
+        ((2, 4), (1, 4)),
+        ((1, 4), "target 0"),
+        ((2, 4), (3, 4)),
+        ((3, 4), "target 1"),
+    }
+    for edge in list(t.edges()):
+        if edge not in keep:
+            t.remove_edge(*edge)
+
+    # label nodes
+    labels = dict()
+    for node in t.nodes():
+        if "start" not in node and "target" not in node:
+            labels[node] = ""
+        else:
+            labels[node] = node
+
+    # set node attributes
+    colors = []
+    sizes = []
+    for node in t.nodes():
+        if node == "start":
+            colors.append(START_COLOR)
+            sizes.append(HIGHLIGHT_SIZE)
+        elif "target" in node:
+            colors.append(TARGET_COLOR)
+            sizes.append(HIGHLIGHT_SIZE)
+        else:
+            colors.append(NODE_COLOR)
+            sizes.append(NODE_SIZE)
+
+    # set edge attributes
+    weights = []
+    edge_colors = []
+    styles = []
+    for e in t.edges():
+        weights.append(EDGE_WEIGHT)
+        edge_colors.append("blue")
+        styles.append("solid")
+
+    # start drawing
+    plt.figure(figsize=(11.5, 11.5))
+    positions = nx.get_node_attributes(G, "pos")
+    nx.draw(
+        t,
+        pos=positions,
+        node_color=colors,
+        node_size=sizes,
+        width=weights,
+        arrowsize=80,
+        arrowstyle="->",
+        edge_color=edge_colors,
+        style=styles,
+    )
+
+    # move labels
+    for node in positions:
+        x, y = positions[node]
+        if "target" in node:
+            positions[node] = (x, y + 0.30)
+        else:
+            positions[node] = (x + 0.35, y + 0.30)
+
+    # finish drawing
+    nx.draw_networkx_labels(G, positions, labels, font_size=35)
+    if loc != None:
+        print(f"saving {loc}")
+        plt.savefig(loc)
+        plt.close()
+    else:
+        plt.show()
 
 def shortest_path(loc=None):
     # example showing that agents do not always take shortest path
@@ -606,8 +793,14 @@ def main():
     # filename = "final_results/examples/dag.png"
     # dag(loc=filename)
 
-    filename = "final_results/examples/reattach"
-    reattachment(loc=filename)
+    # filename = "final_results/examples/reattach"
+    # reattachment(loc=filename)
+
+    filename = "final_results/examples/naive_max"
+    naive_strats_longest(loc=filename)
+
+    filename = "final_results/examples/naive_min"
+    naive_strats_shortest(loc=filename)
 
 if __name__ == "__main__":
     main()
