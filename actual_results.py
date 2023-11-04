@@ -293,6 +293,26 @@ def main():
     # loc = "results/count"
     # count_iterations_bench(wl, wh, tl, th, num_graphs, loc)
 
+    # Generate Charts
+    # Data from final_results/count/res.txt
+    # Define X and Y variable data
+    size = np.array(range(5, 14))
+    iters = [3.18, 5.24, 6.62, 7.58, 8.36, 8.35, 8.60, 9.75, 10.01]
+    plt.plot(size, iters)
+    plt.xlabel(r"Square Grid Graph Width")  # add X-axis label
+    plt.ylabel(r"Number of iterations: $\ell$")  # add Y-axis label
+    plt.title(r"Value of $\ell$ on Graphs with $|\tau| = 10$")  # add title
+    plt.savefig("results/count/width_iters.png")
+    plt.clf()
+
+    targets = np.array(range(2, 11))
+    iters = [2.75, 4.80, 5.12, 6.01, 7.23, 7.88, 8.63, 9.24, 10.01]
+    plt.plot(targets, iters)
+    plt.xlabel(r"Number of targets: $|\tau|$")  # add X-axis label
+    plt.ylabel(r"Number of iterations: $\ell$")  # add Y-axis label
+    plt.title(r"Value of $\ell$ on $13 \times 13$ grid graph")  # add title
+    plt.savefig("results/count/target_iters.png")
+
     # ##################################
     # # GENERATE GRAPHS AND BRUTEFORCE #
     # ##################################
@@ -302,6 +322,7 @@ def main():
     # target_count = 2
     # loc = "results/brute"
     # bruteforce_bench(num_graphs, size, target_count, loc)
+
     # ############################################################
     # # COMPARE RANDOM SEED TREE VS MST SEED TREE , SMALL GRAPHS #
     # ############################################################
@@ -312,30 +333,30 @@ def main():
     # random_samples = 250
     # brute_comparison(loc, brute_loc, num_graphs, random_samples)
 
-    ############################################################
-    # COMPARE RANDOM SEED TREE VS MST SEED TREE , LARGE GRAPHS #
-    ############################################################
-    # Table 8 comparison of seed trees on larger graphs
-    loc = "results/seed_comparison"
-    rounds = 250
-    random_samples = 25
-    target_counts = [2, 4, 7, 10]
-    graph_sizes = [8, 11, 13]
-    for graph_size in graph_sizes:
-        compare_seed_trees_diff_targets(
-            rounds, random_samples, graph_size, target_counts, loc
-        )
+    # ############################################################
+    # # COMPARE RANDOM SEED TREE VS MST SEED TREE , LARGE GRAPHS #
+    # ############################################################
+    # # Table 8 comparison of seed trees on larger graphs
+    # loc = "results/seed_comparison"
+    # rounds = 250
+    # random_samples = 25
+    # target_counts = [2, 4, 7, 10]
+    # graph_sizes = [8, 11, 13]
+    # for graph_size in graph_sizes:
+    #     compare_seed_trees_diff_targets(
+    #         rounds, random_samples, graph_size, target_counts, loc
+    #     )
 
-    ####################
-    # SPRINT BENCHMARK #
-    ####################
-    # Table 9 Sprint Benchmark
-    target_count = 15
-    graph_size = 24
-    loc = "results/sprint"
-    num_graphs = 50
-    t_low, t_high = 30, 270
-    sprint_bench(size, target_count, num_graphs, t_low, t_high, loc)
+    # ####################
+    # # SPRINT BENCHMARK #
+    # ####################
+    # # Table 9 Sprint Benchmark
+    # target_count = 15
+    # graph_size = 24
+    # loc = "results/sprint"
+    # num_graphs = 50
+    # t_low, t_high = 30, 270
+    # sprint_bench(size, target_count, num_graphs, t_low, t_high, loc)
 
 
 if __name__ == "__main__":
