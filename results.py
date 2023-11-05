@@ -603,91 +603,83 @@ def main():
     # REAL ENVIRONMENT #
     ####################
 
-    # ### Create and save graph + related info ###
+    ### Create and save graph + related info ###
 
-    # img = matplotlib.image.imread("maps/tonopah_rotated.png")
-    # # Set x and y edge weights for grid graph
-    # x_dist, y_dist = 1, 1
-    # scale = 3.0
-    # s = (326, 340)
-    # targets = [
-    #     (108, 469),
-    #     (119, 366),
-    #     (150, 227),
-    #     (104, 157),
-    #     (113, 257),
-    # ]
-    # # s = (329, 344)
-    # # targets = [
-    # #     (201, 257),
-    # #     (150, 226),
-    # #     (102, 156),
-    # #     (127, 149),
-    # #     (103, 197),
-    # #     (130, 218),
-    # #     (113, 256),
-    # #     (120, 367),
-    # #     (122, 425),
-    # # ]
-    # target_count = len(targets)
+    img = matplotlib.image.imread("maps/tonopah_rotated.png")
+    # Set x and y edge weights for grid graph
+    x_dist, y_dist = 1, 1
+    scale = 3.0
+    s = (326, 340)
+    targets = [
+        (108, 469),
+        (119, 366),
+        (150, 227),
+        (104, 157),
+        (113, 257),
+    ]
+    target_count = len(targets)
 
-    # print("Creating graph...")
-    # G = nx.grid_2d_graph(int((img.shape[1] + 1) / scale), int((img.shape[0] + 1) / scale))
-    # # Add distances and set positions of non-start / target nodes
-    # positions = dict()
-    # for x, y in G.nodes():
-    #     if (x + 1, y) in G:
-    #         G[x, y][x + 1, y]["weight"] = x_dist
-    #     if (x, y + 1) in G:
-    #         G[x, y][x, y + 1]["weight"] = y_dist
+    print("Creating graph...")
+    G = nx.grid_2d_graph(int((img.shape[1] + 1) / scale), int((img.shape[0] + 1) / scale))
+    print(int((img.shape[1] + 1) / scale))
+    print(int((img.shape[0] + 1) / scale))
+    # Add distances and set positions of non-start / target nodes
+    positions = dict()
+    for x, y in G.nodes():
+        if (x + 1, y) in G:
+            G[x, y][x + 1, y]["weight"] = x_dist
+        if (x, y + 1) in G:
+            G[x, y][x, y + 1]["weight"] = y_dist
 
-    #     # set x, y position
-    #     positions[(x, y)] = (x * scale, y * scale)
-    # nx.set_node_attributes(G, positions, "pos")
+        # set x, y position
+        positions[(x, y)] = (x * scale, y * scale)
+    nx.set_node_attributes(G, positions, "pos")
 
-    # # Add diagonal edges
-    # original_nodes = [(x, y) for (x, y) in G.nodes()]
-    # for x, y in original_nodes:
-    #     if (x + 1, y) in G and (x, y + 1) in G:
-    #         x_pos = (G.nodes[x, y]["pos"][0] + G.nodes[x + 1, y]["pos"][0]) / 2
-    #         y_pos = (G.nodes[x, y]["pos"][1] + G.nodes[x, y + 1]["pos"][1]) / 2
+    # Add diagonal edges
+    original_nodes = [(x, y) for (x, y) in G.nodes()]
+    for x, y in original_nodes:
+        if (x + 1, y) in G and (x, y + 1) in G:
+            x_pos = (G.nodes[x, y]["pos"][0] + G.nodes[x + 1, y]["pos"][0]) / 2
+            y_pos = (G.nodes[x, y]["pos"][1] + G.nodes[x, y + 1]["pos"][1]) / 2
 
-    #         G.add_node((x + 0.5, y + 0.5), pos=(x_pos, y_pos))
+            G.add_node((x + 0.5, y + 0.5), pos=(x_pos, y_pos))
 
-    #         x_dist = G[x, y][x + 1, y]["weight"] / 2
-    #         y_dist = G[x, y][x, y + 1]["weight"] / 2
-    #         weight = pow(x_dist**2 + y_dist**2, 0.5)
-    #         G.add_edge((x, y), (x + 0.5, y + 0.5), weight=weight)
-    #         G.add_edge((x + 1, y), (x + 0.5, y + 0.5), weight=weight)
-    #         G.add_edge((x, y + 1), (x + 0.5, y + 0.5), weight=weight)
-    #         G.add_edge((x + 1, y + 1), (x + 0.5, y + 0.5), weight=weight)
+            x_dist = G[x, y][x + 1, y]["weight"] / 2
+            y_dist = G[x, y][x, y + 1]["weight"] / 2
+            weight = pow(x_dist**2 + y_dist**2, 0.5)
+            G.add_edge((x, y), (x + 0.5, y + 0.5), weight=weight)
+            G.add_edge((x + 1, y), (x + 0.5, y + 0.5), weight=weight)
+            G.add_edge((x, y + 1), (x + 0.5, y + 0.5), weight=weight)
+            G.add_edge((x + 1, y + 1), (x + 0.5, y + 0.5), weight=weight)
 
-    # print("Removing nodes...")
-    # mask = cv2.imread("maps/tonopah_rotated_mask.png")
-    # mask = cv2.rotate(mask, cv2.ROTATE_90_CLOCKWISE)
-    # to_remove = []
-    # for node in G.nodes():
-    #     x, y = node
-    #     x = int(round(x * scale))
-    #     y = int(round(y * scale))
-    #     if x < mask.shape[0] and y < mask.shape[1]:
-    #         b, g, r = mask[x, y]
-    #         if b == g == r == 0:
-    #             to_remove.append(node)
-    #     else:
-    #         to_remove.append(node)
-    # for node in to_remove:
-    #     G.remove_node(node)
+    print("Removing nodes...")
+    mask = cv2.imread("maps/tonopah_rotated_mask.png")
+    mask = cv2.rotate(mask, cv2.ROTATE_90_CLOCKWISE)
+    to_remove = []
+    for node in G.nodes():
+        x, y = node
+        x = int(round(x * scale))
+        y = int(round(y * scale))
+        if x < mask.shape[0] and y < mask.shape[1]:
+            b, g, r = mask[x, y]
+            if b == g == r == 0:
+                to_remove.append(node)
+        else:
+            to_remove.append(node)
+    for node in to_remove:
+        G.remove_node(node)
+    print(f"Number of Nodes = {G.number_of_nodes()}")
+    print(f"Number of Edges = {G.number_of_edges()}")
 
-    # round_targets_to_graph(G, s, targets)
-    # targets = [f"target {i}" for i in range(target_count)]
-    # s = "start"
-    # nx.set_node_attributes(G, 0, "paths")
+    round_targets_to_graph(G, s, targets)
+    targets = [f"target {i}" for i in range(target_count)]
+    s = "start"
+    nx.set_node_attributes(G, 0, "paths")
 
-    # mst, _ = build_stiener_seed(G, s, targets, minimum=True)
-    # size = mst.size(weight="weight")
-    # budget = size * 2.0
-    # # budget = float("inf")
+    mst, _ = build_stiener_seed(G, s, targets, minimum=True)
+    size = mst.size(weight="weight")
+    budget = size * 2.0
+    # budget = float("inf")
 
     # # save info
     # loc = "results/real"
