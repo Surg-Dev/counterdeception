@@ -260,6 +260,9 @@ def shortest_path(loc=None):
         elif "target" in node:
             colors.append(TARGET_COLOR)
             sizes.append(HIGHLIGHT_SIZE)
+        elif node == (3, 3):
+            colors.append(HIGHLIGHT_COLOR)
+            sizes.append(HIGHLIGHT_SIZE)
         else:
             colors.append(NODE_COLOR)
             sizes.append(NODE_SIZE)
@@ -991,8 +994,8 @@ def reattachment(loc=None):
         plt.close()
 
 def main():
-    # filename = "final_results/examples/shortest.png"
-    # shortest_path(loc=filename)
+    filename = "final_results/examples/shortest.png"
+    shortest_path(loc=filename)
 
     # filename = "final_results/examples/last_deceptive.png"
     # last_deceptive_point(loc=filename)
@@ -1009,11 +1012,11 @@ def main():
     # filename = "final_results/examples/reattach"
     # reattachment(loc=filename)
 
-    filename = "final_results/examples/reattach_before"
-    reattach_before(loc=filename)
+    # filename = "final_results/examples/reattach_before"
+    # reattach_before(loc=filename)
 
-    filename = "final_results/examples/reattach_after"
-    reattach_after(loc=filename)
+    # filename = "final_results/examples/reattach_after"
+    # reattach_after(loc=filename)
 
     # filename = "final_results/examples/naive_max"
     # naive_strats_longest(loc=filename)
