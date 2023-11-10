@@ -475,6 +475,9 @@ def unique_distance(loc=None):
         elif "target" in node:
             colors.append(TARGET_COLOR)
             sizes.append(HIGHLIGHT_SIZE)
+        elif node in [(2, 3), (3, 2)]:
+            colors.append(HIGHLIGHT_COLOR)
+            sizes.append(HIGHLIGHT_SIZE)
         else:
             colors.append(NODE_COLOR)
             sizes.append(NODE_SIZE)
@@ -994,14 +997,14 @@ def reattachment(loc=None):
         plt.close()
 
 def main():
-    filename = "final_results/examples/shortest.png"
-    shortest_path(loc=filename)
+    # filename = "final_results/examples/shortest.png"
+    # shortest_path(loc=filename)
 
     # filename = "final_results/examples/last_deceptive.png"
     # last_deceptive_point(loc=filename)
 
-    # filename = "final_results/examples/unique_distance.png"
-    # unique_distance(loc=filename)
+    filename = "final_results/examples/unique_distance.png"
+    unique_distance(loc=filename)
 
     # filename = "final_results/examples/cycle.png"
     # cycle(loc=filename)
