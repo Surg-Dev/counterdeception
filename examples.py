@@ -639,7 +639,7 @@ def dag(loc=None):
 
     # form graph
     s = (1, 0)
-    targets = [(2, 4)]
+    targets = [(1, 4), (4, 3)]
     G = nx.grid_2d_graph(5, 5)
     positions = {(x, y): (x, y) for x, y in G.nodes()}
     nx.set_node_attributes(G, positions, "pos")
@@ -652,20 +652,22 @@ def dag(loc=None):
     blue_edges = {
         ("start", (1, 1)),
         ((1, 1), (1, 2)),
-        ((1, 2), (1, 3)),
-        ((1, 3), (1, 4)),
-        ((1, 4), "target 0"),
+    }
+    black_edges = {
+        ((1, 2), (2, 2)),
+        ((2, 2), (3, 2)),
+        ((3, 2), (4, 2)),
+        ((4, 2), "target 1"),
+        ((1, 2), (0, 2)),
+        ((0, 2), (0, 3)),
+        ((0, 3), (0, 4)),
+        ((0, 4), "target 0")
     }
     dotted_edges = {
-        ("start", (2, 0)),
-        ((2, 0), (3, 0)),
-        ((3, 0), (3, 1)),
-        ((3, 1), (3, 2)),
-        ((3, 2), (3, 3)),
-        ((3, 3), (2, 3)),
-        ((2, 3), "target 0"),
+        ((1, 2), (1, 3)),
+        ((1, 3), "target 0"),
     }
-    keep = blue_edges | dotted_edges
+    keep = blue_edges | dotted_edges | black_edges
     for edge in list(t.edges()):
         if edge not in keep:
             t.remove_edge(*edge)
@@ -688,6 +690,9 @@ def dag(loc=None):
         elif "target" in node:
             colors.append(TARGET_COLOR)
             sizes.append(HIGHLIGHT_SIZE)
+        elif node == (1, 2):
+            colors.append(HIGHLIGHT_COLOR)
+            sizes.append(HIGHLIGHT_SIZE)
         else:
             colors.append(NODE_COLOR)
             sizes.append(NODE_SIZE)
@@ -701,8 +706,11 @@ def dag(loc=None):
         if e in blue_edges:
             edge_colors.append("blue")
             styles.append("solid")
+        elif e in black_edges:
+            edge_colors.append("black")
+            styles.append("solid")
         elif e in dotted_edges:
-            edge_colors.append("blue")
+            edge_colors.append("black")
             styles.append("dashed")
         else:
             edge_colors.append("white")
@@ -1003,14 +1011,14 @@ def main():
     # filename = "final_results/examples/last_deceptive.png"
     # last_deceptive_point(loc=filename)
 
-    filename = "final_results/examples/unique_distance.png"
-    unique_distance(loc=filename)
+    # filename = "final_results/examples/unique_distance.png"
+    # unique_distance(loc=filename)
 
     # filename = "final_results/examples/cycle.png"
     # cycle(loc=filename)
 
-    # filename = "final_results/examples/dag.png"
-    # dag(loc=filename)
+    filename = "final_results/examples/dag.png"
+    dag(loc=filename)
 
     # filename = "final_results/examples/reattach"
     # reattachment(loc=filename)
