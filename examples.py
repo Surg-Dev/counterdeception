@@ -735,7 +735,7 @@ def dag(loc=None):
     for node in positions:
         x, y = positions[node]
         if "target" in node:
-            positions[node] = (x, y + 0.30)
+            positions[node] = (x - 0.25, y + 0.30)
         else:
             positions[node] = (x, y - 0.20)
 
@@ -1139,8 +1139,8 @@ def main():
     # filename = "final_results/examples/cycle.png"
     # cycle(loc=filename)
 
-    # filename = "final_results/examples/dag.png"
-    # dag(loc=filename)
+    filename = "final_results/examples/dag.png"
+    dag(loc=filename)
 
     # filename = "final_results/examples/reattach"
     # reattachment(loc=filename)
@@ -1156,8 +1156,9 @@ def main():
 
     # filename = "final_results/examples/naive_min"
     # naive_strats_shortest(loc=filename)
-    filename  = "final_results/examples/forced_reattach_before"
-    forced_reattach_before(loc=filename)
+
+    # filename  = "final_results/examples/forced_reattach_before"
+    # forced_reattach_before(loc=filename)
 
 if __name__ == "__main__":
     main()
